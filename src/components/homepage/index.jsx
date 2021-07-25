@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { userLogin } from "../../services/authentication"
-import {transactionHistory } from "../../services/transactions"
-import { LoginForm} from "../forms"
+import {user_login } from "../../services/appstore/actions/actions"
+import { LoginForm } from "../forms"
+import {connect } from "react-redux"
 import { Container } from "reactstrap"
 
 class HomePage extends Component {
@@ -9,33 +10,26 @@ class HomePage extends Component {
         super(props)
         this.state = {error: "", formLoading: false}
     }
-
-    componentDidMount = async () => {
-        try {
-            await transactionHistory(8139492091);
-        } catch (error) {
-            console.log(error.response)
-        }
-    }
     handleSubmit = async (value) => {
+        const { user_login} = this.props
         this.setState({
             formLoading: true
         })
         try {
-            const data = await userLogin(value)
+            await userLogin(value, user_login)
             this.setState({
                 error: ""
             })
         this.setState({
             formLoading: false
         })
-            console.log(data)
         } catch (error) {
             this.setState({error: error.response.data.message || "An error occured", formLoading: false})
         }
     }
     render() {
-        const { formLoading} = this.state
+        const { formLoading } = this.state
+        console.log(this.props)
         return(
             <div style={{ background: "black" }}>
                 {!!this.state.error && <p style={{color: 'red'}}>{this.state.error}</p>}
@@ -45,4 +39,6 @@ class HomePage extends Component {
     }
 }
 
-export default HomePage;
+const mapStateToProps = (state) => ({
+    isSignedIn: state.user.signIn.isSignedIn,})
+export default connect(mapStateToProps, {user_login})(HomePage);
