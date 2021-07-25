@@ -3,8 +3,12 @@ import { userLogin } from "../../services/authentication"
 import {user_login } from "../../services/appstore/actions/actions"
 import { LoginForm } from "../forms"
 import {connect } from "react-redux"
-import { Container } from "reactstrap"
+import styled from "styled-components"
+import {TransferModal } from "../../modals"
 
+const P = styled.p`
+ color: ${props => props.color};
+`
 class HomePage extends Component {
     constructor(props) {
         super(props)
@@ -32,7 +36,8 @@ class HomePage extends Component {
         console.log(this.props)
         return(
             <div style={{ background: "black" }}>
-                {!!this.state.error && <p style={{color: 'red'}}>{this.state.error}</p>}
+                <TransferModal />
+                {!!this.state.error && <P color="red">{this.state.error}</P>}
                 {LoginForm(this.handleSubmit, formLoading)}
             </div>
         )

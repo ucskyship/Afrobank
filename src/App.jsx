@@ -3,7 +3,7 @@ import Main from "./pages";
 import { Provider } from "react-redux"
 import appStore from "./services/appstore"
 import {PersistGate } from "redux-persist/integration/react"
-import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
