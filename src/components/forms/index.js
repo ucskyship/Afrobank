@@ -1,6 +1,7 @@
 import { Formik } from 'formik'
 import React from 'react'
-import { loginSchema } from './validation'
+import { loginSchema, transferSchema } from './validation'
+
 import PinInput from 'react-pin-input'
 import styled from 'styled-components'
 import LoadingOverlay from 'react-loading-overlay'
@@ -11,6 +12,8 @@ const Input = styled.input`
     height: 50px;
     width: 100%;
     padding-left: 20px;
+    padding-right: 20px;
+    outline: none;
 `
 
 const Button = styled.button`
@@ -19,8 +22,14 @@ const Button = styled.button`
     border: none;
     outline: none;
     color: white;
-    background: rgb(18, 32, 31);
+    background: #0d3153;
     border-radius: 7px;
+`
+const Error = styled.p`
+    color: red;
+    font-weight: 600;
+    text-align: start;
+    font-size: 12px;
 `
 
 const LoginForm = (handleSubmit, formLoading) => {
@@ -84,6 +93,7 @@ const TransferForm = (handleSubmit, formLoading) => {
             validateOnBlur={false}
             validateOnChange={false}
             initialValues={initialValues}
+            validationSchema={transferSchema}
             onSubmit={handleSubmit}
         >
             {({ errors, handleChange, handleSubmit, values }) => {
@@ -91,32 +101,47 @@ const TransferForm = (handleSubmit, formLoading) => {
                     <form onSubmit={handleSubmit}>
                         <Input
                             className="mb-3"
-                            type="text"
+                            type="number"
                             name="recipient"
                             placeholder="recipient"
                             onChange={handleChange}
                         />{' '}
+                        {!!errors.recipient && (
+                            <Error>{errors.recipient}</Error>
+                        )}
                         <Input
-                            type="text"
+                            type="number"
                             name="amount"
                             className="mb-3"
                             placeholder="enter amount"
                             onChange={handleChange}
                         />
-                        <PinInput
-                            length={4}
+                        {!!errors.amount && <Error>{errors.amount}</Error>}
+                        <Input
                             // secret
                             className="mb-3"
-                            type="numeric"
-                            onChange={() => handleChange}
+                            type="number"
+                            placeholder="enter pin"
+                            onChange={handleChange}
                             name="pin"
+                            maxLength={4}
                         />
-                        <Button
-                            className="mt-3"
-                            onClick={() => console.log(values)}
-                        >
-                            {!formLoading ? (
-                                <LoadingOverlay spinner active={true} />
+                        {!!errors.pin && <Error>{errors.pin}</Error>}
+                        <Button type="submit" className="mt-3 mb-2">
+                            {formLoading ? (
+                                <LoadingOverlay
+                                    styles={{
+                                        spinner: (base) => ({
+                                            ...base,
+                                            width: '20px',
+                                            '& svg circle': {
+                                                stroke: `white`,
+                                            },
+                                        }),
+                                    }}
+                                    spinner
+                                    active={true}
+                                />
                             ) : (
                                 'send'
                             )}

@@ -4,7 +4,7 @@ import {user_login } from "../../services/appstore/actions/actions"
 import { LoginForm } from "../forms"
 import {connect } from "react-redux"
 import styled from "styled-components"
-import {TransferModal } from "../../modals"
+import TransferModal from "../../modals"
 
 const P = styled.p`
  color: ${props => props.color};
