@@ -38,6 +38,9 @@ const LoginForm = (handleSubmit, formLoading) => {
         password: '',
     }
 
+    const style = {
+        width: '200px',
+    }
     return (
         <Formik
             validationSchema={loginSchema}
@@ -49,31 +52,33 @@ const LoginForm = (handleSubmit, formLoading) => {
             {({ errors, handleChange, handleSubmit }) => {
                 return (
                     <form onSubmit={handleSubmit}>
-                        <input
+                        <Input
                             type="email"
                             name="email"
                             onChange={handleChange}
                             placeholder="Enter your email"
                             autoComplete="false"
+                            style={style}
                         />
                         <br />
                         {!!errors.email && (
                             <p style={{ color: 'red' }}>{errors.email}</p>
                         )}
-                        <input
+                        <Input
                             type="password"
                             name="password"
                             onChange={handleChange}
                             placeholder="Enter your password"
                             autoComplete="false"
+                            style={style}
                         />
                         <br />
                         {!!errors.password && (
                             <p style={{ color: 'red' }}>{errors.password}</p>
                         )}
-                        <button type="submit">
+                        <Button type="submit">
                             {formLoading ? '...' : 'sign in'}
-                        </button>
+                        </Button>
                     </form>
                 )
             }}

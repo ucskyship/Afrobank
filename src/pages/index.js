@@ -1,15 +1,11 @@
 import React, { Component } from 'react'
-import HomePage from '../components/homepage'
+import HomePage from '../components/homepage/index'
 import Register from '../components/register'
 import SignIn from '../components/signin/signin'
 import Dashboard from '../components/dashboard'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 const routes = [
-    {
-        path: '/',
-        component: HomePage,
-    },
     {
         path: '/register',
         component: Register,
@@ -29,14 +25,13 @@ class Main extends Component {
             <BrowserRouter>
                 <Switch>
                     {routes.map((data, i) => (
-                        <div key={i}>
-                            <Route
-                                path={data.path}
-                                exact
-                                component={data.component}
-                            />
-                        </div>
+                        <Route
+                            key={i}
+                            path={data.path}
+                            component={data.component}
+                        />
                     ))}
+                    <Route path="/" component={HomePage} />
                 </Switch>
             </BrowserRouter>
         )

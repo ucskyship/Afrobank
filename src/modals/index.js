@@ -1,7 +1,7 @@
 import React from 'react'
 import SweetAlert from 'react-bootstrap-sweetalert'
 import { connect } from 'react-redux'
-// import propTypes from 'prop-types'
+import propTypes from 'prop-types'
 import { TransferForm } from '../components/forms'
 import AlertModals from './alertModals'
 import styled from 'styled-components'
@@ -23,13 +23,20 @@ class TransferModal extends React.Component {
         }
     }
     handleSubmit = async (values) => {
+        const { accountNumber } = this.props
         this.setState({
             formLoading: true,
         })
+        const body = {
+            sender: accountNumber,
+            ...values,
+        }
+        console.log(body)
+
         try {
-            await transfer(values)
+            await transfer(body)
             this.setState({
-                formLoading: true,
+                formLoading: false,
             })
         } catch (error) {
             this.setState({
@@ -43,13 +50,19 @@ class TransferModal extends React.Component {
     render() {
         const { transferError, show } = this.state
         return (
-            <SweetAlert title="" showConfirm={false} onConfirm={() => {}}>
-                {show && (
+            <SweetAlert
+                title=""
+                show={this.props.show}
+                showConfirm={false}
+                onConfirm={this.props.confirm}
+            >
+                {transferError && (
                     <AlertModals
                         danger
                         show={show}
                         text="failed transfer"
                         title={transferError}
+                        onConfirm={() => this.setState({ transferError: '' })}
                     />
                 )}
 
@@ -61,5 +74,13 @@ class TransferModal extends React.Component {
         )
     }
 }
+TransferModal.propTypes = {
+    show: propTypes.bool.isRequired,
+    confirm: propTypes.func.isRequired,
+}
 
-export default connect()(TransferModal)
+const mapStateToProps = (state) => ({
+    accountNumber: state.user.signIn.payLoad.accountNumber,
+})
+
+export default connect(mapStateToProps, {})(TransferModal)
