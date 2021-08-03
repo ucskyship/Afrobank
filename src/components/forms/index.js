@@ -2,7 +2,6 @@ import { Formik } from 'formik'
 import React from 'react'
 import { loginSchema, transferSchema } from './validation'
 
-import PinInput from 'react-pin-input'
 import styled from 'styled-components'
 import LoadingOverlay from 'react-loading-overlay'
 
