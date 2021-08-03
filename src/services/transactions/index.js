@@ -10,7 +10,7 @@ const transfer = async (payload) => {
     }
     try {
         const response = await Axios.post('/transfer', body)
-        console.log(response)
+        return response.data.message
     } catch (error) {
         throw error
     }

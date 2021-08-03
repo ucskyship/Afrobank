@@ -1,5 +1,6 @@
 import React from 'react'
 import SweetAlert from 'react-bootstrap-sweetalert'
+import { Clear } from '@material-ui/icons'
 import { connect } from 'react-redux'
 import propTypes from 'prop-types'
 import { TransferForm } from '../components/forms'
@@ -20,6 +21,8 @@ class TransferModal extends React.Component {
             formLoading: false,
             show: false,
             transferError: '',
+            isCompleted: false,
+            responseData: '',
         }
     }
     handleSubmit = async (values) => {
@@ -31,12 +34,14 @@ class TransferModal extends React.Component {
             sender: accountNumber,
             ...values,
         }
-        console.log(body)
 
         try {
-            await transfer(body)
+            const response = await transfer(body)
+
             this.setState({
                 formLoading: false,
+                isCompleted: true,
+                responseData: response,
             })
         } catch (error) {
             this.setState({
@@ -48,7 +53,7 @@ class TransferModal extends React.Component {
     }
 
     render() {
-        const { transferError, show } = this.state
+        const { transferError, show, isCompleted, responseData } = this.state
         return (
             <SweetAlert
                 title=""
@@ -58,6 +63,7 @@ class TransferModal extends React.Component {
             >
                 {transferError && (
                     <AlertModals
+                        color="red"
                         danger
                         show={show}
                         text="failed transfer"
@@ -65,7 +71,22 @@ class TransferModal extends React.Component {
                         onConfirm={() => this.setState({ transferError: '' })}
                     />
                 )}
+                {isCompleted && (
+                    <AlertModals
+                        success
+                        color="green"
+                        show={isCompleted}
+                        text="Transfer successful"
+                        title={responseData}
+                    />
+                )}
 
+                <div className="d-flex justify-content-end">
+                    <Clear
+                        style={{ color: 'red', cursor: 'pointer' }}
+                        onClick={this.props.confirm}
+                    />
+                </div>
                 <div className="mb-3 d-flex align-items-center justify-content-center">
                     <P>Transfer</P>
                 </div>

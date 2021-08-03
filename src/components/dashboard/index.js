@@ -24,9 +24,18 @@ const AssetsCard = styled.div`
     border-radius: 10px;
 `
 const HistoryCard = styled.div`
-    background: purple;
-    width: 250px;
+    background: #6f8991;
+    width: 545px;
     border-radius: 10px;
+`
+const TransferBtn = styled.button`
+    width: 25%;
+    height: 50px;
+    border: none;
+    outline: none;
+    color: white;
+    background: #0d3153;
+    border-radius: 7px;
 `
 const Type = styled.span`
     color: ${(props) => props.color};
@@ -52,7 +61,7 @@ class Dashboard extends React.Component {
         const { toggleTransferModal, AllTransactionHistory } = this.state
         console.log(this.props)
         return (
-            <div>
+            <div className="mb-4">
                 <Container>
                     <Col className="pt-2">
                         <Row className="d-flex justify-content-between">
@@ -71,10 +80,14 @@ class Dashboard extends React.Component {
                     <Col className="mt-5">
                         <Row>
                             <Col xl={5}>
-                                <AccountCard>
+                                <AccountCard className="pt-4">
                                     <Container>
-                                        <h4>hello {firstName}</h4>
-                                        <p>Account number {accountNumber}</p>
+                                        <h4 style={{ color: 'white' }}>
+                                            current balance
+                                        </h4>
+                                        <p style={{ color: 'white' }}>
+                                            Account number {accountNumber}
+                                        </p>
                                     </Container>
                                 </AccountCard>
                             </Col>
@@ -93,41 +106,63 @@ class Dashboard extends React.Component {
                             </Col>
                         </Row>
                     </Col>
+                    <div className="pt-3 pb-3">
+                        <TransferBtn onClick={() => this.toggleModal()}>
+                            Transfer money
+                        </TransferBtn>
+                    </div>
+                    <Col xl={6}>
+                        <Row className="d-flex align-items-center">
+                            <Col xl={6}>
+                                <h5>Recent activity</h5>
+                            </Col>
+                            <Col className="d-flex justify-content-end" xl={6}>
+                                <h6>All activity</h6>
+                            </Col>
+                        </Row>
+                    </Col>
+                    <HistoryCard className="mt-3 pt-2 pb-2">
+                        <Container>
+                            {!!AllTransactionHistory &&
+                                AllTransactionHistory.map((data, i) => (
+                                    <div
+                                        className="d-flex justify-content-between"
+                                        key={i}
+                                    >
+                                        <h5 className="pb-2 pt-2">
+                                            {data.transaction_date}
+                                        </h5>
+                                        <Type
+                                            color={
+                                                data.transaction_type ===
+                                                'credit'
+                                                    ? 'green'
+                                                    : 'red'
+                                            }
+                                        >
+                                            <h5 className="d-flex">
+                                                {data.transaction_type ===
+                                                'credit' ? (
+                                                    <TrendingUp />
+                                                ) : (
+                                                    <TrendingDown />
+                                                )}
+                                                {data.transaction_type ===
+                                                'credit'
+                                                    ? `+${data.amount}`
+                                                    : `-${data.amount}`}
+                                            </h5>
+                                        </Type>
+                                    </div>
+                                ))}
+                        </Container>
+                    </HistoryCard>
                 </Container>
 
-                <button onClick={() => this.toggleModal()}>
-                    Transfer money
-                </button>
                 <TransferModal
                     show={toggleTransferModal}
                     confirm={() => this.toggleModal()}
                 />
-                <HistoryCard>
-                    {!!AllTransactionHistory &&
-                        AllTransactionHistory.map((data, i) => (
-                            <div key={i}>
-                                {data.transaction_date}
-                                <Type
-                                    color={
-                                        data.transaction_type === 'credit'
-                                            ? 'green'
-                                            : 'red'
-                                    }
-                                >
-                                    <div className="d-flex">
-                                        {data.transaction_type === 'credit' ? (
-                                            <TrendingUp />
-                                        ) : (
-                                            <TrendingDown />
-                                        )}
-                                        {data.transaction_type === 'credit'
-                                            ? `+${data.amount}`
-                                            : `-${data.amount}`}
-                                    </div>
-                                </Type>
-                            </div>
-                        ))}
-                </HistoryCard>
             </div>
         )
     }
