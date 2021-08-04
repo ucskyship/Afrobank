@@ -25,4 +25,13 @@ const transactionHistory = async (accountNumber) => {
     }
 }
 
-export { transactionHistory, transfer }
+const getBalance = async (accountNumber) => {
+    try {
+        const resp = await Axios.get(`/balance/${accountNumber}`)
+        return resp.data.message
+    } catch (error) {
+        throw error.response
+    }
+}
+
+export { transactionHistory, transfer, getBalance }

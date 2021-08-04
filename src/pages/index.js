@@ -22,7 +22,7 @@ const routes = [
 class Main extends Component {
     render() {
         return (
-            <BrowserRouter>
+            <BrowserRouter basename="/Afrobank">
                 <Switch>
                     {routes.map((data, i) => (
                         <Route
