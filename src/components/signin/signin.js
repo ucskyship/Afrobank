@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { userLogin } from '../../services/authentication'
 import { user_login } from '../../services/appstore/actions/actions'
-import { Col, Container, Row } from 'reactstrap'
+// import { Col, Container, Row } from 'reactstrap'
 import { LoginForm } from '../forms/index'
 import styled from 'styled-components'
 

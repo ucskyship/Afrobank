@@ -87,9 +87,9 @@ const LoginForm = (handleSubmit, formLoading) => {
 
 const TransferForm = (handleSubmit, formLoading) => {
     const initialValues = {
-        recipient: '',
-        amount: '',
-        pin: '',
+        recipient: 0,
+        amount: 0,
+        pin: 0,
     }
 
     return (
