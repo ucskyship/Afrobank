@@ -3,9 +3,9 @@ import Axios from '../index'
 const transfer = async (payload) => {
     const { recipient, amount, pin, sender } = payload
     const body = {
-        recipient: recipient.toString(),
-        amount: amount.toString(),
-        pin: pin.toString(),
+        recipient,
+        amount,
+        pin,
         sender: sender.toString(),
     }
     try {

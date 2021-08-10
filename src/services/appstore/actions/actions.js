@@ -1,4 +1,4 @@
-import { LOGIN, pinReset, register, transfer } from './index'
+import { LOGIN, pinReset, register } from './index'
 
 const user_login = (data, isSignedIn) => (dispatch) => {
     dispatch({

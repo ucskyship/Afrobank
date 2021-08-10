@@ -1,4 +1,4 @@
-import { LOGIN, pinReset, register, transfer } from '../actions'
+import { LOGIN, pinReset, register } from '../actions'
 
 const intState = {
     signIn: {
