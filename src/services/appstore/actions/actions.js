@@ -1,4 +1,10 @@
-import { LOGIN, pinReset, register } from './index'
+import {
+    LOGIN,
+    pinReset,
+    register,
+    transactionHistory,
+    toggleBalanceDisplay,
+} from './index'
 
 const user_login = (data, isSignedIn) => (dispatch) => {
     dispatch({
@@ -24,4 +30,24 @@ const userPinReset = (data, isPinReset) => (dispatch) => {
     })
 }
 
-export { user_login, userPinReset, userRegister }
+const updateTransactionHistory = (data) => (dispatch) => {
+    dispatch({
+        type: transactionHistory,
+        payload: data,
+    })
+}
+
+const toggleDisplay = (display) => (dispatch) => {
+    dispatch({
+        type: toggleBalanceDisplay,
+        payload: display,
+    })
+}
+
+export {
+    user_login,
+    userPinReset,
+    userRegister,
+    updateTransactionHistory,
+    toggleDisplay,
+}

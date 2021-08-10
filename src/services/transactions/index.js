@@ -16,12 +16,12 @@ const transfer = async (payload) => {
     }
 }
 
-const transactionHistory = async (accountNumber) => {
+const transactionHistory = async (accountNumber, updateTransactionHistory) => {
     try {
         const resp = await Axios.get(`/history/${accountNumber}`)
-        return resp.data.message
+        updateTransactionHistory(resp.data.message)
     } catch (error) {
-        throw error.response
+        throw error
     }
 }
 

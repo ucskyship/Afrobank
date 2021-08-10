@@ -1,4 +1,10 @@
-import { LOGIN, pinReset, register } from '../actions'
+import {
+    LOGIN,
+    pinReset,
+    register,
+    transactionHistory,
+    toggleBalanceDisplay,
+} from '../actions'
 
 const intState = {
     signIn: {
@@ -13,6 +19,8 @@ const intState = {
         isPinReset: false,
         payLoad: {},
     },
+    balanceDisplay: false,
+    transactions: [],
 }
 
 const reducer = (state = intState, action) => {
@@ -40,6 +48,16 @@ const reducer = (state = intState, action) => {
                     isPinReset: action.isPinReset,
                     payLoad: action.payload,
                 },
+            }
+        case transactionHistory:
+            return {
+                ...state,
+                transactions: action.payload,
+            }
+        case toggleBalanceDisplay:
+            return {
+                ...state,
+                balanceDisplay: action.payload,
             }
         default:
             return state
