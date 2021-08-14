@@ -12,7 +12,7 @@ import {
     Visibility,
     VisibilityOff,
 } from '@material-ui/icons'
-import TransferModal from '../../modals'
+// import TransferModal from '../../modals'
 import styled from 'styled-components'
 
 const AccountCard = styled.div`
@@ -23,6 +23,7 @@ const AccountCard = styled.div`
     background: #0d3153;
     transition: all ease 0.3s;
 `
+
 export const Dashbody = styled.div`
     height: 100%;
     background: #0f0f0fe5;
@@ -46,6 +47,13 @@ const DashbodyCard = styled.div`
     width: 100%;
     background: #000000;
     border-radius: 10px;
+    max-height: 490px;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 `
 
 export const Type = styled.span`
@@ -91,10 +99,6 @@ const Dashboard = (props) => {
         }
         fetchData()
     }, [props.payLoad, props.updateTransactionHistory])
-
-    const toggleModal = () => {
-        setState({ toggleTransferModal: !state.toggleTransferModal })
-    }
 
     return (
         <Col>
@@ -232,7 +236,12 @@ const Dashboard = (props) => {
                                 <Type color="green">Show all</Type>
                             </div>
                             <div className="pt-3">
-                                <Table striped responsive borderless>
+                                <Table
+                                    style={{ overflowY: 'scroll' }}
+                                    striped
+                                    responsive
+                                    borderless
+                                >
                                     <thead style={{ color: 'whitesmoke' }}>
                                         <tr>
                                             <th>S/N</th>

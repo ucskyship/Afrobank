@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Col, Container, Row } from 'reactstrap'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import QRCode from 'react-qr-code'
 
 const Nav = styled.div`
     height: 50px;
@@ -24,6 +25,9 @@ const HomePage = () => {
                             </Col>
                         </Nav>
                     </Row>
+                </Col>
+                <Col>
+                    <QRCode value="Akinola" />
                 </Col>
             </Container>
             {/* <TransferModal /> */}

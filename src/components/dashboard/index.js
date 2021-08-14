@@ -3,10 +3,19 @@ import { connect } from 'react-redux'
 import styled from 'styled-components'
 import SideBar from './sidebar'
 import { Switch, Route } from 'react-router-dom'
-import { Row, Col, Container } from 'reactstrap'
+import {
+    Row,
+    Col,
+    Container,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem,
+    DropdownToggle,
+} from 'reactstrap'
 import Dashboard, { Dashbody } from './dashboard'
 import { NotificationsNone } from '@material-ui/icons'
 import Wallet from './wallet'
+import { fetchAllNotifications } from '../../services/notifications'
 
 import Analysis from './analysis'
 
@@ -15,7 +24,6 @@ const Nametag = styled.p`
     font-weight: 500;
     font-size: 18px;
 `
-
 const NotificationDiv = styled.div`
     height: 44px;
     width: 44px;
@@ -24,9 +32,58 @@ const NotificationDiv = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
+`
+const Menu = styled(DropdownMenu)`
+    background: #0f0f0fee;
+    width: 330px;
+    max-height: 200px;
+    overflow-y: scroll;
+    ::-webkit-scrollbar {
+        display: none;
+    }
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-x: hidden;
+    &:hover {
+        background: #0f0f0fc7;
+    }
+`
+const Item = styled(DropdownItem)`
+    color: white;
+    width: 100%;
+    font-size: 14px;
+    &:hover {
+        background: none;
+        color: white;
+    }
 `
 
 const Main = (props) => {
+    const [showNotification, setNotification] = useState(false)
+    const [userNotification, setUsernotification] = useState({
+        notifications: [],
+    })
+
+    const toggleNotification = () => {
+        setNotification((prevState) => !prevState)
+    }
+
+    useEffect(() => {
+        const { accountNumber } = props.payLoad
+        const getNotifications = async () => {
+            try {
+                setUsernotification({
+                    notifications: await fetchAllNotifications(accountNumber),
+                })
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getNotifications()
+        console.log(props.payLoad)
+    }, [props.payLoad])
+
     return (
         <Dashbody className="pb-4">
             <Col>
@@ -48,17 +105,57 @@ const Main = (props) => {
                             component={Analysis}
                         />
                     </Switch>
-                    <Col xl={2}>
+                    <Col xl={1}>
                         <Container>
                             <div className="d-flex justify-content-between align-items-center pl-2 pr-3 pt-4">
-                                <NotificationDiv>
-                                    <NotificationsNone
-                                        style={{ color: 'white' }}
-                                    />
-                                </NotificationDiv>
-                                <Nametag className="text-center">
+                                <Dropdown
+                                    isOpen={showNotification}
+                                    toggle={toggleNotification}
+                                    className="p-0"
+                                >
+                                    <DropdownToggle
+                                        style={{
+                                            background: 'none',
+                                            border: 'none',
+                                            outline: 'none',
+                                        }}
+                                        className="p-0 m-0"
+                                    >
+                                        <NotificationDiv>
+                                            <NotificationsNone
+                                                style={{ color: 'white' }}
+                                            />
+                                        </NotificationDiv>
+                                    </DropdownToggle>
+                                    <Menu right>
+                                        {!userNotification.notifications ? (
+                                            <Item
+                                                className="d-flex justify-content-center align-items-center"
+                                                style={{ height: '40px' }}
+                                            >
+                                                You don't have any notification
+                                            </Item>
+                                        ) : (
+                                            userNotification.notifications.map(
+                                                (data, idx) => (
+                                                    <Item
+                                                        style={{
+                                                            borderBottom:
+                                                                '1px solid white',
+                                                            height: '50px',
+                                                        }}
+                                                        key={idx}
+                                                    >
+                                                        {data.notification_text}
+                                                    </Item>
+                                                )
+                                            )
+                                        )}
+                                    </Menu>
+                                </Dropdown>
+                                {/* <Nametag className="text-center">
                                     {props.payLoad.firstName}
-                                </Nametag>
+                                </Nametag> */}
                             </div>
                         </Container>
                     </Col>
