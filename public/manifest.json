@@ -1,25 +1,25 @@
 {
-  "short_name": "Tour Bounty",
-  "name": "Tour Bounty platform",
-  "icons": [
-    {
-      "src": " ",
-      "sizes": "100x100 100x100 100x100 100x100",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "TourBounty.png",
-      "type": "image/png",
-      "sizes": "200x200"
-    },
-    {
-      "src": "TourBounty.png",
-      "type": "image/png",
-      "sizes": "512x512"
-    }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+    "short_name": "Afrobank",
+    "name": "Afrobank",
+    "icons": [
+        {
+            "src": " ",
+            "sizes": "100x100 100x100 100x100 100x100",
+            "type": "image/x-icon"
+        },
+        {
+            "src": "TourBounty.png",
+            "type": "image/png",
+            "sizes": "200x200"
+        },
+        {
+            "src": "TourBounty.png",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
 }

@@ -9,4 +9,12 @@ const fetchAllNotifications = async (accountNumber) => {
     }
 }
 
-export { fetchAllNotifications }
+const deleteSingleNotification = async (id) => {
+    try {
+        console.log(id)
+    } catch (error) {
+        throw error
+    }
+}
+
+export { fetchAllNotifications, deleteSingleNotification }

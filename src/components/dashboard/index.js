@@ -15,15 +15,15 @@ import {
 import Dashboard, { Dashbody } from './dashboard'
 import { NotificationsNone } from '@material-ui/icons'
 import Wallet from './wallet'
-import { fetchAllNotifications } from '../../services/notifications'
+import {
+    fetchAllNotifications,
+    deleteSingleNotification,
+} from '../../services/notifications'
 
 import Analysis from './analysis'
+import Profile from './profile'
+import Settings from './settings'
 
-const Nametag = styled.p`
-    color: white;
-    font-weight: 500;
-    font-size: 18px;
-`
 const NotificationDiv = styled.div`
     height: 44px;
     width: 44px;
@@ -35,7 +35,7 @@ const NotificationDiv = styled.div`
     cursor: pointer;
 `
 const Menu = styled(DropdownMenu)`
-    background: #0f0f0fee;
+    background: #000000;
     width: 330px;
     max-height: 200px;
     overflow-y: scroll;
@@ -46,7 +46,7 @@ const Menu = styled(DropdownMenu)`
     scrollbar-width: none;
     overflow-x: hidden;
     &:hover {
-        background: #0f0f0fc7;
+        background: #000000;
     }
 `
 const Item = styled(DropdownItem)`
@@ -54,7 +54,7 @@ const Item = styled(DropdownItem)`
     width: 100%;
     font-size: 14px;
     &:hover {
-        background: none;
+        background: #0f0f0fc7;
         color: white;
     }
 `
@@ -69,6 +69,10 @@ const Main = (props) => {
         setNotification((prevState) => !prevState)
     }
 
+    const deleteNotification = async (id) => {
+        await deleteSingleNotification(id)
+    }
+
     useEffect(() => {
         const { accountNumber } = props.payLoad
         const getNotifications = async () => {
@@ -81,7 +85,6 @@ const Main = (props) => {
             }
         }
         getNotifications()
-        console.log(props.payLoad)
     }, [props.payLoad])
 
     return (
@@ -103,6 +106,16 @@ const Main = (props) => {
                             exact
                             path="/dashboard/analysis"
                             component={Analysis}
+                        />
+                        <Route
+                            exact
+                            path="/dashboard/profile"
+                            component={Profile}
+                        />
+                        <Route
+                            exact
+                            path="/dashboard/Settings"
+                            component={Settings}
                         />
                     </Switch>
                     <Col xl={1}>
@@ -145,6 +158,11 @@ const Main = (props) => {
                                                             height: '50px',
                                                         }}
                                                         key={idx}
+                                                        onClick={() =>
+                                                            deleteNotification(
+                                                                data._id
+                                                            )
+                                                        }
                                                     >
                                                         {data.notification_text}
                                                     </Item>
@@ -153,9 +171,6 @@ const Main = (props) => {
                                         )}
                                     </Menu>
                                 </Dropdown>
-                                {/* <Nametag className="text-center">
-                                    {props.payLoad.firstName}
-                                </Nametag> */}
                             </div>
                         </Container>
                     </Col>

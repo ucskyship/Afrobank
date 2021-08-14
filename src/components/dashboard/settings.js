@@ -28,7 +28,7 @@ const DashbodyCard = styled.div`
     -ms-overflow-style: none;
     scrollbar-width: none;
 `
-const Analysis = () => {
+const Settings = () => {
     return (
         // <div style={{ height: '100%', maxheight: '530px' }}>
         <Col style={{ height: '100%', maxheight: '530px' }}>
@@ -40,7 +40,7 @@ const Analysis = () => {
                             className="font-weight-bold"
                             color="white"
                         >
-                            Analysis
+                            Settings
                         </Type>
                     </div>
                 </Col>
@@ -64,4 +64,4 @@ const Analysis = () => {
         // </div>
     )
 }
-export default Analysis
+export default Settings

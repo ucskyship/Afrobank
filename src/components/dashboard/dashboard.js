@@ -47,7 +47,8 @@ const DashbodyCard = styled.div`
     width: 100%;
     background: #000000;
     border-radius: 10px;
-    max-height: 490px;
+    height: 100%;
+    max-height: 530px;
     overflow-y: scroll;
     ::-webkit-scrollbar {
         display: none;
