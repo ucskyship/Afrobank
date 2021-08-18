@@ -25,7 +25,7 @@ const AccountCard = styled.div`
 `
 
 export const Dashbody = styled.div`
-    height: 100%;
+    height: 105vh;
     background: #0f0f0fe5;
 `
 const Inputdiv = styled.div`

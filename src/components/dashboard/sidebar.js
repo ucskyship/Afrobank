@@ -7,6 +7,7 @@ import {
     Settings,
     Payment,
     Person,
+    ExitToApp,
 } from '@material-ui/icons'
 import styled from 'styled-components'
 
@@ -89,6 +90,16 @@ const SideBar = () => {
                         </Sidelink>
                     )
                 })}
+                <div style={{ position: 'absolute', bottom: 25 }}>
+                    <Sidelink
+                        exact
+                        to="/signout"
+                        style={{ textDecoration: 'none' }}
+                    >
+                        <ExitToApp />
+                        <span className="pl-3">log out</span>
+                    </Sidelink>
+                </div>
             </div>
         </div>
     )

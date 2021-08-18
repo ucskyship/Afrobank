@@ -28,4 +28,12 @@ const resetPin = async (pin) => {
         throw error
     }
 }
-export { userLogin, resetPin, registerUser }
+
+const signOut = (userLogin) => {
+    try {
+        userLogin('', false)
+    } catch (error) {
+        throw error
+    }
+}
+export { userLogin, resetPin, registerUser, signOut }

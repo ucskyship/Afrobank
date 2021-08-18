@@ -3,6 +3,7 @@ import HomePage from '../components/homepage/index'
 import Register from '../components/register'
 import SignIn from '../components/signin/signin'
 import Dashboard from '../components/dashboard'
+import SignOut from '../components/sigout/signOut'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
 const routes = [
@@ -17,6 +18,10 @@ const routes = [
     {
         path: '/dashboard',
         component: Dashboard,
+    },
+    {
+        path: '/signout',
+        component: SignOut,
     },
 ]
 class Main extends Component {

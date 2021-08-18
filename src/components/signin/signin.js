@@ -19,11 +19,11 @@ class SignIn extends React.Component {
         const { user_login, history } = this.props
         this.setState({
             formLoading: true,
+            error: '',
         })
         try {
             await userLogin(value, user_login)
             this.setState({
-                error: '',
                 formLoading: false,
             })
             history.push('/dashboard')
