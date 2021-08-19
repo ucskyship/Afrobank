@@ -38,10 +38,9 @@ class SignIn extends React.Component {
     render() {
         const { formLoading } = this.state
         return (
-            <div className="bg-dark d-flex justify-content-center align-items-center m-auto">
-                {LoginForm(this.handleSubmit, formLoading)}
-                <br />
-                {!!this.state.error && <P color="red">{this.state.error}</P>}
+            <div className="d-flex justify-content-center align-items-center">
+                {LoginForm(this.handleSubmit, formLoading, this.state.error)}
+                {/* {!!this.state.error && <P color="red">{this.state.error}</P>} */}
             </div>
         )
     }

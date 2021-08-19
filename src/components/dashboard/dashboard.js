@@ -89,6 +89,7 @@ const Dashboard = (props) => {
     useEffect(() => {
         async function fetchData() {
             const { accountNumber } = props.payLoad
+            console.log()
             await transactionHistory(
                 accountNumber,
                 props.updateTransactionHistory

@@ -2,16 +2,17 @@ import Axios from '../index'
 
 const registerUser = async (payload) => {
     try {
-        const resp = Axios.post('/register', payload)
+        const resp = await Axios.post('/register', payload)
         console.log(resp)
     } catch (error) {
-        throw error
+        throw error.response.data
     }
 }
 
 const userLogin = async (payLoad, user_login) => {
     try {
         const resp = await Axios.post('/login', payLoad)
+
         user_login(resp.data.data, true)
         return resp
     } catch (error) {
@@ -32,6 +33,7 @@ const resetPin = async (pin) => {
 const signOut = (userLogin) => {
     try {
         userLogin('', false)
+        localStorage.clear()
     } catch (error) {
         throw error
     }
