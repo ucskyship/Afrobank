@@ -1,6 +1,5 @@
 import React from 'react'
-import { Row, Col, Container } from 'reactstrap'
-import styled from 'styled-components'
+import { Row, Col } from 'reactstrap'
 import { SignUpForm } from '../forms'
 import { registerUser } from '../../services/authentication'
 

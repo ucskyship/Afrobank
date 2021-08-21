@@ -18,8 +18,8 @@
             "sizes": "512x512"
         }
     ],
-    "start_url": ".",
-    "display": "standalone",
+    "start_url": "http://Akinolae.github.io/Afrobank",
+    "display": "fullscreen",
     "theme_color": "#000000",
     "background_color": "#ffffff"
 }

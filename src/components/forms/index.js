@@ -1,7 +1,7 @@
 import { Formik } from 'formik'
 import React from 'react'
 import { loginSchema, transferSchema, signUpSchema } from './validation'
-import { Col, Row } from 'reactstrap'
+import { Col } from 'reactstrap'
 import styled from 'styled-components'
 import Loader from 'react-loader-spinner'
 
