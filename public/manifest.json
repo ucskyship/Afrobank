@@ -8,18 +8,19 @@
             "type": "image/x-icon"
         },
         {
-            "src": "./image/TourBounty.png",
-            "type": "image/png",
+            "src": "./image/Africa.jpg",
+            "type": "image/jpg",
             "sizes": "200x200"
         },
         {
-            "src": "./image/TourBounty.png",
-            "type": "image/png",
+            "src": "./image/Africa 2.png",
+            "type": "image/jpg",
             "sizes": "512x512"
         }
     ],
-    "start_url": "/",
+    "start_url": "/Afrobank",
     "display": "fullscreen",
     "theme_color": "#000000",
-    "background_color": "#ffffff"
+    "background_color": "#ffffff",
+    "scope": "/Afrobank"
 }
