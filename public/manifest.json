@@ -8,17 +8,17 @@
             "type": "image/x-icon"
         },
         {
-            "src": "TourBounty.png",
+            "src": "./image/TourBounty.png",
             "type": "image/png",
             "sizes": "200x200"
         },
         {
-            "src": "TourBounty.png",
+            "src": "./image/TourBounty.png",
             "type": "image/png",
             "sizes": "512x512"
         }
     ],
-    "start_url": "http://Akinolae.github.io/Afrobank",
+    "start_url": "/",
     "display": "fullscreen",
     "theme_color": "#000000",
     "background_color": "#ffffff"
