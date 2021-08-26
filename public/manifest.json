@@ -8,19 +8,19 @@
             "type": "image/x-icon"
         },
         {
-            "src": "./image/Africa.jpg",
-            "type": "image/jpg",
-            "sizes": "200x200"
+            "src": "./image/Africa png.png",
+            "type": "image/png",
+            "sizes": "280x280"
         },
         {
             "src": "./image/Africa 2.png",
-            "type": "image/jpg",
-            "sizes": "512x512"
+            "type": "image/png",
+            "sizes": "272x185"
         }
     ],
-    "start_url": "/Afrobank",
+    "start_url": ".",
     "display": "fullscreen",
     "theme_color": "#000000",
     "background_color": "#ffffff",
-    "scope": "/Afrobank"
+    "scope": "."
 }

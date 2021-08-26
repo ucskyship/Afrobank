@@ -7,6 +7,7 @@ import { TransferForm } from '../components/forms'
 import AlertModals from './alertModals'
 import styled from 'styled-components'
 import { transfer } from '../services/transactions'
+import PinInput from 'react-pin-input'
 
 const P = styled.p`
     color: #0d3153;

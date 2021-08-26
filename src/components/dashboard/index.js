@@ -20,7 +20,7 @@ import {
     deleteSingleNotification,
 } from '../../services/notifications'
 
-import Analysis from './analysis'
+import SendMoney from './sendmoney'
 import Profile from './profile'
 import Settings from './settings'
 
@@ -81,7 +81,7 @@ const Main = (props) => {
                     notifications: await fetchAllNotifications(accountNumber),
                 })
             } catch (error) {
-                console.log(error)
+                throw error
             }
         }
         getNotifications()
@@ -105,7 +105,7 @@ const Main = (props) => {
                         <Route
                             exact
                             path="/dashboard/analysis"
-                            component={Analysis}
+                            component={SendMoney}
                         />
                         <Route
                             exact

@@ -6,13 +6,14 @@ import {
     updateTransactionHistory,
     toggleDisplay,
 } from '../../services/appstore/actions/actions'
+import { getFormatedDate } from '../../utils/date'
+import { formatMoney } from '../../utils/money'
 import {
     Autorenew,
     Search,
     Visibility,
     VisibilityOff,
 } from '@material-ui/icons'
-// import TransferModal from '../../modals'
 import styled from 'styled-components'
 
 const AccountCard = styled.div`
@@ -67,17 +68,33 @@ const Dashboard = (props) => {
         toggleTransferModal: false,
         balance: 0,
         displayBal: true,
+        balanceLoading: false,
     })
 
     const style = {
         cursor: 'pointer',
     }
-    const formatDate = (date) => {
-        const day = new Date(date).toLocaleDateString()
-        const time = new Date(date).toLocaleTimeString()
-        return {
-            day,
-            time,
+
+    const pageBalance = async () => {
+        const { accountNumber } = props.payLoad
+        setState({
+            balanceLoading: true,
+        })
+        try {
+            const balance = await getBalance(accountNumber)
+            await transactionHistory(
+                accountNumber,
+                props.updateTransactionHistory
+            )
+            setState({
+                balance: balance,
+                balanceLoading: false,
+            })
+        } catch (error) {
+            setState({
+                balanceLoading: false,
+            })
+            throw error
         }
     }
 
@@ -89,15 +106,22 @@ const Dashboard = (props) => {
     useEffect(() => {
         async function fetchData() {
             const { accountNumber } = props.payLoad
-            console.log()
-            await transactionHistory(
-                accountNumber,
-                props.updateTransactionHistory
-            )
-            const balance = await getBalance(accountNumber)
             setState({
-                balance: balance,
+                balanceLoading: true,
             })
+            try {
+                await transactionHistory(
+                    accountNumber,
+                    props.updateTransactionHistory
+                )
+                const balance = await getBalance(accountNumber)
+                setState({
+                    balance: balance,
+                    balanceLoading: false,
+                })
+            } catch (error) {
+                throw error
+            }
         }
         fetchData()
     }, [props.payLoad, props.updateTransactionHistory])
@@ -133,12 +157,11 @@ const Dashboard = (props) => {
                                         }}
                                     >
                                         <Container>
-                                            <div className="d-flex justify-content-between align-items-center">
-                                                <Type size="30">₦</Type>
+                                            <div className="d-flex justify-content-end pt-2 align-items-center">
                                                 <Autorenew
                                                     style={style}
                                                     onClick={() =>
-                                                        alert('clicked')
+                                                        pageBalance()
                                                     }
                                                 />
                                             </div>
@@ -173,10 +196,20 @@ const Dashboard = (props) => {
                                                         position: 'absolute',
                                                         top: '65%',
                                                         right: '10%',
+                                                        fontWeight: 600,
+                                                        color: `${
+                                                            state.balance < 100
+                                                                ? 'red'
+                                                                : 'white'
+                                                        }`,
                                                     }}
                                                 >
-                                                    {!props.balanceDisplay
-                                                        ? state.balance
+                                                    {state.balanceLoading
+                                                        ? '****'
+                                                        : !props.balanceDisplay
+                                                        ? formatMoney(
+                                                              state.balance
+                                                          )
                                                         : '****'}
                                                 </Type>
                                             </div>
@@ -208,7 +241,7 @@ const Dashboard = (props) => {
                                                 }}
                                             >
                                                 Name:{' '}
-                                                {`${props.payLoad.firstName} ${props.payLoad.surName}`}
+                                                {`${props.payLoad.firstName} ${props.payLoad.lastName}`}
                                             </Type>
                                             <br />
                                             <Type
@@ -255,18 +288,16 @@ const Dashboard = (props) => {
                                     </thead>
                                     <tbody style={{ color: 'white' }}>
                                         {!!props.transactions &&
-                                            props.transactions.map(
-                                                (req, idx) => {
+                                            props.transactions
+                                                .slice(0, 4)
+                                                .map((req, idx) => {
                                                     const {
                                                         transaction_id,
                                                         amount,
                                                         transaction_date,
                                                         transaction_type,
                                                     } = req
-                                                    const formatedDate =
-                                                        formatDate(
-                                                            transaction_date
-                                                        )
+
                                                     return (
                                                         <tr key={idx}>
                                                             <td>{idx}</td>
@@ -284,7 +315,9 @@ const Dashboard = (props) => {
                                                                     fontWeight: 600,
                                                                 }}
                                                             >
-                                                                ₦{amount}
+                                                                {formatMoney(
+                                                                    amount
+                                                                )}
                                                             </td>
                                                             <td
                                                                 style={{
@@ -302,18 +335,20 @@ const Dashboard = (props) => {
                                                                 }
                                                             </td>
                                                             <td>
-                                                                {
-                                                                    formatedDate.day
-                                                                }
-                                                                ,
-                                                                {
-                                                                    formatedDate.time
-                                                                }
+                                                                {`${
+                                                                    getFormatedDate(
+                                                                        transaction_date
+                                                                    )
+                                                                        .formatedDay
+                                                                } ${
+                                                                    getFormatedDate(
+                                                                        transaction_date
+                                                                    ).time
+                                                                }`}
                                                             </td>
                                                         </tr>
                                                     )
-                                                }
-                                            )}
+                                                })}
                                     </tbody>
                                 </Table>
                             </div>
@@ -322,11 +357,6 @@ const Dashboard = (props) => {
                 </Col>
             </Row>
         </Col>
-
-        // <TransferModal
-        //     show={state.toggleTransferModal}
-        //     confirm={() => toggleModal()}
-        // />
     )
 }
 

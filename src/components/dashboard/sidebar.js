@@ -36,7 +36,7 @@ export const Sidelink = Styled((props) => (
     color: white;
   }
   &.${activeClass} {
-     background: #4004af;
+    background: #4004af;
     color: white;
   }
 `

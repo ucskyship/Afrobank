@@ -7,7 +7,6 @@ const loginSchema = yup.object().shape({
 
 const transferSchema = yup.object().shape({
     recipient: yup.number().required('recipient account number is required'),
-    pin: yup.number().required('pin is required to complete transaction'),
     amount: yup.number().required(),
 })
 

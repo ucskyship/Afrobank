@@ -13,7 +13,7 @@ const userLogin = async (payLoad, user_login) => {
     try {
         const resp = await Axios.post('/login', payLoad)
 
-        user_login(resp.data.data, true)
+        user_login(resp.data.message, true)
         return resp
     } catch (error) {
         throw error

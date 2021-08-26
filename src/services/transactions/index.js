@@ -1,18 +1,17 @@
 import Axios from '../index'
 
-const transfer = async (payload) => {
-    const { recipient, amount, pin, sender } = payload
+const transfer = async (payload, sender) => {
+    const { recipient, amount } = payload
     const body = {
-        recipient,
+        recipient: recipient.toString(),
         amount,
-        pin,
         sender: sender.toString(),
     }
     try {
         const response = await Axios.post('/transfer', body)
         return response.data.message
     } catch (error) {
-        throw error
+        throw error.response.data
     }
 }
 

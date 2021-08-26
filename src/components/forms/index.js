@@ -12,13 +12,13 @@ const ErrorText = styled.p`
 `
 
 const Input = styled.input`
-    border: 1px solid black;
-    border-radius: 12px;
     height: 50px;
     width: 100%;
     padding-left: 20px;
     padding-right: 20px;
     outline: none;
+    border: none;
+    border-bottom: 1px solid grey;
     margin-top: 7px;
 `
 
@@ -124,11 +124,10 @@ const LoginForm = (handleSubmit, formLoading, error) => {
     )
 }
 
-const TransferForm = (handleSubmit, formLoading) => {
+const TransferForm = (formSubmit, formLoading, error, balance) => {
     const initialValues = {
-        recipient: 0,
-        amount: 0,
-        pin: 0,
+        recipient: '',
+        amount: '',
     }
 
     return (
@@ -137,13 +136,14 @@ const TransferForm = (handleSubmit, formLoading) => {
             validateOnChange={false}
             initialValues={initialValues}
             validationSchema={transferSchema}
-            onSubmit={handleSubmit}
+            onSubmit={formSubmit}
         >
             {({ errors, handleChange, handleSubmit, values }) => {
                 return (
                     <form onSubmit={handleSubmit}>
+                        {!!error && <ErrorText>{error}</ErrorText>}
                         <Input
-                            className="mb-3"
+                            className="mb-3 rounded"
                             type="number"
                             name="recipient"
                             placeholder="recipient"
@@ -155,28 +155,36 @@ const TransferForm = (handleSubmit, formLoading) => {
                         <Input
                             type="number"
                             name="amount"
-                            className="mb-3"
+                            className="mb-3 rounded"
                             placeholder="enter amount"
                             onChange={handleChange}
                         />
                         {!!errors.amount && <Error>{errors.amount}</Error>}
-                        <Input
-                            // secret
-                            className="mb-3"
-                            type="number"
-                            placeholder="enter pin"
-                            onChange={handleChange}
-                            name="pin"
-                            maxLength={4}
-                        />
-                        {!!errors.pin && <Error>{errors.pin}</Error>}
-                        <Button type="submit" className="mt-3 mb-2">
-                            {formLoading ? (
-                                <Loader type="rings" color="#00BFFF" />
-                            ) : (
-                                'send'
+                        <div className="d-flex justify-content-end align-items-center">
+                            {values.amount > balance && (
+                                <ErrorText>insufficient balance</ErrorText>
                             )}
-                        </Button>
+                        </div>
+                        <div className="d-flex justify-content-center align-items-center">
+                            <Button
+                                type="submit"
+                                style={{
+                                    width: '170px',
+                                }}
+                                className="mt-3 mb-2 rounded-pill"
+                            >
+                                {formLoading ? (
+                                    <Loader
+                                        type="ThreeDots"
+                                        height={30}
+                                        width={30}
+                                        color="#00BFFF"
+                                    />
+                                ) : (
+                                    'send'
+                                )}
+                            </Button>
+                        </div>
                     </form>
                 )
             }}
