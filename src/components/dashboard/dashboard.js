@@ -7,7 +7,7 @@ import {
     toggleDisplay,
 } from '../../services/appstore/actions/actions'
 import { getFormatedDate } from '../../utils/date'
-import { formatMoney } from '../../utils/money'
+import { formatMoney, calculateAllDebit } from '../../utils/money'
 import {
     Autorenew,
     Search,
@@ -20,8 +20,8 @@ const AccountCard = styled.div`
     height: 150px;
     width: 100%;
     border-radius: 10px;
-
     background: #0d3153;
+    background-image: url(${(props) => props.img});
     transition: all ease 0.3s;
 `
 
@@ -260,7 +260,9 @@ const Dashboard = (props) => {
                                 </Col>
                                 <Col lg={4}>
                                     <AccountCard className="d-flex justify-content-center align-items-center">
-                                        <Type color="white">Coming Soon</Type>
+                                        <Type color="white">{`you've spent ${calculateAllDebit(
+                                            props.transactions
+                                        )} so far`}</Type>
                                     </AccountCard>
                                 </Col>
                             </Row>
@@ -279,7 +281,6 @@ const Dashboard = (props) => {
                                 >
                                     <thead style={{ color: 'whitesmoke' }}>
                                         <tr>
-                                            <th>S/N</th>
                                             <th>Transaction ID</th>
                                             <th>Amount</th>
                                             <th>Type</th>
@@ -300,7 +301,6 @@ const Dashboard = (props) => {
 
                                                     return (
                                                         <tr key={idx}>
-                                                            <td>{idx}</td>
                                                             <td>
                                                                 {transaction_id}
                                                             </td>

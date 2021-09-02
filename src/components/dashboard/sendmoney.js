@@ -78,12 +78,12 @@ const SendMoney = (props) => {
                     className="d-flex justify-content-center align-items-center m-auto"
                 >
                     <AccountCard className="pr-3 pl-3 pt-3">
-                        {TransferForm(
-                            handleSubmit,
-                            formLoading,
-                            error,
-                            balance
-                        )}
+                        <TransferForm
+                            formSubmit={handleSubmit}
+                            formLoading={formLoading}
+                            error={error}
+                            balance={balance}
+                        />
                     </AccountCard>
                 </Col>
             </DashbodyCard>

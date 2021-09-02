@@ -4,6 +4,7 @@ import { loginSchema, transferSchema, signUpSchema } from './validation'
 import { Col } from 'reactstrap'
 import styled from 'styled-components'
 import Loader from 'react-loader-spinner'
+import propTypes from 'prop-types'
 
 const ErrorText = styled.p`
     color: red;
@@ -43,7 +44,7 @@ const Label = styled.label`
     color: black;
 `
 
-const LoginForm = (handleSubmit, formLoading, error) => {
+const LoginForm = (props) => {
     const initialValues = {
         email: '',
         password: '',
@@ -56,7 +57,7 @@ const LoginForm = (handleSubmit, formLoading, error) => {
         <Formik
             validationSchema={loginSchema}
             initialValues={initialValues}
-            onSubmit={handleSubmit}
+            onSubmit={props.handleSubmit}
             validateOnBlur={false}
             validateOnChange={false}
         >
@@ -72,8 +73,10 @@ const LoginForm = (handleSubmit, formLoading, error) => {
                                 style={{ width: '3000px' }}
                                 onSubmit={handleSubmit}
                             >
-                                {!!error && (
-                                    <p style={{ color: 'red' }}>{error}</p>
+                                {!!props.error && (
+                                    <p style={{ color: 'red' }}>
+                                        {props.error}
+                                    </p>
                                 )}
                                 <Input
                                     type="email"
@@ -104,7 +107,7 @@ const LoginForm = (handleSubmit, formLoading, error) => {
                                     </p>
                                 )}
                                 <Button type="submit">
-                                    {formLoading ? (
+                                    {props.formLoading ? (
                                         <Loader
                                             type="ThreeDots"
                                             height={30}
@@ -124,7 +127,7 @@ const LoginForm = (handleSubmit, formLoading, error) => {
     )
 }
 
-const TransferForm = (formSubmit, formLoading, error, balance) => {
+const TransferForm = (props) => {
     const initialValues = {
         recipient: '',
         amount: '',
@@ -136,12 +139,12 @@ const TransferForm = (formSubmit, formLoading, error, balance) => {
             validateOnChange={false}
             initialValues={initialValues}
             validationSchema={transferSchema}
-            onSubmit={formSubmit}
+            onSubmit={props.formSubmit}
         >
             {({ errors, handleChange, handleSubmit, values }) => {
                 return (
                     <form onSubmit={handleSubmit}>
-                        {!!error && <ErrorText>{error}</ErrorText>}
+                        {!!props.error && <ErrorText>{props.error}</ErrorText>}
                         <Input
                             className="mb-3 rounded"
                             type="number"
@@ -161,7 +164,7 @@ const TransferForm = (formSubmit, formLoading, error, balance) => {
                         />
                         {!!errors.amount && <Error>{errors.amount}</Error>}
                         <div className="d-flex justify-content-end align-items-center">
-                            {values.amount > balance && (
+                            {values.amount > props.balance && (
                                 <ErrorText>insufficient balance</ErrorText>
                             )}
                         </div>
@@ -173,7 +176,7 @@ const TransferForm = (formSubmit, formLoading, error, balance) => {
                                 }}
                                 className="mt-3 mb-2 rounded-pill"
                             >
-                                {formLoading ? (
+                                {props.formLoading ? (
                                     <Loader
                                         type="ThreeDots"
                                         height={30}
@@ -332,5 +335,16 @@ const SignUpForm = (formLoading, handleSubmit, regError) => {
             }}
         </Formik>
     )
+}
+LoginForm.propTypes = {
+    handleSubmit: propTypes.func.isRequired,
+    error: propTypes.string.isRequired,
+    formLoading: propTypes.bool.isRequired,
+}
+TransferForm.propTypes = {
+    formSubmit: propTypes.func.isRequired,
+    error: propTypes.string.isRequired,
+    formLoading: propTypes.bool.isRequired,
+    balance: propTypes.any.isRequired,
 }
 export { LoginForm, TransferForm, SignUpForm }

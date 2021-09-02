@@ -33,8 +33,11 @@ class SignIn extends React.Component {
         const { formLoading } = this.state
         return (
             <div className="d-flex justify-content-center align-items-center">
-                {LoginForm(this.handleSubmit, formLoading, this.state.error)}
-                {/* {!!this.state.error && <P color="red">{this.state.error}</P>} */}
+                <LoginForm
+                    handleSubmit={this.handleSubmit}
+                    formLoading={formLoading}
+                    error={this.state.error}
+                />
             </div>
         )
     }
