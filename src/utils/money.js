@@ -3,7 +3,7 @@ const formatMoney = (amount) => {
     return `₦ ${money}`
 }
 const sumAmount = (transactions) => {
-    return transactions.reduce((a, b) => Number(a) + (Number(b.amount) || 0), 0)
+    return transactions.reduce((a, b) => +a + +b.amount || 0, 0)
 }
 
 const calculateAllDebit = (transactions = []) => {
