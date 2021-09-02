@@ -1,5 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
 import { Col, Container, Row } from 'reactstrap'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
@@ -35,7 +34,4 @@ const HomePage = () => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    isSignedIn: state.user.signIn.isSignedIn,
-})
-export default connect(mapStateToProps, {})(HomePage)
+export default HomePage

@@ -14,4 +14,5 @@ const calculateAllDebit = (transactions = []) => {
 
     return formatMoney(totalDebits)
 }
+
 export { formatMoney, calculateAllDebit }

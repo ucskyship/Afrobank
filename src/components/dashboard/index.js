@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import SideBar from './sidebar'
 import { Switch, Route } from 'react-router-dom'
@@ -59,11 +59,12 @@ const Item = styled(DropdownItem)`
     }
 `
 
-const Main = (props) => {
+const Main = () => {
     const [showNotification, setNotification] = useState(false)
     const [userNotification, setUsernotification] = useState({
         notifications: [],
     })
+    const data = useSelector((state) => state.user.signIn.payLoad)
 
     const toggleNotification = () => {
         setNotification((prevState) => !prevState)
@@ -74,18 +75,14 @@ const Main = (props) => {
     }
 
     useEffect(() => {
-        const { accountNumber } = props.payLoad
+        const { accountNumber } = data
         const getNotifications = async () => {
-            try {
-                setUsernotification({
-                    notifications: await fetchAllNotifications(accountNumber),
-                })
-            } catch (error) {
-                throw error
-            }
+            setUsernotification({
+                notifications: await fetchAllNotifications(accountNumber),
+            })
         }
         getNotifications()
-    }, [props.payLoad])
+    })
 
     return (
         <Dashbody className="pb-4">
@@ -180,8 +177,4 @@ const Main = (props) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-    payLoad: state.user.signIn.payLoad,
-})
-
-export default connect(mapStateToProps, {})(Main)
+export default Main

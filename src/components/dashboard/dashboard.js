@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import { transactionHistory, getBalance } from '../../services/transactions'
 import { Container, Col, Row, Table } from 'reactstrap'
 import {
@@ -70,13 +70,14 @@ const Dashboard = (props) => {
         displayBal: true,
         balanceLoading: false,
     })
+    const data = useSelector((state) => state.user)
 
     const style = {
         cursor: 'pointer',
     }
 
     const pageBalance = async () => {
-        const { accountNumber } = props.payLoad
+        const { accountNumber } = data.signIn.payLoad
         setState({
             balanceLoading: true,
         })
@@ -105,7 +106,7 @@ const Dashboard = (props) => {
 
     useEffect(() => {
         async function fetchData() {
-            const { accountNumber } = props.payLoad
+            const { accountNumber } = data.signIn.payLoad
             setState({
                 balanceLoading: true,
             })
@@ -124,7 +125,7 @@ const Dashboard = (props) => {
             }
         }
         fetchData()
-    }, [props.payLoad, props.updateTransactionHistory])
+    }, [data.signIn.payLoad, props.updateTransactionHistory])
 
     return (
         <Col>
@@ -241,7 +242,7 @@ const Dashboard = (props) => {
                                                 }}
                                             >
                                                 Name:{' '}
-                                                {`${props.payLoad.firstName} ${props.payLoad.lastName}`}
+                                                {`${data.signIn.payLoad.firstName} ${data.signIn.payLoad.lastName}`}
                                             </Type>
                                             <br />
                                             <Type
@@ -252,8 +253,11 @@ const Dashboard = (props) => {
                                                     fontWeight: 550,
                                                 }}
                                             >
-                                                Account Number:{' '}
-                                                {props.payLoad.accountNumber}
+                                                Account Number:
+                                                {
+                                                    data.signIn.payLoad
+                                                        .accountNumber
+                                                }
                                             </Type>
                                         </Container>
                                     </AccountCard>
@@ -261,7 +265,7 @@ const Dashboard = (props) => {
                                 <Col lg={4}>
                                     <AccountCard className="d-flex justify-content-center align-items-center">
                                         <Type color="white">{`you've spent ${calculateAllDebit(
-                                            props.transactions
+                                            data.transactions
                                         )} so far`}</Type>
                                     </AccountCard>
                                 </Col>
@@ -288,8 +292,8 @@ const Dashboard = (props) => {
                                         </tr>
                                     </thead>
                                     <tbody style={{ color: 'white' }}>
-                                        {!!props.transactions &&
-                                            props.transactions
+                                        {!!data.transactions &&
+                                            data.transactions
                                                 .slice(0, 4)
                                                 .map((req, idx) => {
                                                     const {
@@ -361,8 +365,6 @@ const Dashboard = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-    payLoad: state.user.signIn.payLoad,
-    transactions: state.user.transactions,
     balanceDisplay: state.user.balanceDisplay,
 })
 export default connect(mapStateToProps, {
