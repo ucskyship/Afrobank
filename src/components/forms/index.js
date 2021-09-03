@@ -338,7 +338,7 @@ const SignUpForm = (formLoading, handleSubmit, regError) => {
 }
 LoginForm.propTypes = {
     handleSubmit: propTypes.func.isRequired,
-    error: propTypes.string.isRequired,
+    error: propTypes.string,
     formLoading: propTypes.bool.isRequired,
 }
 TransferForm.propTypes = {

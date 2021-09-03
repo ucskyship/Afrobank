@@ -1,9 +1,5 @@
 import React from 'react'
-import HomePage from '../components/homepage/index'
-import Register from '../components/register'
-import SignIn from '../components/signin/signin'
-import Dashboard from '../components/dashboard'
-import SignOut from '../components/sigout/signOut'
+import { Dashboard, Homepage, Register, SignOut, Signin } from './allpages'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import ProtectedroutePages from './protectedroute.pages'
 
@@ -15,7 +11,7 @@ const routes = [
     },
     {
         path: '/signin',
-        component: SignIn,
+        component: Signin,
         public: true,
     },
     {
@@ -48,7 +44,7 @@ const Main = () => {
                         />
                     )
                 )}
-                <Route path="/" component={HomePage} />
+                <Route path="/" component={Homepage} />
             </Switch>
         </BrowserRouter>
     )

@@ -6,8 +6,13 @@ import {
     updateTransactionHistory,
     toggleDisplay,
 } from '../../services/appstore/actions/actions'
-import { getFormatedDate } from '../../utils/date'
-import { formatMoney, calculateAllDebit } from '../../utils/money'
+import {
+    getFormatedDate,
+    calculateAllDebit,
+    formatMoney,
+    getFormatedTime,
+    getTimeOfTheDay,
+} from '../../utils'
 import {
     Autorenew,
     Search,
@@ -15,6 +20,7 @@ import {
     VisibilityOff,
 } from '@material-ui/icons'
 import styled from 'styled-components'
+import Loader from 'react-loader-spinner'
 
 const AccountCard = styled.div`
     height: 150px;
@@ -146,9 +152,13 @@ const Dashboard = (props) => {
                     </div>
                     <DashbodyCard className="pb-3 pt-3 mt-5">
                         <Container className="pr-4 pl-4">
-                            <Type color="white" className="pt-3 mb-4">
-                                Account overview
-                            </Type>
+                            <div className="mt-2 mb-4">
+                                <Type size={30} color="white">
+                                    {`Hello ${
+                                        data.signIn.payLoad.firstName
+                                    }, ${getTimeOfTheDay()}`}
+                                </Type>
+                            </div>
                             <Row className="pt-3">
                                 <Col lg={4}>
                                     <AccountCard
@@ -205,13 +215,20 @@ const Dashboard = (props) => {
                                                         }`,
                                                     }}
                                                 >
-                                                    {state.balanceLoading
-                                                        ? '****'
-                                                        : !props.balanceDisplay
-                                                        ? formatMoney(
-                                                              state.balance
-                                                          )
-                                                        : '****'}
+                                                    {state.balanceLoading ? (
+                                                        <Loader
+                                                            type="ThreeDots"
+                                                            height={30}
+                                                            width={30}
+                                                            color="#ffff"
+                                                        />
+                                                    ) : !props.balanceDisplay ? (
+                                                        formatMoney(
+                                                            state.balance
+                                                        )
+                                                    ) : (
+                                                        '****'
+                                                    )}
                                                 </Type>
                                             </div>
                                         </Container>
@@ -302,7 +319,14 @@ const Dashboard = (props) => {
                                                         transaction_date,
                                                         transaction_type,
                                                     } = req
-
+                                                    const formatDay =
+                                                        getFormatedDate(
+                                                            transaction_date
+                                                        )
+                                                    const formatTime =
+                                                        getFormatedTime(
+                                                            transaction_date
+                                                        )
                                                     return (
                                                         <tr key={idx}>
                                                             <td>
@@ -339,16 +363,7 @@ const Dashboard = (props) => {
                                                                 }
                                                             </td>
                                                             <td>
-                                                                {`${
-                                                                    getFormatedDate(
-                                                                        transaction_date
-                                                                    )
-                                                                        .formatedDay
-                                                                } ${
-                                                                    getFormatedDate(
-                                                                        transaction_date
-                                                                    ).time
-                                                                }`}
+                                                                {`${formatDay} ${formatTime}`}
                                                             </td>
                                                         </tr>
                                                     )
