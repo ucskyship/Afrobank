@@ -110,6 +110,47 @@ const Dashboard = (props) => {
         props.toggleDisplay(state.displayBal)
     }
 
+    const renderTransactions = () => {
+        const { transactions } = data
+        return transactions.slice(0, 4).map((transaction, i) => {
+            const {
+                transaction_id,
+                amount,
+                transaction_date,
+                transaction_type,
+            } = transaction
+
+            const formatDay = getFormatedDate(transaction_date)
+            const formatTime = getFormatedTime(transaction_date)
+            return (
+                <tr key={i}>
+                    <td>{transaction_id}</td>
+                    <td
+                        style={{
+                            color: `${
+                                transaction_type === 'credit' ? 'green' : 'red'
+                            }`,
+                            fontWeight: 600,
+                        }}
+                    >
+                        {formatMoney(amount)}
+                    </td>
+                    <td
+                        style={{
+                            color: `${
+                                transaction_type === 'credit' ? 'green' : 'red'
+                            }`,
+                            fontWeight: 600,
+                        }}
+                    >
+                        {transaction_type}
+                    </td>
+                    <td>{`${formatDay} ${formatTime}`}</td>
+                </tr>
+            )
+        })
+    }
+
     useEffect(() => {
         async function fetchData() {
             const { accountNumber } = data.signIn.payLoad
@@ -143,7 +184,9 @@ const Dashboard = (props) => {
                             className="font-weight-bold"
                             color="white"
                         >
-                            Dashboard
+                            {`Hello ${
+                                data.signIn.payLoad.firstName
+                            }, ${getTimeOfTheDay()}.`}
                         </Type>
                         <Inputdiv className="d-flex justify-content-between align-items-center">
                             <Search />
@@ -152,13 +195,6 @@ const Dashboard = (props) => {
                     </div>
                     <DashbodyCard className="pb-3 pt-3 mt-5">
                         <Container className="pr-4 pl-4">
-                            <div className="mt-2 mb-4">
-                                <Type size={30} color="white">
-                                    {`Hello ${
-                                        data.signIn.payLoad.firstName
-                                    }, ${getTimeOfTheDay()}`}
-                                </Type>
-                            </div>
                             <Row className="pt-3">
                                 <Col lg={4}>
                                     <AccountCard
@@ -310,64 +346,7 @@ const Dashboard = (props) => {
                                     </thead>
                                     <tbody style={{ color: 'white' }}>
                                         {!!data.transactions &&
-                                            data.transactions
-                                                .slice(0, 4)
-                                                .map((req, idx) => {
-                                                    const {
-                                                        transaction_id,
-                                                        amount,
-                                                        transaction_date,
-                                                        transaction_type,
-                                                    } = req
-                                                    const formatDay =
-                                                        getFormatedDate(
-                                                            transaction_date
-                                                        )
-                                                    const formatTime =
-                                                        getFormatedTime(
-                                                            transaction_date
-                                                        )
-                                                    return (
-                                                        <tr key={idx}>
-                                                            <td>
-                                                                {transaction_id}
-                                                            </td>
-                                                            <td
-                                                                style={{
-                                                                    color: `${
-                                                                        transaction_type ===
-                                                                        'credit'
-                                                                            ? 'green'
-                                                                            : 'red'
-                                                                    }`,
-                                                                    fontWeight: 600,
-                                                                }}
-                                                            >
-                                                                {formatMoney(
-                                                                    amount
-                                                                )}
-                                                            </td>
-                                                            <td
-                                                                style={{
-                                                                    color: `${
-                                                                        transaction_type ===
-                                                                        'credit'
-                                                                            ? 'green'
-                                                                            : 'red'
-                                                                    }`,
-                                                                    fontWeight: 600,
-                                                                }}
-                                                            >
-                                                                {
-                                                                    transaction_type
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                {`${formatDay} ${formatTime}`}
-                                                            </td>
-                                                        </tr>
-                                                    )
-                                                })}
+                                            renderTransactions()}
                                     </tbody>
                                 </Table>
                             </div>
