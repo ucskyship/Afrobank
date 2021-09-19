@@ -39,7 +39,7 @@ const Error = styled.p`
     font-size: 12px;
 `
 const Label = styled.label`
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     color: black;
 `
@@ -195,7 +195,7 @@ const TransferForm = (props) => {
     )
 }
 
-const SignUpForm = (formLoading, handleSubmit, regError) => {
+const SignUpForm = (props) => {
     const initialValues = {
         firstName: '',
         surName: '',
@@ -207,7 +207,7 @@ const SignUpForm = (formLoading, handleSubmit, regError) => {
     }
 
     const style = {
-        height: '40px',
+        height: '32px',
         width: '95%',
     }
     return (
@@ -216,16 +216,18 @@ const SignUpForm = (formLoading, handleSubmit, regError) => {
             initialValues={initialValues}
             validateOnBlur={false}
             validateOnChange={false}
-            onSubmit={handleSubmit}
+            onSubmit={props.handleSubmit}
         >
             {({ errors, handleChange, handleSubmit, values }) => {
                 return (
                     <div
-                        className="d-flex justify-content-center align-items-center m-auto pb-4"
-                        style={{ width: '60%' }}
+                        className="d-flex justify-content-center align-items-center m-auto"
+                        style={{ width: '60%', height: '100%' }}
                     >
                         <form onSubmit={handleSubmit}>
-                            {!!regError && <ErrorText>{regError}</ErrorText>}
+                            {!!props.regError && (
+                                <ErrorText>{props.regError}</ErrorText>
+                            )}
                             <Label>First name</Label>
                             <Input
                                 value={values.firstName}
@@ -298,9 +300,10 @@ const SignUpForm = (formLoading, handleSubmit, regError) => {
                                 style={{
                                     height: '47px',
                                     width: '95%',
-                                    border: '1px solid black',
                                     borderRadius: '12px',
                                     marginTop: '7px',
+                                    outline: 'none',
+                                    border: 'none',
                                     paddingLeft: '20px',
                                     paddingRight: '20px',
                                 }}
@@ -317,7 +320,7 @@ const SignUpForm = (formLoading, handleSubmit, regError) => {
                             )}
                             <div className="d-flex justify-content-center align-items-center">
                                 <Button type="submit" className="mt-3">
-                                    {formLoading ? (
+                                    {props.formLoading ? (
                                         <Loader
                                             type="ThreeDots"
                                             height={30}

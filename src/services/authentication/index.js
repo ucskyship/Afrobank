@@ -2,8 +2,7 @@ import Axios from '../index'
 
 const registerUser = async (payload) => {
     try {
-        const resp = await Axios.post('/register', payload)
-        console.log(resp)
+        await Axios.post('/register', payload)
     } catch (error) {
         throw error.response.data
     }
