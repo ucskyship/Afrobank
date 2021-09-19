@@ -25,7 +25,10 @@ class Register extends React.Component {
             this.setState({ formLoading: false })
             this.props.history.push('/signin')
         } catch (error) {
-            this.setState({ formLoading: false, regError: error.message })
+            this.setState({
+                formLoading: false,
+                regError: error.message,
+            })
         }
     }
     render() {
@@ -36,7 +39,7 @@ class Register extends React.Component {
                         <Col lg={6}>
                             <div className="d-flex justify-content-center align-items-center">
                                 <FormHeaderText>
-                                    Create a few account
+                                    Create a free account
                                 </FormHeaderText>
                             </div>
                             <SignUpForm
