@@ -24,6 +24,7 @@
         "react": "^16.13.1",
         "react-bootstrap-sweetalert": "^5.2.0",
         "react-dom": "^16.13.1",
+        "react-ga": "^3.3.0",
         "react-loader-spinner": "^3.1.14",
         "react-loading-overlay": "^1.0.1",
         "react-pin-input": "^1.0.1",

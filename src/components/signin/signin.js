@@ -23,7 +23,7 @@ const SignIn = (props) => {
             props.history.push('/dashboard')
         } catch (error) {
             setState({
-                error: error.response.data.message || 'An error occured',
+                error: error || 'An error occured',
                 formLoading: false,
             })
         }

@@ -25,6 +25,7 @@ const routes = [
         public: true,
     },
 ]
+
 const Main = () => {
     return (
         <BrowserRouter basename="/Afrobank">

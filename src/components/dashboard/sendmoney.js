@@ -4,6 +4,7 @@ import { Row, Col, Card } from 'reactstrap'
 import styled from 'styled-components'
 import { getBalance, transfer } from '../../services/transactions/index'
 import { TransferForm } from '../forms/index'
+import { PinModal } from '../../modals'
 
 export const Type = styled.span`
     color: ${(props) => props.color};
@@ -36,6 +37,8 @@ const SendMoney = (props) => {
     const [formLoading, setFormLoading] = useState(false)
     const [error, setError] = useState('')
     const [balance, setBalance] = useState(0)
+    const [pin, setPin] = useState('')
+    const [pinModal, setPinModal] = useState(false)
 
     useEffect(() => {
         const { accountNumber } = props.payLoad
@@ -50,15 +53,26 @@ const SendMoney = (props) => {
         setFormLoading(true)
         setError('')
         try {
-            await transfer(values, accountNumber)
+            await transfer(values, accountNumber, pin)
             setFormLoading(false)
         } catch (error) {
-            setError(error.message)
+            setError(error)
             setFormLoading(false)
         }
     }
+
+    const toggleVisibility = () => {
+        setPinModal(!pinModal)
+    }
+
     return (
         <Col style={{ height: '100%', maxheight: '530px' }}>
+            <PinModal
+                isVisible={pinModal}
+                toggleVisibility={() => toggleVisibility()}
+                onChange={(e) => setPin(e)}
+                onSubmit={() => console.log(pin)}
+            />
             <Row>
                 <Col lg={12}>
                     <div className="d-flex pt-4 align-items-center">

@@ -27,7 +27,7 @@ class Register extends React.Component {
         } catch (error) {
             this.setState({
                 formLoading: false,
-                regError: error.message,
+                regError: error,
             })
         }
     }

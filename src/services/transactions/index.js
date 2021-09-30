@@ -1,6 +1,7 @@
 import Axios from '../index'
+import { extractApiError } from '../../utils/error'
 
-const transfer = async (payload, sender) => {
+const transfer = async (payload, sender, pin) => {
     const { recipient, amount } = payload
     const body = {
         recipient: recipient.toString(),
@@ -11,7 +12,7 @@ const transfer = async (payload, sender) => {
         const response = await Axios.post('/transfer', body)
         return response.data.message
     } catch (error) {
-        throw error.response.data
+        extractApiError(error)
     }
 }
 
@@ -20,7 +21,7 @@ const transactionHistory = async (accountNumber, updateTransactionHistory) => {
         const resp = await Axios.get(`/history/${accountNumber}`)
         updateTransactionHistory(resp.data.message)
     } catch (error) {
-        throw error
+        extractApiError(error)
     }
 }
 
@@ -29,7 +30,7 @@ const getBalance = async (accountNumber) => {
         const resp = await Axios.get(`/balance/${accountNumber}`)
         return resp.data.message
     } catch (error) {
-        throw error.response
+        extractApiError(error)
     }
 }
 

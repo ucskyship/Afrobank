@@ -1,30 +1,22 @@
 import { Formik } from 'formik'
 import React from 'react'
+import { TextField, Box, MenuItem, FormControl } from '@material-ui/core'
 import { loginSchema, transferSchema, signUpSchema } from './validation'
 import { Col } from 'reactstrap'
 import styled from 'styled-components'
 import Loader from 'react-loader-spinner'
 import propTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 const ErrorText = styled.p`
     color: red;
     font-size: 12px;
     font-weight: 600;
-`
-
-const Input = styled.input`
-    height: 50px;
-    width: 100%;
-    padding-left: 20px;
-    padding-right: 20px;
-    outline: none;
-    border: none;
-    border-bottom: 1px solid grey;
-    margin-top: 7px;
+    // margin-top: 200px;
 `
 
 const Button = styled.button`
-    width: 70%;
+    width: 50%;
     height: 50px;
     border: none;
     outline: none;
@@ -38,12 +30,17 @@ const Error = styled.p`
     text-align: start;
     font-size: 12px;
 `
-const Label = styled.label`
-    font-size: 12px;
-    font-weight: 500;
-    color: black;
-`
 
+const Input = (props) => {
+    return (
+        <TextField
+            id="standard-size-small"
+            className="mb-3 rounded"
+            variant="outlined"
+            {...props}
+        />
+    )
+}
 const LoginForm = (props) => {
     const initialValues = {
         email: '',
@@ -118,6 +115,8 @@ const LoginForm = (props) => {
                                         'sign in'
                                     )}
                                 </Button>
+
+                                <Link to="/register">register</Link>
                             </form>
                         </Col>
                     </Col>
@@ -142,14 +141,14 @@ const TransferForm = (props) => {
             onSubmit={props.formSubmit}
         >
             {({ errors, handleChange, handleSubmit, values }) => {
+                const isValidBalance = +values.amount > +props.balance
                 return (
                     <form onSubmit={handleSubmit}>
                         {!!props.error && <ErrorText>{props.error}</ErrorText>}
                         <Input
-                            className="mb-3 rounded"
                             type="number"
                             name="recipient"
-                            placeholder="recipient"
+                            label="recipient"
                             onChange={handleChange}
                         />{' '}
                         {!!errors.recipient && (
@@ -158,18 +157,18 @@ const TransferForm = (props) => {
                         <Input
                             type="number"
                             name="amount"
-                            className="mb-3 rounded"
-                            placeholder="enter amount"
+                            label="amount"
                             onChange={handleChange}
                         />
                         {!!errors.amount && <Error>{errors.amount}</Error>}
                         <div className="d-flex justify-content-end align-items-center">
-                            {values.amount > props.balance && (
+                            {isValidBalance && (
                                 <ErrorText>insufficient balance</ErrorText>
                             )}
                         </div>
                         <div className="d-flex justify-content-center align-items-center">
                             <Button
+                                disabled={isValidBalance}
                                 type="submit"
                                 style={{
                                     width: '170px',
@@ -210,6 +209,7 @@ const SignUpForm = (props) => {
         height: '32px',
         width: '95%',
     }
+
     return (
         <Formik
             validationSchema={signUpSchema}
@@ -220,119 +220,127 @@ const SignUpForm = (props) => {
         >
             {({ errors, handleChange, handleSubmit, values }) => {
                 return (
-                    <div
-                        className="d-flex justify-content-center align-items-center m-auto"
-                        style={{ width: '60%', height: '100%' }}
-                    >
-                        <form onSubmit={handleSubmit}>
-                            {!!props.regError && (
-                                <ErrorText>{props.regError}</ErrorText>
-                            )}
-                            <Label>First name</Label>
-                            <Input
-                                value={values.firstName}
-                                type="text"
-                                style={style}
-                                name="firstName"
-                                onChange={handleChange}
-                            />
-                            {!!errors.firstName && (
-                                <ErrorText>{errors.firstName}</ErrorText>
-                            )}
-                            <Label>Surname</Label>
-                            <Input
-                                value={values.surName}
-                                type="text"
-                                style={style}
-                                name="surName"
-                                onChange={handleChange}
-                            />
-                            {!!errors.surName && (
-                                <ErrorText>{errors.surName}</ErrorText>
-                            )}
-                            <Label>Last name</Label>
-                            <Input
-                                value={values.lastName}
-                                type="text"
-                                style={style}
-                                name="lastName"
-                                onChange={handleChange}
-                            />
-                            {!!errors.lastName && (
-                                <ErrorText>{errors.lastName}</ErrorText>
-                            )}
+                    <div style={{ width: '70%' }} className="m-auto">
+                        <Box
+                            component="form"
+                            autoComplete="off"
+                            onSubmit={handleSubmit}
+                        >
+                            <FormControl>
+                                {!!props.regError && (
+                                    <ErrorText>{props.regError}</ErrorText>
+                                )}
+                                <Input
+                                    label="First name"
+                                    value={values.firstName}
+                                    type="text"
+                                    style={style}
+                                    name="firstName"
+                                    onChange={handleChange}
+                                />
+                                {!!errors.firstName && (
+                                    <ErrorText>{errors.firstName}</ErrorText>
+                                )}
+                                <Input
+                                    value={values.surName}
+                                    label="Surname"
+                                    type="text"
+                                    style={style}
+                                    name="surName"
+                                    onChange={handleChange}
+                                />
+                                {!!errors.surName && (
+                                    <ErrorText>{errors.surName}</ErrorText>
+                                )}
+                                <Input
+                                    value={values.lastName}
+                                    label="Last name"
+                                    type="text"
+                                    style={style}
+                                    name="lastName"
+                                    onChange={handleChange}
+                                />
+                                {!!errors.lastName && (
+                                    <ErrorText>{errors.lastName}</ErrorText>
+                                )}
 
-                            <Label>Email</Label>
-                            <Input
-                                onChange={handleChange}
-                                value={values.email}
-                                type="email"
-                                name="email"
-                                style={style}
-                            />
-                            {!!errors.email && (
-                                <ErrorText>{errors.email}</ErrorText>
-                            )}
-                            <Label>Password</Label>
-                            <Input
-                                value={values.password}
-                                type="password"
-                                name="password"
-                                onChange={handleChange}
-                                style={style}
-                            />
-                            {!!errors.password && (
-                                <ErrorText>{errors.password}</ErrorText>
-                            )}
-                            <Label>Phone number</Label>
-                            <Input
-                                type="text"
-                                value={values.phoneNumber}
-                                onChange={handleChange}
-                                style={style}
-                                name="phoneNumber"
-                            />
-                            {!!errors.phoneNumber && (
-                                <ErrorText>{errors.phoneNumber}</ErrorText>
-                            )}
-                            <Label>Gender</Label>
-                            <select
-                                style={{
-                                    height: '47px',
-                                    width: '95%',
-                                    borderRadius: '12px',
-                                    marginTop: '7px',
-                                    outline: 'none',
-                                    border: 'none',
-                                    paddingLeft: '20px',
-                                    paddingRight: '20px',
-                                }}
-                                name="gender"
-                                value={values.gender}
-                                onChange={handleChange}
-                            >
-                                <option>gender</option>
-                                <option value="male">male</option>
-                                <option value="female">female</option>
-                            </select>
-                            {!!errors.gender && (
-                                <ErrorText>{errors.gender}</ErrorText>
-                            )}
-                            <div className="d-flex justify-content-center align-items-center">
-                                <Button type="submit" className="mt-3">
-                                    {props.formLoading ? (
-                                        <Loader
-                                            type="ThreeDots"
-                                            height={30}
-                                            width={30}
-                                            color="#00BFFF"
-                                        />
-                                    ) : (
-                                        'create account'
-                                    )}
-                                </Button>
-                            </div>
-                        </form>
+                                <Input
+                                    onChange={handleChange}
+                                    value={values.email}
+                                    label="email"
+                                    type="email"
+                                    name="email"
+                                    style={style}
+                                />
+                                {!!errors.email && (
+                                    <ErrorText>{errors.email}</ErrorText>
+                                )}
+                                <Input
+                                    value={values.password}
+                                    label="password"
+                                    type="password"
+                                    name="password"
+                                    onChange={handleChange}
+                                    style={style}
+                                />
+                                {!!errors.password && (
+                                    <ErrorText>{errors.password}</ErrorText>
+                                )}
+                                <Input
+                                    type="text"
+                                    label="Phone number"
+                                    value={values.phoneNumber}
+                                    onChange={handleChange}
+                                    style={style}
+                                    name="phoneNumber"
+                                />
+                                {!!errors.phoneNumber && (
+                                    <ErrorText>{errors.phoneNumber}</ErrorText>
+                                )}
+
+                                <Input
+                                    label="Gender"
+                                    style={{
+                                        height: '47px',
+                                        width: '60%',
+                                        borderRadius: '12px',
+                                        marginTop: '7px',
+                                        outline: 'none',
+                                        border: 'none',
+                                        paddingLeft: '10px',
+                                        paddingRight: '20px',
+                                    }}
+                                    select
+                                    name="gender"
+                                    value={values.gender}
+                                    onChange={handleChange}
+                                >
+                                    <MenuItem value="male">male</MenuItem>
+                                    <MenuItem value="female">female</MenuItem>
+                                </Input>
+                                {!!errors.gender && (
+                                    <ErrorText>{errors.gender}</ErrorText>
+                                )}
+                                <div className="d-flex justify-content-center align-items-center">
+                                    <Button
+                                        type="submit"
+                                        className="mt-3 rounded-pill"
+                                    >
+                                        {props.formLoading ? (
+                                            <Loader
+                                                type="ThreeDots"
+                                                height={30}
+                                                width={30}
+                                                color="#00BFFF"
+                                            />
+                                        ) : (
+                                            'create account'
+                                        )}
+                                    </Button>
+                                </div>
+                                <Link to="/signin">sign in</Link>
+                            </FormControl>
+                        </Box>
                     </div>
                 )
             }}

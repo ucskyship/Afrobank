@@ -1,10 +1,11 @@
 import Axios from '../index'
+import { extractApiError } from '../../utils/error'
 
 const registerUser = async (payload) => {
     try {
         await Axios.post('/register', payload)
     } catch (error) {
-        throw error.response.data
+        extractApiError(error)
     }
 }
 
@@ -15,7 +16,7 @@ const userLogin = async (payLoad, user_login) => {
         user_login(resp.data.message, true)
         return resp
     } catch (error) {
-        throw error
+        extractApiError(error)
     }
 }
 
