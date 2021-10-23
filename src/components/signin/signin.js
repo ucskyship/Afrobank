@@ -30,7 +30,7 @@ const SignIn = (props) => {
     }
 
     return (
-        <div className="d-flex justify-content-center align-items-center">
+        <div className="d-flex bg-dark justify-content-center align-items-center">
             <LoginForm
                 handleSubmit={handleSubmit}
                 formLoading={state.formLoading}

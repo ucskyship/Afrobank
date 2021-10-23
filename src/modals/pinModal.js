@@ -42,4 +42,10 @@ PinModal.propTypes = {
     onSubmit: propTypes.func,
 }
 
+PinModal.defaultProps = {
+    onSubmit: () => {},
+    isVisible: false,
+    toggleVisibility: () => {},
+}
+
 export default PinModal

@@ -34,6 +34,16 @@ const NotificationDiv = styled.div`
     align-items: center;
     cursor: pointer;
 `
+
+const Badge = styled.div`
+    height: 22px;
+    width: 22px;
+    background: red;
+    top: 0;
+    left: 30;
+    right: 0;
+    position: absolute;
+`
 const Menu = styled(DropdownMenu)`
     background: #000000;
     width: 330px;
@@ -132,7 +142,14 @@ const Main = () => {
                                         className="p-0 m-0"
                                     >
                                         <NotificationDiv>
+                                            <Badge className="rounded-circle d-flex justify-content-center align-items-center">
+                                                {
+                                                    userNotification
+                                                        .notifications.length
+                                                }
+                                            </Badge>
                                             <NotificationsNone
+                                                fontSize="small"
                                                 style={{ color: 'white' }}
                                             />
                                         </NotificationDiv>

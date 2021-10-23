@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-
 const CustomBtn = styled.button`
     border: none;
     outline: none;
