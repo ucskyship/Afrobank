@@ -71,6 +71,11 @@ const LoginForm = (props) => {
                                 value={values.email}
                                 label="Email"
                                 autoComplete="false"
+                                style={{
+                                    border: `2px solid ${
+                                        !!errors.email ? 'red' : 'green'
+                                    }`,
+                                }}
                             />
                             {!!errors.email && (
                                 <span style={{ color: 'red' }}>
@@ -86,6 +91,11 @@ const LoginForm = (props) => {
                                 onChange={handleChange}
                                 label="Password"
                                 value={values.password}
+                                style={{
+                                    border: `2px solid ${
+                                        !!errors.password ? 'red' : 'green'
+                                    }`,
+                                }}
                                 autoComplete="false"
                             />
                             {!!errors.password && (

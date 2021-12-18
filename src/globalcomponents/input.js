@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 const StyleField = styled(Input)`
     height: 50px;
+    transition: all ease 0.3s;
 `
 
 const CustomInputs = (props) => {

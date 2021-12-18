@@ -60,7 +60,7 @@ const SignIn = (props) => {
             style={{ height: '100vh' }}
         >
             <Col lg={4} xs={11}>
-                <Text className="text-center">sign in to start enjoying</Text>
+                <Text className="text-center">Welcome back</Text>
                 <LoginForm
                     handleSubmit={handleSubmit}
                     formLoading={state.formLoading}
