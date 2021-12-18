@@ -69,6 +69,11 @@ export const Type = styled.span`
     font-size: ${(props) => props.size}px;
 `
 
+const Text = styled.h5`
+    color: white;
+    font-weight: 550;
+`
+
 const Dashboard = (props) => {
     const [state, setState] = useState({
         toggleTransferModal: false,
@@ -330,25 +335,33 @@ const Dashboard = (props) => {
                                 <Type color="green">Show all</Type>
                             </div>
                             <div className="pt-3">
-                                <Table
-                                    style={{ overflowY: 'scroll' }}
-                                    striped
-                                    responsive
-                                    borderless
-                                >
-                                    <thead style={{ color: 'whitesmoke' }}>
-                                        <tr>
-                                            <th>Transaction ID</th>
-                                            <th>Amount</th>
-                                            <th>Type</th>
-                                            <th>Date/Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody style={{ color: 'white' }}>
-                                        {!!data.transactions &&
-                                            renderTransactions()}
-                                    </tbody>
-                                </Table>
+                                {!!data.transactions &&
+                                data.transactions.length > 0 ? (
+                                    <Table
+                                        style={{ overflowY: 'scroll' }}
+                                        striped
+                                        responsive
+                                        borderless
+                                    >
+                                        <thead style={{ color: 'whitesmoke' }}>
+                                            <tr>
+                                                <th>Transaction ID</th>
+                                                <th>Amount</th>
+                                                <th>Type</th>
+                                                <th>Date/Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody style={{ color: 'white' }}>
+                                            {renderTransactions()}
+                                        </tbody>
+                                    </Table>
+                                ) : (
+                                    <div className="d-flex justify-content-center align-items-center mt-5 mb-5">
+                                        <Text>
+                                            You don't have any transactions
+                                        </Text>
+                                    </div>
+                                )}
                             </div>
                         </Container>
                     </DashbodyCard>

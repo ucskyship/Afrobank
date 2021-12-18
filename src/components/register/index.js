@@ -21,6 +21,7 @@ class Register extends React.Component {
             this.setState({ formLoading: false })
             this.props.history.push('/signin')
         } catch (error) {
+            console.log(error)
             this.setState({
                 formLoading: false,
                 regError: error,
@@ -43,7 +44,7 @@ class Register extends React.Component {
                             <SignUpForm
                                 handleSubmit={this.handleSubmit}
                                 formLoading={this.state.formLoading}
-                                error={this.state.regError}
+                                regError={this.state.regError}
                             />
                         </Col>
                     </Col>
