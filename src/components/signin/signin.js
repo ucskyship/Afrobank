@@ -55,9 +55,9 @@ const SignIn = (props) => {
                     lg={8}
                     className="d-flex justify-content-center align-items-center"
                 >
-                    <Col lg={6} xs={11}>
+                    <Col lg={6} xs={12}>
                         <Text className="text-center">Sign in to Account</Text>
-                        <Col lg={4} className="m-auto pt-3 pb-4">
+                        <Col lg={4} sm={3} className="m-auto pt-3 pb-4">
                             <Row>
                                 <Col>
                                     <Facebook

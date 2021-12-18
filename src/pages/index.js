@@ -1,5 +1,12 @@
 import React from 'react'
-import { Dashboard, Homepage, Register, SignOut, Signin } from './allpages'
+import {
+    Dashboard,
+    Homepage,
+    Register,
+    SignOut,
+    Signin,
+    ForgotPassword,
+} from './allpages'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import ProtectedroutePages from './protectedroute.pages'
@@ -25,12 +32,17 @@ const routes = [
         component: SignOut,
         public: true,
     },
+    {
+        path: '/forgotpassword',
+        component: ForgotPassword,
+        public: true,
+    },
 ]
 
 const Main = () => {
     return (
         <TransitionGroup>
-            <CSSTransition>
+            <CSSTransition timeout={3000}>
                 <BrowserRouter basename="/Afrobank">
                     <Switch>
                         {routes.map((data, i) =>

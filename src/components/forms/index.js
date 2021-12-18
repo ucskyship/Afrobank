@@ -1,7 +1,12 @@
 import { Formik } from 'formik'
 import React from 'react'
 import { TextField, Box, makeStyles } from '@material-ui/core'
-import { loginSchema, transferSchema, signUpSchema } from './validation'
+import {
+    loginSchema,
+    transferSchema,
+    signUpSchema,
+    forgotPasswordSchema,
+} from './validation'
 import styled from 'styled-components'
 import Loader from 'react-loader-spinner'
 import propTypes from 'prop-types'
@@ -110,7 +115,7 @@ const LoginForm = (props) => {
                                     fontWeight: 600,
                                     fontSize: '18px',
                                 }}
-                                to="/signin"
+                                to="/forgotpassword"
                             >
                                 forgot password
                             </Link>
@@ -140,6 +145,64 @@ const LoginForm = (props) => {
     )
 }
 
+const ForgotPasswordForm = (props) => {
+    const initialValues = {
+        email: '',
+    }
+
+    return (
+        <Formik
+            initialValues={initialValues}
+            validateOnBlur={false}
+            validateOnChange={true}
+            validationSchema={forgotPasswordSchema}
+            onSubmit={props.handleSubmit}
+        >
+            {({ errors, handleChange, values, handleSubmit }) => {
+                return (
+                    <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
+                        <CustomInputs
+                            onChange={handleChange}
+                            value={values.email}
+                            className="mb-2"
+                            label="Email"
+                            type="email"
+                            name="email"
+                            style={{
+                                border: `1px solid ${
+                                    !!errors.email ? 'red' : 'green'
+                                }`,
+                            }}
+                        />
+                        {!!errors.email && (
+                            <ErrorText>{errors.email}</ErrorText>
+                        )}
+
+                        <div className="d-flex justify-content-end align-items-center pt-3">
+                            <Link
+                                style={{
+                                    color: 'grey',
+                                    fontWeight: 600,
+                                    fontSize: '18px',
+                                }}
+                                to="/signin"
+                            >
+                                remember now ?
+                            </Link>
+                        </div>
+                        <div className="d-flex justify-content-center align-items-center mt-3">
+                            <Button
+                                type="submit"
+                                className="mt-2 rounded-pill"
+                                text="Send"
+                            />
+                        </div>
+                    </Form>
+                )
+            }}
+        </Formik>
+    )
+}
 const TransferForm = (props) => {
     const initialValues = {
         recipient: '',
@@ -368,4 +431,4 @@ TransferForm.propTypes = {
     formLoading: propTypes.bool.isRequired,
     balance: propTypes.any.isRequired,
 }
-export { LoginForm, TransferForm, SignUpForm }
+export { LoginForm, TransferForm, SignUpForm, ForgotPasswordForm }

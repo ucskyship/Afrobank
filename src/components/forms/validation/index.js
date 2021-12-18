@@ -26,4 +26,8 @@ const signUpSchema = yup.object().shape({
     phoneNumber: yup.string().required(),
 })
 
-export { loginSchema, transferSchema, signUpSchema }
+const forgotPasswordSchema = yup.object().shape({
+    email: yup.string().email().required('email is required'),
+})
+
+export { loginSchema, transferSchema, signUpSchema, forgotPasswordSchema }
