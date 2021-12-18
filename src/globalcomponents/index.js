@@ -1,4 +1,5 @@
 import Pin from './pin'
 import Button from './button'
+import CustomInputs from './input'
 
-export { Pin, Button }
+export { Pin, Button, CustomInputs }
