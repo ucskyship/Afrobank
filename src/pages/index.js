@@ -1,6 +1,7 @@
 import React from 'react'
 import { Dashboard, Homepage, Register, SignOut, Signin } from './allpages'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import ProtectedroutePages from './protectedroute.pages'
 
 const routes = [
@@ -28,26 +29,30 @@ const routes = [
 
 const Main = () => {
     return (
-        <BrowserRouter basename="/Afrobank">
-            <Switch>
-                {routes.map((data, i) =>
-                    data.public ? (
-                        <Route
-                            key={i}
-                            path={data.path}
-                            component={data.component}
-                        />
-                    ) : (
-                        <ProtectedroutePages
-                            key={i}
-                            path={data.path}
-                            component={data.component}
-                        />
-                    )
-                )}
-                <Route path="/" component={Homepage} />
-            </Switch>
-        </BrowserRouter>
+        <TransitionGroup>
+            <CSSTransition>
+                <BrowserRouter basename="/Afrobank">
+                    <Switch>
+                        {routes.map((data, i) =>
+                            data.public ? (
+                                <Route
+                                    key={i}
+                                    path={data.path}
+                                    component={data.component}
+                                />
+                            ) : (
+                                <ProtectedroutePages
+                                    key={i}
+                                    path={data.path}
+                                    component={data.component}
+                                />
+                            )
+                        )}
+                        <Route path="/" component={Homepage} />
+                    </Switch>
+                </BrowserRouter>
+            </CSSTransition>
+        </TransitionGroup>
     )
 }
 

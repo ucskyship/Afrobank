@@ -1,6 +1,6 @@
 import { Formik } from 'formik'
 import React from 'react'
-import { TextField, Box, MenuItem, makeStyles } from '@material-ui/core'
+import { TextField, Box, makeStyles } from '@material-ui/core'
 import { loginSchema, transferSchema, signUpSchema } from './validation'
 import styled from 'styled-components'
 import Loader from 'react-loader-spinner'
@@ -36,7 +36,7 @@ const Input = (props) => {
 }
 
 const Button = (props) => {
-    return <Btn bg="#0d3153" color="white" width={250} height={40} {...props} />
+    return <Btn bg="#065340" color="white" width={250} height={50} {...props} />
 }
 const LoginForm = (props) => {
     const initialValues = {
@@ -53,13 +53,8 @@ const LoginForm = (props) => {
             onSubmit={(e) => props.handleSubmit(e)}
         >
             {({ errors, handleChange, values, handleSubmit }) => {
-                console.log(errors)
                 return (
-                    <Form
-                        onSubmit={handleSubmit}
-                        className="bg-dark pt-4 pb-4 pl-4 pr-4 rounded"
-                        style={{ width: '100%' }}
-                    >
+                    <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
                         {!!props.error && (
                             <p style={{ color: 'red' }}>{props.error}</p>
                         )}
@@ -73,7 +68,9 @@ const LoginForm = (props) => {
                                 autoComplete="false"
                                 style={{
                                     border: `2px solid ${
-                                        !!errors.email ? 'red' : 'green'
+                                        !!errors.email || !!props.error
+                                            ? 'red'
+                                            : 'green'
                                     }`,
                                 }}
                             />
@@ -93,7 +90,9 @@ const LoginForm = (props) => {
                                 value={values.password}
                                 style={{
                                     border: `2px solid ${
-                                        !!errors.password ? 'red' : 'green'
+                                        !!errors.password || !!props.error
+                                            ? 'red'
+                                            : 'green'
                                     }`,
                                 }}
                                 autoComplete="false"
@@ -104,24 +103,35 @@ const LoginForm = (props) => {
                                 </p>
                             )}
                         </div>
-                        <div className="d-flex flex-column justify-content-center align-items-center pt-3">
+                        <div className="d-flex justify-content-end align-items-center pt-3">
+                            <Link
+                                style={{
+                                    color: 'grey',
+                                    fontWeight: 600,
+                                    fontSize: '18px',
+                                }}
+                                to="/signin"
+                            >
+                                forgot password
+                            </Link>
+                        </div>
+                        <div className="d-flex flex-column justify-content-center align-items-center pt-4">
                             <Button
                                 className="mt-2 rounded-pill"
+                                type="submit"
                                 text={
                                     props.formLoading ? (
                                         <Loader
                                             type="ThreeDots"
                                             height={30}
                                             width={30}
-                                            color="#00BFFF"
+                                            color="white"
                                         />
                                     ) : (
-                                        'sign in'
+                                        'Sign In'
                                     )
                                 }
                             />
-
-                            <Link to="/register">register</Link>
                         </div>
                     </Form>
                 )
@@ -215,11 +225,6 @@ const SignUpForm = (props) => {
         phoneNumber: '',
     }
 
-    const style = {
-        height: '32px',
-        width: '95%',
-    }
-
     return (
         <Formik
             validationSchema={signUpSchema}
@@ -230,104 +235,104 @@ const SignUpForm = (props) => {
         >
             {({ errors, handleChange, handleSubmit, values }) => {
                 return (
-                    <Box
-                        component="form"
-                        autoComplete="off"
-                        sx={{
-                            width: 700,
-                            maxWidth: '100%',
-                        }}
-                        onSubmit={handleSubmit}
-                    >
+                    <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
                         {!!props.regError && (
                             <ErrorText>{props.regError}</ErrorText>
                         )}
-                        <Input
-                            label="First name"
-                            value={values.firstName}
-                            type="text"
-                            style={style}
-                            name="firstName"
-                            onChange={handleChange}
-                        />
-                        {!!errors.firstName && (
-                            <ErrorText>{errors.firstName}</ErrorText>
-                        )}
-                        <Input
-                            value={values.surName}
-                            label="Surname"
-                            type="text"
-                            style={style}
-                            name="surName"
-                            onChange={handleChange}
-                        />
-                        {!!errors.surName && (
-                            <ErrorText>{errors.surName}</ErrorText>
-                        )}
-                        <Input
+                        <div className="d-flex justify-content-between mb-2">
+                            <div>
+                                <CustomInputs
+                                    label="First name"
+                                    value={values.firstName}
+                                    type="text"
+                                    name="firstName"
+                                    onChange={handleChange}
+                                    style={{ width: '100%' }}
+                                />
+                                {!!errors.firstName && (
+                                    <ErrorText>{errors.firstName}</ErrorText>
+                                )}
+                            </div>
+                            <div>
+                                <CustomInputs
+                                    value={values.surName}
+                                    label="Surname"
+                                    type="text"
+                                    name="surName"
+                                    onChange={handleChange}
+                                />
+                                {!!errors.surName && (
+                                    <ErrorText>{errors.surName}</ErrorText>
+                                )}
+                            </div>
+                        </div>
+
+                        <CustomInputs
                             value={values.lastName}
                             label="Last name"
                             type="text"
-                            style={style}
                             name="lastName"
                             onChange={handleChange}
+                            className="mb-2"
                         />
                         {!!errors.lastName && (
                             <ErrorText>{errors.lastName}</ErrorText>
                         )}
 
-                        <Input
+                        <CustomInputs
                             onChange={handleChange}
                             value={values.email}
+                            className="mb-2"
                             label="Email"
                             type="email"
                             name="email"
-                            style={style}
                         />
                         {!!errors.email && (
                             <ErrorText>{errors.email}</ErrorText>
                         )}
-                        <Input
+                        <CustomInputs
                             value={values.password}
                             label="Password"
                             type="password"
                             name="password"
                             onChange={handleChange}
-                            style={style}
+                            className="mb-2"
                         />
                         {!!errors.password && (
                             <ErrorText>{errors.password}</ErrorText>
                         )}
-                        <Input
+                        <CustomInputs
                             type="text"
                             label="Phone number"
                             value={values.phoneNumber}
                             onChange={handleChange}
-                            style={style}
                             name="phoneNumber"
+                            className="mb-2"
                         />
                         {!!errors.phoneNumber && (
                             <ErrorText>{errors.phoneNumber}</ErrorText>
                         )}
 
-                        <Input
+                        <CustomInputs
                             label="Gender"
                             style={{
                                 width: '80%',
                             }}
-                            select
+                            type="select"
                             name="gender"
                             value={values.gender}
                             onChange={handleChange}
+                            className="mb-2"
                         >
-                            <MenuItem value="male">male</MenuItem>
-                            <MenuItem value="female">female</MenuItem>
-                        </Input>
+                            <option value="">select gender</option>
+                            <option value="male">male</option>
+                            <option value="female">female</option>
+                        </CustomInputs>
                         {!!errors.gender && (
                             <ErrorText>{errors.gender}</ErrorText>
                         )}
-                        <br />
-                        <div className="d-flex justify-content-center align-items-center">
+
+                        <div className="d-flex justify-content-center align-items-center mt-3">
                             <Button
                                 type="submit"
                                 className="mt-2 rounded-pill"
@@ -345,12 +350,7 @@ const SignUpForm = (props) => {
                                 }
                             />
                         </div>
-                        <div className="d-flex justify-content-center align-items-center">
-                            <Link className="text-center pl-2" to="/signin">
-                                sign in
-                            </Link>
-                        </div>
-                    </Box>
+                    </Form>
                 )
             }}
         </Formik>

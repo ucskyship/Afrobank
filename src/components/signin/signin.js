@@ -1,16 +1,26 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Col } from 'reactstrap'
+import { Col, Row, Button as btn } from 'reactstrap'
 import { userLogin } from '../../services/authentication'
 import { user_login } from '../../services/appstore/actions/actions'
 import { LoginForm } from '../forms/index'
-import Papa from 'papaparse'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+import { Facebook, Instagram, Twitter } from '@material-ui/icons'
 
-const Text = styled.p`
-    font-size: 30px;
+export const Text = styled.p`
+    font-size: 42px;
     font-weight: 600;
-    color: grey;
+    color: #065340;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0.02rem;
+`
+export const Button = styled(btn)`
+    background-color: transparent;
+    border: 2px solid white;
+    width: 150px;
+    height: 50px;
+    color: white;
 `
 
 const SignIn = (props) => {
@@ -18,22 +28,6 @@ const SignIn = (props) => {
         error: '',
         formLoading: false,
     })
-    const [data, setData] = useState([])
-
-    const processInfo = (resData) => {
-        console.log(resData.data)
-        setData(resData.data)
-    }
-
-    const handleChange = (e) => {
-        const file = e.target.files[0]
-        Papa.parse(file, {
-            header: true,
-            download: true,
-            skipEmptyLines: true,
-            complete: processInfo,
-        })
-    }
 
     const handleSubmit = async (value) => {
         setState({
@@ -55,18 +49,104 @@ const SignIn = (props) => {
     }
 
     return (
-        <Col
-            className="d-flex flex-column align-items-center justify-content-center"
-            style={{ height: '100vh' }}
-        >
-            <Col lg={4} xs={11}>
-                <Text className="text-center">Welcome back</Text>
-                <LoginForm
-                    handleSubmit={handleSubmit}
-                    formLoading={state.formLoading}
-                    error={state.error}
-                />
-            </Col>
+        <Col style={{ height: '100vh' }}>
+            <Row style={{ height: '100%' }}>
+                <Col
+                    lg={8}
+                    className="d-flex justify-content-center align-items-center"
+                >
+                    <Col lg={6} xs={11}>
+                        <Text className="text-center">Sign in to Account</Text>
+                        <Col lg={4} className="m-auto pt-3 pb-4">
+                            <Row>
+                                <Col>
+                                    <Facebook
+                                        style={{ color: '#065340' }}
+                                        fontSize="large"
+                                    />
+                                </Col>
+                                <Col>
+                                    <Twitter
+                                        style={{ color: '#065340' }}
+                                        fontSize="large"
+                                    />
+                                </Col>
+                                <Col>
+                                    <Instagram
+                                        style={{ color: '#065340' }}
+                                        fontSize="large"
+                                    />
+                                </Col>
+                            </Row>
+                        </Col>
+                        <Text
+                            style={{ fontSize: '14px' }}
+                            className="text-center"
+                        >
+                            or use your email account
+                        </Text>
+                        <LoginForm
+                            handleSubmit={handleSubmit}
+                            formLoading={state.formLoading}
+                            error={state.error}
+                        />
+                        <Col
+                            style={{
+                                position: 'absolute',
+                                top: '130%',
+                                bottom: 0,
+                            }}
+                        >
+                            <Text
+                                style={{ fontSize: '14px' }}
+                                className="text-center"
+                            >
+                                policy . Terms & conditions
+                            </Text>
+                        </Col>
+                    </Col>
+                </Col>
+                <Col
+                    lg={4}
+                    style={{ backgroundColor: '#065340' }}
+                    className="d-flex justify-content-center align-items-center "
+                >
+                    <Col lg={7} className="m-auto">
+                        <Text
+                            style={{ color: 'white' }}
+                            className="text-center"
+                        >
+                            Hello, Friend
+                        </Text>
+                        <Text
+                            style={{
+                                fontSize: '18px',
+                                color: 'white',
+                                opacity: 0.7,
+                                fontWeight: 500,
+                            }}
+                            className="text-center"
+                        >
+                            Fill up personal information and start journey with
+                            us
+                        </Text>
+                        <div className="d-flex justify-content-center pt-4">
+                            <Link
+                                style={{
+                                    color: 'white',
+                                    textDecoration: 'none',
+                                }}
+                                to="/register"
+                            >
+                                <Button className="rounded-pill">
+                                    Sign Up
+                                </Button>
+                            </Link>
+                        </div>
+                    </Col>
+                </Col>
+            </Row>
+
             {/* <Col className="bg-dark" style={{ height: '160px' }}></Col> */}
         </Col>
     )

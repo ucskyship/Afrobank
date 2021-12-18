@@ -2,12 +2,8 @@ import React from 'react'
 import { Row, Col } from 'reactstrap'
 import { SignUpForm } from '../forms'
 import { registerUser } from '../../services/authentication'
-import styled from 'styled-components'
-
-const FormHeaderText = styled.p`
-    font-size: 16px;
-    font-weight: 600;
-`
+import { Button, Text } from '../signin/signin'
+import { Link } from 'react-router-dom'
 
 class Register extends React.Component {
     constructor(props) {
@@ -33,31 +29,66 @@ class Register extends React.Component {
     }
     render() {
         return (
-            <div>
-                <Col>
-                    <Row>
-                        <Col lg={6}>
-                            <div className="d-flex justify-content-center align-items-center">
-                                <FormHeaderText>
-                                    Create a free account
-                                </FormHeaderText>
-                            </div>
+            <Col style={{ height: '100vh', overflow: 'hidden' }}>
+                <Row style={{ height: '100%' }}>
+                    <Col
+                        lg={8}
+                        className="d-flex justify-content-center align-items-center"
+                    >
+                        <Col lg={6} xs={11}>
+                            <Text className="text-center">
+                                Create an Account
+                            </Text>
+
                             <SignUpForm
-                                formLoading={this.state.formLoading}
                                 handleSubmit={this.handleSubmit}
-                                regError={this.state.regError}
+                                formLoading={this.state.formLoading}
+                                error={this.state.regError}
                             />
                         </Col>
-                        <Col style={{ background: '#4004af' }} lg={6}>
-                            <div className="d-flex justify-content-center align-items-center">
-                                <div>
-                                    <h1>Hellow</h1>
-                                </div>
+                    </Col>
+                    <Col
+                        lg={4}
+                        style={{ backgroundColor: '#065340' }}
+                        className="d-flex justify-content-center align-items-center "
+                    >
+                        <Col lg={7} className="m-auto">
+                            <Text
+                                style={{ color: 'white' }}
+                                className="text-center"
+                            >
+                                Hello, Friend
+                            </Text>
+                            <Text
+                                style={{
+                                    fontSize: '18px',
+                                    color: 'white',
+                                    opacity: 0.7,
+                                    fontWeight: 500,
+                                }}
+                                className="text-center"
+                            >
+                                Welcome back, we've missed you
+                            </Text>
+                            <div className="d-flex justify-content-center pt-4">
+                                <Link
+                                    style={{
+                                        color: 'white',
+                                        textDecoration: 'none',
+                                    }}
+                                    to="/signin"
+                                >
+                                    <Button className="rounded-pill">
+                                        Sign In
+                                    </Button>
+                                </Link>
                             </div>
                         </Col>
-                    </Row>
-                </Col>
-            </div>
+                    </Col>
+                </Row>
+
+                {/* <Col className="bg-dark" style={{ height: '160px' }}></Col> */}
+            </Col>
         )
     }
 }
