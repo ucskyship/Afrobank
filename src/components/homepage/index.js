@@ -17,26 +17,36 @@ const HomePage = () => {
                 backgroundColor: '#065340',
             }}
         >
-            <Col>
-                <Row className="d-flex justify-content-between align-items-center">
-                    <Col lg={6} sm={12}>
-                        <p>Afrobank</p>
-                    </Col>
-                    <Col className="d-flex justify-content-end " lg={6}>
-                        <Link to="/signin">
-                            <Button
-                                className="rounded-pill"
-                                style={{
-                                    backgroundColor: 'white',
-                                    color: '#065340',
-                                }}
-                            >
-                                sign in
-                            </Button>
-                        </Link>
-                    </Col>
-                </Row>
-            </Col>
+            <Row className="d-flex justify-content-between align-items-center">
+                <Col lg={6} sm={6}>
+                    <p
+                        style={{
+                            color: 'whitesmoke',
+                            fontWeight: '600',
+                            fontSize: '18px',
+                        }}
+                    >
+                        Afrobank
+                    </p>
+                </Col>
+                <Col
+                    className="d-flex align-items-center justify-content-end"
+                    lg={6}
+                    sm={3}
+                >
+                    <Link to="/signin">
+                        <Button
+                            className="rounded-pill"
+                            style={{
+                                backgroundColor: 'white',
+                                color: '#065340',
+                            }}
+                        >
+                            sign in
+                        </Button>
+                    </Link>
+                </Col>
+            </Row>
             <Col
                 style={{ height: '100%' }}
                 className="d-flex justify-content-between align-items-center"
@@ -45,6 +55,7 @@ const HomePage = () => {
                     <Col lg={4} sm={12}>
                         <div>
                             <Text
+                                className="is-center"
                                 style={{
                                     color: 'white',
                                 }}
@@ -52,6 +63,7 @@ const HomePage = () => {
                                 Afrobank is your life long partner
                             </Text>
                             <Text
+                                className="is-center"
                                 style={{
                                     color: 'white',
                                     fontSize: '24px',
@@ -66,7 +78,7 @@ const HomePage = () => {
                             </Text>
                             <Link className="mt-4" to="/register">
                                 <Button
-                                    className="rounded-pill "
+                                    className="rounded-pill mobile_width"
                                     style={{
                                         backgroundColor: 'white',
                                         color: '#065340',

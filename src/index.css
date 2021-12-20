@@ -8,14 +8,34 @@ body {
 }
 .bottom_nav {
     display: none;
+    position: fixed;
+    bottom: 0;
+    z-index: 1;
 }
 
 @media only screen and (max-width: 480px) {
     .hide {
         display: none;
     }
+    .icon-size {
+        font-size: 10px;
+    }
     .bottom_nav {
-        display: block;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+    }
+    .is-center {
+        text-align: center;
+    }
+    .mobile_width {
+        width: 80%;
+    }
+    .is-flex {
+        display: flex;
+        justify-content: center;
     }
     .mobile_mt {
         margin-top: 5%;

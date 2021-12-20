@@ -32,7 +32,7 @@ const AccountCard = styled.div`
 `
 
 export const Dashbody = styled.div`
-    height: 105vh;
+    overflow: hidden;
     background: #0f0f0fe5;
 `
 const Inputdiv = styled.div`
@@ -181,6 +181,7 @@ const Dashboard = (props) => {
 
     return (
         <Col
+            className="p-0 m-0"
             style={{
                 height: '100vh',
                 position: 'relative',
@@ -372,7 +373,7 @@ const Dashboard = (props) => {
                                     </Table>
                                 ) : (
                                     <div className="d-flex justify-content-center align-items-center mt-5 mb-5">
-                                        <Text>
+                                        <Text className="is-center">
                                             You don't have any transactions
                                         </Text>
                                     </div>

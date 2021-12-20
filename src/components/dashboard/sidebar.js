@@ -10,7 +10,7 @@ import {
     ExitToApp,
 } from '@material-ui/icons'
 import styled from 'styled-components'
-import { Col, Row } from 'reactstrap'
+import { Col } from 'reactstrap'
 
 export const Type = styled.span`
     color: ${(props) => props.color};
@@ -71,7 +71,7 @@ const dashboardRoutes = [
 ]
 const SideBar = () => {
     return (
-        <Col style={{ position: 'static' }}>
+        <Col className="p-0 m-0" style={{ position: 'static', width: '100%' }}>
             <Col className="pt-4">
                 <Type size="25" className="font-weight-bold" color="white">
                     Afrobank
@@ -86,7 +86,7 @@ const SideBar = () => {
                             to={data.path}
                             style={{ textDecoration: 'none' }}
                         >
-                            {data.icon}
+                            <span className="icon-size">{data.icon}</span>
                             <span className="pl-3">{data.name}</span>
                         </Sidelink>
                     )
@@ -102,25 +102,23 @@ const SideBar = () => {
                     </Sidelink>
                 </div>
             </Col>
-            <Col className="bottom_nav bg-dark" sm={12}>
-                <Row className="d-flex">
-                    {dashboardRoutes.map((data, idx) => {
-                        return (
-                            <Col sm={2}>
-                                <Sidelink
-                                    key={idx}
-                                    exact
-                                    to={data.path}
-                                    style={{ textDecoration: 'none' }}
-                                >
-                                    {data.icon}
-                                    <span className="pl-3">{data.name}</span>
-                                </Sidelink>
-                            </Col>
-                        )
-                    })}
-                </Row>
-            </Col>
+
+            <div className="bottom_nav bg-dark m-0 ">
+                {dashboardRoutes.map((data, idx) => {
+                    return (
+                        <div key={idx}>
+                            <Sidelink
+                                exact
+                                to={data.path}
+                                style={{ textDecoration: 'none' }}
+                            >
+                                {data.icon}
+                                <span className="pl-3 hide">{data.name}</span>
+                            </Sidelink>
+                        </div>
+                    )
+                })}
+            </div>
         </Col>
     )
 }

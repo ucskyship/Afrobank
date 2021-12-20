@@ -96,7 +96,7 @@ const Main = () => {
 
     return (
         <Dashbody className="pb-4">
-            <Col>
+            <Col className="p-0 m-0">
                 <Row>
                     <Col xl={2}>
                         <SideBar />
@@ -125,7 +125,7 @@ const Main = () => {
                             component={Settings}
                         />
                     </Switch>
-                    <Col xl={1}>
+                    <Col className="hide" xl={1}>
                         <Container>
                             <div className="d-flex justify-content-between align-items-center pl-2 pr-3 pt-4">
                                 <Dropdown
