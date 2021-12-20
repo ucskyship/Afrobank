@@ -1,5 +1,12 @@
 const extractApiError = (error) => {
-    throw error.response.data.message
+    if (typeof error === 'object') {
+        if (error.message === 'Network Error') {
+            return error.message
+        } else {
+            return error.response.data.message
+        }
+    } else {
+        return error
+    }
 }
-
 export { extractApiError }

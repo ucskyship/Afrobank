@@ -20,7 +20,7 @@ const ForgotPassword = () => {
                             role="img"
                             aria-label="smiley"
                         >
-                            😟
+                            😔
                         </span>
                     </Text>
                     <Text

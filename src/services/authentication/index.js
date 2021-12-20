@@ -16,7 +16,7 @@ const userLogin = async (payLoad, user_login) => {
         user_login(resp.data.message, true)
         return resp
     } catch (error) {
-        extractApiError(error)
+        throw extractApiError(error)
     }
 }
 

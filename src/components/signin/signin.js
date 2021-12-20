@@ -49,15 +49,29 @@ const SignIn = (props) => {
     }
 
     return (
-        <Col style={{ height: '100vh' }}>
+        <Col
+            // style={{ height: '100vh'
+            //  }}
+            style={{
+                height: '100%',
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+                // backgroundColor: '#065340',
+            }}
+        >
             <Row style={{ height: '100%' }}>
                 <Col
                     lg={8}
                     className="d-flex justify-content-center align-items-center"
                 >
-                    <Col lg={6} xs={12}>
-                        <Text className="text-center">Sign in to Account</Text>
-                        <Col lg={4} sm={3} className="m-auto pt-3 pb-4">
+                    <Col lg={6} xs={12} md={7}>
+                        <Text className="text-center mobile_text">
+                            Sign in to Account
+                        </Text>
+                        <Col lg={4} sm={3} md={6} className="m-auto pt-3 pb-4">
                             <Row>
                                 <Col>
                                     <Facebook
@@ -109,12 +123,12 @@ const SignIn = (props) => {
                 <Col
                     lg={4}
                     style={{ backgroundColor: '#065340' }}
-                    className="d-flex justify-content-center align-items-center "
+                    className="hide d-flex justify-content-center align-items-center mobile_mt mobile_pb"
                 >
-                    <Col lg={7} className="m-auto">
+                    <Col lg={7} className="m-auto ">
                         <Text
                             style={{ color: 'white' }}
-                            className="text-center"
+                            className="text-center hide"
                         >
                             Hello, Friend
                         </Text>
@@ -125,7 +139,7 @@ const SignIn = (props) => {
                                 opacity: 0.7,
                                 fontWeight: 500,
                             }}
-                            className="text-center"
+                            className="text-center hide"
                         >
                             Fill up personal information and start journey with
                             us

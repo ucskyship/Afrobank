@@ -6,3 +6,19 @@ body {
         'Helvetica Neue', sans-serif;
     scroll-behavior: smooth;
 }
+
+@media only screen and (max-width: 480px) {
+    .hide {
+        display: none;
+    }
+    .mobile_mt {
+        margin-top: 5%;
+    }
+    .mobile_pb {
+        padding-bottom: 22px;
+    }
+    .mobile_text {
+        font-size: 14px;
+        font-weight: 500;
+    }
+}

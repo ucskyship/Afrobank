@@ -72,7 +72,7 @@ const LoginForm = (props) => {
                                 label="Email"
                                 autoComplete="false"
                                 style={{
-                                    border: `2px solid ${
+                                    border: `1px solid ${
                                         !!errors.email || !!props.error
                                             ? 'red'
                                             : 'green'
@@ -94,7 +94,7 @@ const LoginForm = (props) => {
                                 label="Password"
                                 value={values.password}
                                 style={{
-                                    border: `2px solid ${
+                                    border: `1px solid ${
                                         !!errors.password || !!props.error
                                             ? 'red'
                                             : 'green'
@@ -124,6 +124,7 @@ const LoginForm = (props) => {
                             <Button
                                 className="mt-2 rounded-pill"
                                 type="submit"
+                                disabled={props.formLoading}
                                 text={
                                     props.formLoading ? (
                                         <Loader

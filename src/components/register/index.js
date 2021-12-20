@@ -30,13 +30,22 @@ class Register extends React.Component {
     }
     render() {
         return (
-            <Col style={{ height: '100vh', overflow: 'hidden' }}>
+            <Col
+                style={{
+                    height: '100vh',
+                    position: 'relative',
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    right: 0,
+                }}
+            >
                 <Row style={{ height: '100%' }}>
                     <Col
                         lg={8}
                         className="d-flex justify-content-center align-items-center"
                     >
-                        <Col lg={6} xs={11}>
+                        <Col lg={6} xs={11} md={7}>
                             <Text className="text-center">
                                 Create an Account
                             </Text>
@@ -51,12 +60,12 @@ class Register extends React.Component {
                     <Col
                         lg={4}
                         style={{ backgroundColor: '#065340' }}
-                        className="d-flex justify-content-center align-items-center "
+                        className="d-flex justify-content-center align-items-center mobile_mt mobile_pb"
                     >
                         <Col lg={7} className="m-auto">
                             <Text
                                 style={{ color: 'white' }}
-                                className="text-center"
+                                className="text-center hide"
                             >
                                 Hello, Friend
                             </Text>
@@ -67,7 +76,7 @@ class Register extends React.Component {
                                     opacity: 0.7,
                                     fontWeight: 500,
                                 }}
-                                className="text-center"
+                                className="text-center hide"
                             >
                                 Welcome back, we've missed you
                             </Text>
