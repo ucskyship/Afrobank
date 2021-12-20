@@ -180,24 +180,39 @@ const Dashboard = (props) => {
     }, [data.signIn.payLoad, props.updateTransactionHistory])
 
     return (
-        <Col>
+        <Col
+            style={{
+                height: '100vh',
+                position: 'relative',
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+            }}
+        >
             <Row>
                 <Col lg={12}>
-                    <div className="d-flex justify-content-between pt-4 align-items-center">
-                        <Type
-                            size="25"
-                            className="font-weight-bold"
-                            color="white"
-                        >
-                            {`Hello ${
-                                data.signIn.payLoad.firstName
-                            }, ${getTimeOfTheDay()}.`}
-                        </Type>
-                        <Inputdiv className="d-flex justify-content-between align-items-center">
-                            <Search />
-                            <Input placeholder="Find something" />
-                        </Inputdiv>
-                    </div>
+                    <Col>
+                        <Row className="d-flex justify-content-between pt-4 align-items-center">
+                            <Col>
+                                <Type
+                                    size="25"
+                                    className="font-weight-bold"
+                                    color="white"
+                                >
+                                    {`Hello ${
+                                        data.signIn.payLoad.firstName
+                                    }, ${getTimeOfTheDay()}.`}
+                                </Type>
+                            </Col>
+                            <Col className="hide  justify-content-end">
+                                <Inputdiv className="d-flex justify-content-between align-items-center">
+                                    <Search />
+                                    <Input placeholder="Find something" />
+                                </Inputdiv>
+                            </Col>
+                        </Row>
+                    </Col>
                     <DashbodyCard className="pb-3 pt-3 mt-5">
                         <Container className="pr-4 pl-4">
                             <Row className="pt-3">
@@ -281,7 +296,7 @@ const Dashboard = (props) => {
                                             background: '#f707eb',
                                             color: 'white',
                                         }}
-                                        className="pt-2"
+                                        className="pt-2 mobile_mt "
                                     >
                                         <Container>
                                             <Type
@@ -321,7 +336,7 @@ const Dashboard = (props) => {
                                     </AccountCard>
                                 </Col>
                                 <Col lg={4}>
-                                    <AccountCard className="d-flex justify-content-center align-items-center">
+                                    <AccountCard className="d-flex justify-content-center align-items-center mobile_mt">
                                         <Type color="white">{`you've spent ${calculateAllDebit(
                                             data.transactions
                                         )} so far`}</Type>

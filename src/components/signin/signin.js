@@ -71,21 +71,26 @@ const SignIn = (props) => {
                         <Text className="text-center mobile_text">
                             Sign in to Account
                         </Text>
-                        <Col lg={4} sm={3} md={6} className="m-auto pt-3 pb-4">
-                            <Row>
-                                <Col>
+                        <Col
+                            lg={4}
+                            sm={12}
+                            md={6}
+                            className="m-auto pt-3 pb-4 hide"
+                        >
+                            <Row className="d-flex justify-content-between align-items-center">
+                                <Col lg={2} sm={3}>
                                     <Facebook
                                         style={{ color: '#065340' }}
                                         fontSize="large"
                                     />
                                 </Col>
-                                <Col>
+                                <Col lg={2} sm={3}>
                                     <Twitter
                                         style={{ color: '#065340' }}
                                         fontSize="large"
                                     />
                                 </Col>
-                                <Col>
+                                <Col lg={2} sm={3}>
                                     <Instagram
                                         style={{ color: '#065340' }}
                                         fontSize="large"

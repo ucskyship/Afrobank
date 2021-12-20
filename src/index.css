@@ -6,10 +6,16 @@ body {
         'Helvetica Neue', sans-serif;
     scroll-behavior: smooth;
 }
+.bottom_nav {
+    display: none;
+}
 
 @media only screen and (max-width: 480px) {
     .hide {
         display: none;
+    }
+    .bottom_nav {
+        display: block;
     }
     .mobile_mt {
         margin-top: 5%;

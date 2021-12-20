@@ -10,6 +10,7 @@ import {
     ExitToApp,
 } from '@material-ui/icons'
 import styled from 'styled-components'
+import { Col, Row } from 'reactstrap'
 
 export const Type = styled.span`
     color: ${(props) => props.color};
@@ -70,13 +71,13 @@ const dashboardRoutes = [
 ]
 const SideBar = () => {
     return (
-        <div style={{ position: 'static' }}>
-            <div className="pt-4">
+        <Col style={{ position: 'static' }}>
+            <Col className="pt-4">
                 <Type size="25" className="font-weight-bold" color="white">
                     Afrobank
                 </Type>
-            </div>
-            <div style={{ marginTop: '55px' }}>
+            </Col>
+            <Col className="hide" style={{ marginTop: '55px' }}>
                 {dashboardRoutes.map((data, idx) => {
                     return (
                         <Sidelink
@@ -100,8 +101,27 @@ const SideBar = () => {
                         <span className="pl-3">log out</span>
                     </Sidelink>
                 </div>
-            </div>
-        </div>
+            </Col>
+            <Col className="bottom_nav bg-dark" sm={12}>
+                <Row className="d-flex">
+                    {dashboardRoutes.map((data, idx) => {
+                        return (
+                            <Col sm={2}>
+                                <Sidelink
+                                    key={idx}
+                                    exact
+                                    to={data.path}
+                                    style={{ textDecoration: 'none' }}
+                                >
+                                    {data.icon}
+                                    <span className="pl-3">{data.name}</span>
+                                </Sidelink>
+                            </Col>
+                        )
+                    })}
+                </Row>
+            </Col>
+        </Col>
     )
 }
 
