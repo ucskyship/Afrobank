@@ -1,5 +1,6 @@
 const formatMoney = (amount) => {
-    const money = amount.toFixed(2)
+    const newAmount = typeof amount === 'string' ? +amount : amount
+    const money = newAmount.toFixed(2)
     return `₦ ${money}`
 }
 const sumAmount = (transactions) => {

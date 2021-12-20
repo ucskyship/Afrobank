@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { connect, useSelector } from 'react-redux'
 import { transactionHistory, getBalance } from '../../services/transactions'
-import { Container, Col, Row, Table } from 'reactstrap'
+import {
+    Container,
+    Col,
+    Row,
+    Table,
+    Modal,
+    ModalBody,
+    ModalHeader,
+} from 'reactstrap'
 import {
     updateTransactionHistory,
     toggleDisplay,
@@ -88,7 +96,7 @@ const Dashboard = (props) => {
     }
 
     const pageBalance = async () => {
-        const { accountNumber } = data.signIn.payLoad
+        const { accountNumber, accountBalance } = data.signIn.payLoad
         setState({
             balanceLoading: true,
         })
@@ -167,9 +175,7 @@ const Dashboard = (props) => {
                     accountNumber,
                     props.updateTransactionHistory
                 )
-                const balance = await getBalance(accountNumber)
                 setState({
-                    balance: balance,
                     balanceLoading: false,
                 })
             } catch (error) {
@@ -191,6 +197,22 @@ const Dashboard = (props) => {
                 right: 0,
             }}
         >
+            {/* <Modal isOpen centered>
+                <div
+                    className="d-flex justify-content-between align-items-center pl-2 pr-2"
+                    style={{
+                        height: '60px',
+                        width: '100%',
+                        backgroundColor: 'red',
+                    }}
+                >
+                    <h1>a</h1>
+                    <h1>b</h1>
+                </div>
+                <ModalBody>
+                    <h1>Hello world</h1>
+                </ModalBody>
+            </Modal> */}
             <Row>
                 <Col lg={12}>
                     <Col>
@@ -198,7 +220,7 @@ const Dashboard = (props) => {
                             <Col>
                                 <Type
                                     size="25"
-                                    className="font-weight-bold"
+                                    className="font-weight-bold mobile_pl"
                                     color="white"
                                 >
                                     {`Hello ${
@@ -281,7 +303,8 @@ const Dashboard = (props) => {
                                                         />
                                                     ) : !props.balanceDisplay ? (
                                                         formatMoney(
-                                                            state.balance
+                                                            data.signIn.payLoad
+                                                                .accountBalance
                                                         )
                                                     ) : (
                                                         '****'

@@ -36,17 +36,8 @@ const DashbodyCard = styled.div`
 const SendMoney = (props) => {
     const [formLoading, setFormLoading] = useState(false)
     const [error, setError] = useState('')
-    const [balance, setBalance] = useState(0)
     const [pin, setPin] = useState('')
     const [pinModal, setPinModal] = useState(false)
-
-    useEffect(() => {
-        const { accountNumber } = props.payLoad
-        async function fetchBalance() {
-            setBalance(await getBalance(accountNumber))
-        }
-        fetchBalance()
-    }, [props.payLoad])
 
     const handleSubmit = async (values) => {
         const { accountNumber } = props.payLoad
@@ -66,7 +57,16 @@ const SendMoney = (props) => {
     }
 
     return (
-        <Col style={{ height: '100%', maxheight: '530px' }}>
+        <Col
+            style={{
+                height: '100vh',
+                position: 'relative',
+                top: 0,
+                left: 0,
+                bottom: 0,
+                right: 0,
+            }}
+        >
             <PinModal
                 isVisible={pinModal}
                 toggleVisibility={() => toggleVisibility()}
@@ -78,7 +78,7 @@ const SendMoney = (props) => {
                     <div className="d-flex pt-4 align-items-center">
                         <Type
                             size="25"
-                            className="font-weight-bold"
+                            className="font-weight-bold mobile_pl"
                             color="white"
                         >
                             Send money
@@ -96,7 +96,7 @@ const SendMoney = (props) => {
                             formSubmit={handleSubmit}
                             formLoading={formLoading}
                             error={error}
-                            balance={balance}
+                            balance={props.payLoad.accountBalance}
                         />
                     </AccountCard>
                 </Col>

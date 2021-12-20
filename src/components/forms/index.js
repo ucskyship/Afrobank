@@ -35,11 +35,6 @@ const style = makeStyles(() => ({
     },
 }))
 
-const Input = (props) => {
-    const classes = style()
-    return <TextField className={classes.Input} variant="outlined" {...props} />
-}
-
 const Button = (props) => {
     return <Btn bg="#065340" color="white" width={250} height={50} {...props} />
 }
@@ -221,17 +216,9 @@ const TransferForm = (props) => {
             {({ errors, handleChange, handleSubmit, values }) => {
                 const isValidBalance = +values.amount > +props.balance
                 return (
-                    <Box
-                        component="form"
-                        autoComplete="off"
-                        sx={{
-                            width: 700,
-                            maxWidth: '100%',
-                        }}
-                        onSubmit={handleSubmit}
-                    >
+                    <Form onSubmit={handleSubmit}>
                         {!!props.error && <ErrorText>{props.error}</ErrorText>}
-                        <Input
+                        <CustomInputs
                             type="number"
                             name="recipient"
                             label="recipient"
@@ -240,7 +227,7 @@ const TransferForm = (props) => {
                         {!!errors.recipient && (
                             <Error>{errors.recipient}</Error>
                         )}
-                        <Input
+                        <CustomInputs
                             type="number"
                             name="amount"
                             label="amount"
@@ -258,20 +245,21 @@ const TransferForm = (props) => {
                                 type="submit"
                                 color="white"
                                 className="mt-3 mb-2 rounded-pill"
-                            >
-                                {props.formLoading ? (
-                                    <Loader
-                                        type="ThreeDots"
-                                        height={30}
-                                        width={30}
-                                        color="#00BFFF"
-                                    />
-                                ) : (
-                                    'send'
-                                )}
-                            </Button>
+                                text={
+                                    props.formLoading ? (
+                                        <Loader
+                                            type="ThreeDots"
+                                            height={30}
+                                            width={30}
+                                            color="#00BFFF"
+                                        />
+                                    ) : (
+                                        'send'
+                                    )
+                                }
+                            />
                         </div>
-                    </Box>
+                    </Form>
                 )
             }}
         </Formik>

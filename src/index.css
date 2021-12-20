@@ -43,6 +43,9 @@ body {
     .mobile_pb {
         padding-bottom: 22px;
     }
+    .mobile_pl {
+        padding-left: 15px;
+    }
     .mobile_text {
         font-size: 14px;
         font-weight: 500;

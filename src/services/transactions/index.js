@@ -12,7 +12,7 @@ const transfer = async (payload, sender, pin) => {
         const response = await Axios.post('/transfer', body)
         return response.data.message
     } catch (error) {
-        extractApiError(error)
+        throw extractApiError(error)
     }
 }
 

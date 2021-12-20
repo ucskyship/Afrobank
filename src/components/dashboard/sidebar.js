@@ -41,6 +41,22 @@ export const Sidelink = Styled((props) => (
     color: white;
   }
 `
+export const BottomNavLink = Styled((props) => (
+    <NavLink {...props} activeClassName={activeClass} />
+))`
+  color: white;
+  font-wight: 500;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  transition: all ease 0.3s;
+  &.${activeClass} {
+    background: #4004af;
+    color: white;
+  }
+`
 
 const dashboardRoutes = [
     {
@@ -107,14 +123,14 @@ const SideBar = () => {
                 {dashboardRoutes.map((data, idx) => {
                     return (
                         <div key={idx}>
-                            <Sidelink
+                            <BottomNavLink
                                 exact
                                 to={data.path}
                                 style={{ textDecoration: 'none' }}
                             >
                                 {data.icon}
                                 <span className="pl-3 hide">{data.name}</span>
-                            </Sidelink>
+                            </BottomNavLink>
                         </div>
                     )
                 })}
