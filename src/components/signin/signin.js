@@ -1,12 +1,20 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { Col, Row, Button as btn } from 'reactstrap'
+import {
+    Col,
+    Row,
+    Button as btn,
+    Modal,
+    Container,
+    ModalBody,
+} from 'reactstrap'
 import { userLogin } from '../../services/authentication'
 import { user_login } from '../../services/appstore/actions/actions'
 import { LoginForm } from '../forms/index'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { Facebook, Instagram, Twitter } from '@material-ui/icons'
+import { Clear, Facebook, Instagram, Twitter } from '@material-ui/icons'
+import Privacy from './privacy'
 
 export const Text = styled.p`
     font-size: 42px;
@@ -28,6 +36,11 @@ const SignIn = (props) => {
         error: '',
         formLoading: false,
     })
+    const [open, setOpen] = useState(false)
+
+    const toggle = () => {
+        setOpen(!open)
+    }
 
     const handleSubmit = async (value) => {
         setState({
@@ -117,8 +130,9 @@ const SignIn = (props) => {
                             }}
                         >
                             <Text
-                                style={{ fontSize: '14px' }}
+                                style={{ fontSize: '14px', cursor: 'pointer' }}
                                 className="text-center"
+                                onClick={() => toggle()}
                             >
                                 policy . Terms & conditions
                             </Text>
@@ -166,6 +180,27 @@ const SignIn = (props) => {
                 </Col>
             </Row>
 
+            <Modal size="lg" isOpen={open} toggle={() => toggle()} centered>
+                <Container>
+                    <Col>
+                        <Col
+                            lg={6}
+                            className="ml-auto d-flex justify-content-end align-items-center"
+                        >
+                            <button
+                                className="float-right btn "
+                                onClick={() => toggle()}
+                            >
+                                <Clear />
+                            </button>
+                        </Col>
+                    </Col>
+                    <ModalBody></ModalBody>
+                    <Col>
+                        <Privacy />
+                    </Col>
+                </Container>
+            </Modal>
             {/* <Col className="bg-dark" style={{ height: '160px' }}></Col> */}
         </Col>
     )

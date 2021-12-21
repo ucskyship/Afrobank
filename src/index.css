@@ -12,6 +12,12 @@ body {
     bottom: 0;
     z-index: 1;
 }
+.btn {
+    border: none;
+    background-color: transparent;
+    outline: none;
+    color: red;
+}
 
 @media only screen and (max-width: 480px) {
     .hide {
