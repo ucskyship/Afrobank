@@ -11,9 +11,8 @@ const transferSchema = yup.object().shape({
 })
 
 const signUpSchema = yup.object().shape({
-    firstName: yup.string().required(),
-    surName: yup.string().required(),
-    lastName: yup.string().required(),
+    firstName: yup.string().required('*first name is required'),
+    lastName: yup.string().required('*last name is required'),
     email: yup.string().required().email(),
     password: yup
         .string()
@@ -23,7 +22,7 @@ const signUpSchema = yup.object().shape({
             'min length 8 Characters, One Uppercase, One Lowercase, One Number and One Special Character'
         ),
     gender: yup.string().required('*gender is required'),
-    phoneNumber: yup.string().required(),
+    phoneNumber: yup.string().required('*phone number is required'),
 })
 
 const forgotPasswordSchema = yup.object().shape({

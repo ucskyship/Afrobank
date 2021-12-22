@@ -1,6 +1,5 @@
 import { Formik } from 'formik'
 import React from 'react'
-import { TextField, Box, makeStyles } from '@material-ui/core'
 import {
     loginSchema,
     transferSchema,
@@ -25,15 +24,6 @@ const Error = styled.p`
     text-align: start;
     font-size: 12px;
 `
-
-const style = makeStyles(() => ({
-    Input: {
-        height: 40,
-        width: '100%',
-        marginBottom: 40,
-        outline: 'none',
-    },
-}))
 
 const Button = (props) => {
     return <Btn bg="#065340" color="white" width={250} height={50} {...props} />
@@ -269,7 +259,6 @@ const TransferForm = (props) => {
 const SignUpForm = (props) => {
     const initialValues = {
         firstName: '',
-        surName: '',
         lastName: '',
         email: '',
         gender: '',
@@ -291,33 +280,18 @@ const SignUpForm = (props) => {
                         {!!props.regError && (
                             <ErrorText>{props.regError}</ErrorText>
                         )}
-                        <div className="d-flex justify-content-between mb-2">
-                            <div>
-                                <CustomInputs
-                                    label="First name"
-                                    value={values.firstName}
-                                    type="text"
-                                    name="firstName"
-                                    onChange={handleChange}
-                                    style={{ width: '100%' }}
-                                />
-                                {!!errors.firstName && (
-                                    <ErrorText>{errors.firstName}</ErrorText>
-                                )}
-                            </div>
-                            <div>
-                                <CustomInputs
-                                    value={values.surName}
-                                    label="Surname"
-                                    type="text"
-                                    name="surName"
-                                    onChange={handleChange}
-                                />
-                                {!!errors.surName && (
-                                    <ErrorText>{errors.surName}</ErrorText>
-                                )}
-                            </div>
-                        </div>
+                        <CustomInputs
+                            label="First name"
+                            value={values.firstName}
+                            type="text"
+                            name="firstName"
+                            onChange={handleChange}
+                            style={{ width: '100%' }}
+                            className="mb-2"
+                        />
+                        {!!errors.firstName && (
+                            <ErrorText>{errors.firstName}</ErrorText>
+                        )}
 
                         <CustomInputs
                             value={values.lastName}

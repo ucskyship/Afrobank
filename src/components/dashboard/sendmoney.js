@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Card } from 'reactstrap'
 import styled from 'styled-components'
-import { getBalance, transfer } from '../../services/transactions/index'
+import { transfer } from '../../services/transactions/index'
 import { TransferForm } from '../forms/index'
 import { PinModal } from '../../modals'
 
