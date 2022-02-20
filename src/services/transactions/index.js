@@ -7,6 +7,7 @@ const transfer = async (payload, sender, pin) => {
         recipient: recipient.toString(),
         amount,
         sender: sender.toString(),
+        pin,
     }
     try {
         const response = await Axios.post('/transfer', body)

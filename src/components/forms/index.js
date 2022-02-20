@@ -197,17 +197,16 @@ const TransferForm = (props) => {
 
     return (
         <Formik
-            validateOnBlur={false}
-            validateOnChange={false}
+            validateOnChange={true}
             initialValues={initialValues}
             validationSchema={transferSchema}
             onSubmit={props.formSubmit}
+            {...props}
         >
             {({ errors, handleChange, handleSubmit, values }) => {
                 const isValidBalance = +values.amount > +props.balance
                 return (
                     <Form onSubmit={handleSubmit}>
-                        {!!props.error && <ErrorText>{props.error}</ErrorText>}
                         <CustomInputs
                             type="number"
                             name="recipient"
@@ -235,18 +234,7 @@ const TransferForm = (props) => {
                                 type="submit"
                                 color="white"
                                 className="mt-3 mb-2 rounded-pill"
-                                text={
-                                    props.formLoading ? (
-                                        <Loader
-                                            type="ThreeDots"
-                                            height={30}
-                                            width={30}
-                                            color="#00BFFF"
-                                        />
-                                    ) : (
-                                        'send'
-                                    )
-                                }
+                                text={'send'}
                             />
                         </div>
                     </Form>
@@ -390,8 +378,6 @@ LoginForm.propTypes = {
 }
 TransferForm.propTypes = {
     formSubmit: propTypes.func.isRequired,
-    error: propTypes.string.isRequired,
-    formLoading: propTypes.bool.isRequired,
     balance: propTypes.any.isRequired,
 }
 export { LoginForm, TransferForm, SignUpForm, ForgotPasswordForm }

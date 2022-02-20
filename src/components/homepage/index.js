@@ -2,6 +2,8 @@ import React from 'react'
 import { Col, Row } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { Button, Text } from '../signin/signin'
+import { ArrowForward } from '@material-ui/icons'
+import Image from '../../assets/images/woman.png'
 
 const HomePage = () => {
     return (
@@ -23,7 +25,7 @@ const HomePage = () => {
                         style={{
                             color: 'whitesmoke',
                             fontWeight: '600',
-                            fontSize: '18px',
+                            fontSize: '30px',
                         }}
                     >
                         Afrobank
@@ -40,6 +42,7 @@ const HomePage = () => {
                             style={{
                                 backgroundColor: 'white',
                                 color: '#065340',
+                                fontWeight: '550',
                             }}
                         >
                             sign in
@@ -49,10 +52,10 @@ const HomePage = () => {
             </Row>
             <Col
                 style={{ height: '100%' }}
-                className="d-flex justify-content-between align-items-center"
+                className="d-flex align-items-center"
             >
-                <Row>
-                    <Col lg={4} sm={12}>
+                <Row className="d-flex justify-content-between align-items-center">
+                    <Col lg={5} sm={12}>
                         <div>
                             <Text
                                 className="is-center"
@@ -78,19 +81,30 @@ const HomePage = () => {
                             </Text>
                             <Link className="mt-4" to="/register">
                                 <Button
-                                    className="rounded-pill mobile_width"
+                                    className="rounded-pill mobile_width d-flex justify-content-center align-items-center"
                                     style={{
                                         backgroundColor: 'white',
                                         color: '#065340',
-                                        width: '60%',
+                                        width: '40%',
                                         height: '55px',
                                         fontSize: '20px',
+                                        fontWeight: '550',
                                     }}
                                 >
-                                    Let's get you started
+                                    get started
+                                    <ArrowForward className="pl-2" />
                                 </Button>
                             </Link>
                         </div>
+                    </Col>
+                    <Col className="d-flex justify-content-center">
+                        <img
+                            src={Image}
+                            alt={Image}
+                            className="rounded"
+                            width="550"
+                            height="auto"
+                        />
                     </Col>
                 </Row>
             </Col>

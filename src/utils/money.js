@@ -1,4 +1,4 @@
-const formatMoney = (amount) => {
+const formatMoney = (amount = 0) => {
     const newAmount = typeof amount === 'string' ? +amount : amount
     const money = newAmount.toFixed(2)
     return `₦ ${money}`

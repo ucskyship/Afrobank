@@ -38,4 +38,16 @@ const signOut = (userLogin) => {
         throw error
     }
 }
-export { userLogin, resetPin, registerUser, signOut }
+
+const createPin = async (payload) => {
+    console.log(payload)
+
+    try {
+        const resp = await Axios.patch('/createpin', payload)
+        console.log(resp)
+    } catch (error) {
+        console.log(error)
+        throw extractApiError(error)
+    }
+}
+export { userLogin, resetPin, registerUser, signOut, createPin }

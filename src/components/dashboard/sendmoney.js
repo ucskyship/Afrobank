@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Row, Col, Card } from 'reactstrap'
 import styled from 'styled-components'
@@ -39,13 +39,17 @@ const SendMoney = (props) => {
     const [pin, setPin] = useState('')
     const [pinModal, setPinModal] = useState(false)
 
-    const handleSubmit = async (values) => {
+    let formikForm = useRef()
+
+    const handleSubmit = async () => {
         const { accountNumber } = props.payLoad
+
         setFormLoading(true)
         setError('')
         try {
-            await transfer(values, accountNumber, pin)
+            await transfer({ ...formikForm.current.values }, accountNumber, pin)
             setFormLoading(false)
+            setPinModal(false)
         } catch (error) {
             setError(error)
             setFormLoading(false)
@@ -55,6 +59,8 @@ const SendMoney = (props) => {
     const toggleVisibility = () => {
         setPinModal(!pinModal)
     }
+
+    useEffect(() => {}, [formikForm])
 
     return (
         <Col
@@ -68,10 +74,17 @@ const SendMoney = (props) => {
             }}
         >
             <PinModal
+                centered
                 isVisible={pinModal}
-                toggleVisibility={() => toggleVisibility()}
+                error={error}
+                isLoading={formLoading}
+                toggleVisibility={() => {
+                    toggleVisibility()
+                    setError('')
+                }}
+                payLoad={props.payLoad}
                 onChange={(e) => setPin(e)}
-                onSubmit={() => console.log(pin)}
+                onSubmit={() => handleSubmit()}
             />
             <Row>
                 <Col lg={12}>
@@ -93,8 +106,8 @@ const SendMoney = (props) => {
                 >
                     <AccountCard className="pr-3 pl-3 pt-3">
                         <TransferForm
-                            formSubmit={handleSubmit}
-                            formLoading={formLoading}
+                            innerRef={formikForm}
+                            formSubmit={toggleVisibility}
                             error={error}
                             balance={props.payLoad.accountBalance}
                         />
