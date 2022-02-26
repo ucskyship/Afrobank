@@ -1,4 +1,5 @@
 import Axios from '../index'
+import store from '../appstore'
 import { extractApiError } from '../../utils/error'
 
 const transfer = async (payload, sender, pin) => {
@@ -9,6 +10,9 @@ const transfer = async (payload, sender, pin) => {
         sender: sender.toString(),
         pin,
     }
+
+    console.log(store().persiststore.getState())
+
     try {
         const response = await Axios.post('/transfer', body)
         return response.data.message

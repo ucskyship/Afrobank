@@ -47,4 +47,15 @@ const createPin = async (payload) => {
         throw extractApiError(error)
     }
 }
-export { userLogin, resetPin, registerUser, signOut, createPin }
+
+const fetchUser = async (accountNumber) => {
+    try {
+        const res = await Axios.post('/user', accountNumber)
+        console.log(res)
+    } catch (error) {
+        console.log(error)
+        throw extractApiError(error)
+    }
+}
+
+export { userLogin, resetPin, registerUser, signOut, createPin, fetchUser }
