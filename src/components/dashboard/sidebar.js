@@ -107,7 +107,7 @@ const SideBar = () => {
                         </Sidelink>
                     )
                 })}
-                <div style={{ position: 'absolute', bottom: 25 }}>
+                <div className="d-flex justify-content-end flex-column align-item-center">
                     <Sidelink
                         exact
                         to="/signout"
