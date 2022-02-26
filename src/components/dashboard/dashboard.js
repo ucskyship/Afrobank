@@ -1,15 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect, useSelector } from 'react-redux'
 import { transactionHistory, getBalance } from '../../services/transactions'
-import {
-    Container,
-    Col,
-    Row,
-    Table,
-    Modal,
-    ModalBody,
-    ModalHeader,
-} from 'reactstrap'
+import { Container, Col, Row, Table } from 'reactstrap'
 import {
     updateTransactionHistory,
     toggleDisplay,
@@ -96,7 +88,7 @@ const Dashboard = (props) => {
     }
 
     const pageBalance = async () => {
-        const { accountNumber, accountBalance } = data.signIn.payLoad
+        const { accountNumber } = data.signIn.payLoad
         setState({
             balanceLoading: true,
         })

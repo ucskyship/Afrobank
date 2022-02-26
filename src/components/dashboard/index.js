@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import SideBar from './sidebar'
 import { Switch, Route } from 'react-router-dom'
@@ -15,10 +14,7 @@ import {
 import Dashboard, { Dashbody } from './dashboard'
 import { NotificationsNone } from '@material-ui/icons'
 import Wallet from './wallet'
-import {
-    fetchAllNotifications,
-    deleteSingleNotification,
-} from '../../services/notifications'
+import { deleteSingleNotification } from '../../services/notifications'
 
 import SendMoney from './sendmoney'
 import Profile from './profile'
@@ -71,10 +67,9 @@ const Item = styled(DropdownItem)`
 
 const Main = () => {
     const [showNotification, setNotification] = useState(false)
-    const [userNotification, setUsernotification] = useState({
+    const [userNotification] = useState({
         notifications: [],
     })
-    const data = useSelector((state) => state.user.signIn.payLoad)
 
     const toggleNotification = () => {
         setNotification((prevState) => !prevState)
@@ -83,16 +78,6 @@ const Main = () => {
     const deleteNotification = async (id) => {
         await deleteSingleNotification(id)
     }
-
-    useEffect(() => {
-        const { accountNumber } = data
-        const getNotifications = async () => {
-            setUsernotification({
-                notifications: await fetchAllNotifications(accountNumber),
-            })
-        }
-        getNotifications()
-    })
 
     return (
         <Dashbody className="pb-4">

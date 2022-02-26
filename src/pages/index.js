@@ -25,7 +25,7 @@ const routes = [
     {
         path: '/dashboard',
         component: Dashboard,
-        public: false,
+        public: true,
     },
     {
         path: '/signout',
