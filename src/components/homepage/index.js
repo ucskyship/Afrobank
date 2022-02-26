@@ -8,12 +8,12 @@ const HomePage = () => {
         <Col
             className="pt-3  psb-5"
             style={{
-                height: '80vh',
+                height: '100vh',
                 backgroundColor: '#065340',
             }}
         >
             <Row className="d-flex justify-content-between align-items-center">
-                <Col className="pl-4" lg={6} sm={6}>
+                <Col className="pl-4" xs={6} lg={6} sm={6}>
                     <p
                         className="font-weight-bold"
                         style={{ color: 'whitesmoke', fontSize: '32px' }}
@@ -21,7 +21,12 @@ const HomePage = () => {
                         Afrobank
                     </p>
                 </Col>
-                <Col className="d-flex align-items-center justify-content-end  pr-4">
+                <Col
+                    lg={6}
+                    sm={6}
+                    xs={6}
+                    className="d-flex align-items-center justify-content-end  pr-4"
+                >
                     <Link to="/signin">
                         <Button
                             className="rounded-pill"
