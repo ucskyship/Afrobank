@@ -93,30 +93,34 @@ const SideBar = () => {
                     Afrobank
                 </Type>
             </Col>
-            <Col className="hide" style={{ marginTop: '55px' }}>
-                {dashboardRoutes.map((data, idx) => {
-                    return (
+            <Col className="hide" style={{ marginTop: '55px', height: '100%' }}>
+                <Col style={{ height: '50%' }}>
+                    {dashboardRoutes.map((data, idx) => {
+                        return (
+                            <Sidelink
+                                key={idx}
+                                exact
+                                to={data.path}
+                                style={{ textDecoration: 'none' }}
+                            >
+                                <span className="icon-size">{data.icon}</span>
+                                <span className="pl-3">{data.name}</span>
+                            </Sidelink>
+                        )
+                    })}
+                </Col>
+                <Col>
+                    <div>
                         <Sidelink
-                            key={idx}
                             exact
-                            to={data.path}
+                            to="/signout"
                             style={{ textDecoration: 'none' }}
                         >
-                            <span className="icon-size">{data.icon}</span>
-                            <span className="pl-3">{data.name}</span>
+                            <ExitToApp />
+                            <span className="pl-3">log out</span>
                         </Sidelink>
-                    )
-                })}
-                <div className="d-flex justify-content-end flex-column align-item-center">
-                    <Sidelink
-                        exact
-                        to="/signout"
-                        style={{ textDecoration: 'none' }}
-                    >
-                        <ExitToApp />
-                        <span className="pl-3">log out</span>
-                    </Sidelink>
-                </div>
+                    </div>
+                </Col>
             </Col>
 
             <div className="bottom_nav bg-dark m-0 ">
