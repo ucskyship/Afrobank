@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { connect, useSelector } from 'react-redux'
 import { transactionHistory, getBalance } from '../../services/transactions'
-import { Container, Col, Row, Table } from 'reactstrap'
+import { Col, Row, Table } from 'reactstrap'
 import {
     updateTransactionHistory,
     toggleDisplay,
@@ -11,20 +11,13 @@ import {
     calculateAllDebit,
     formatMoney,
     getFormatedTime,
-    getTimeOfTheDay,
 } from '../../utils'
-import {
-    Autorenew,
-    Search,
-    Visibility,
-    VisibilityOff,
-} from '@material-ui/icons'
+import { Person, ShowChart, CreditCard } from '@material-ui/icons'
 import styled from 'styled-components'
-import Loader from 'react-loader-spinner'
 
 const AccountCard = styled.div`
-    height: 150px;
-    width: 100%;
+    height: 250px;
+    width: 250px;
     border-radius: 10px;
     background: #0d3153;
     background-image: url(${(props) => props.img});
@@ -35,35 +28,6 @@ export const Dashbody = styled.div`
     overflow: hidden;
     background: #0f0f0fe5;
 `
-const Inputdiv = styled.div`
-    width: 230px;
-    background: #0f0f0f73;
-    height: 44px;
-    padding-right: 10px;
-    padding-left: 10px;
-    border-radius: 5px;
-`
-const Input = styled.input`
-    border: none;
-    outline: none;
-    height: 100%;
-    background: transparent;
-    color: white;
-`
-const DashbodyCard = styled.div`
-    width: 100%;
-    background: #000000;
-    border-radius: 10px;
-    height: 100%;
-    max-height: 530px;
-    overflow-y: scroll;
-    ::-webkit-scrollbar {
-        display: none;
-    }
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-`
-
 export const Type = styled.span`
     color: ${(props) => props.color};
     font-size: ${(props) => props.size}px;
@@ -71,6 +35,7 @@ export const Type = styled.span`
 
 const Text = styled.h5`
     color: white;
+    font-size: 24px;
     font-weight: 550;
 `
 
@@ -82,10 +47,6 @@ const Dashboard = (props) => {
         balanceLoading: false,
     })
     const data = useSelector((state) => state.user)
-
-    const style = {
-        cursor: 'pointer',
-    }
 
     const pageBalance = async () => {
         const { accountNumber } = data.signIn.payLoad
@@ -189,215 +150,131 @@ const Dashboard = (props) => {
                 right: 0,
             }}
         >
-            {/* <Modal isOpen centered>
-                <div
-                    className="d-flex justify-content-between align-items-center pl-2 pr-2"
+            <Text className="pt-4">Dashboard</Text>
+            <Text
+                style={{ color: 'whitesmoke', fontSize: '18px', opacity: 0.3 }}
+            >
+                Account updates
+            </Text>
+            <Col lg={10} className="p-0 pt-4">
+                <Row className="d-flex justify-content-between">
+                    <Col>
+                        <AccountCard className="d-flex flex-column justify-content-center align-items-center bg-dark">
+                            <Person
+                                fontSize="large"
+                                style={{ color: 'white' }}
+                            />
+                            <Text
+                                className="pt-3"
+                                style={{
+                                    color: 'whitesmoke',
+                                    fontSize: '14px',
+                                    opacity: 0.3,
+                                }}
+                            >
+                                {`Name: ${data.signIn.payLoad.firstName} ${data.signIn.payLoad.lastName}`}
+                            </Text>
+                        </AccountCard>
+                    </Col>
+                    <Col>
+                        <AccountCard className="bg-dark">1</AccountCard>
+                    </Col>
+                    <Col>
+                        <AccountCard className="bg-dark d-flex flex-column justify-content-center align-items-center">
+                            <CreditCard
+                                style={{ color: 'white', fontSize: '40px' }}
+                            />
+                            <Text
+                                className="pt-3"
+                                style={{
+                                    color: 'whitesmoke',
+                                    fontSize: '14px',
+                                    opacity: 0.5,
+                                }}
+                            >
+                                {`Account Number: ${data.signIn.payLoad.accountNumber}`}
+                            </Text>
+                        </AccountCard>
+                    </Col>
+                    <Col>
+                        <AccountCard className="bg-dark d-flex flex-column justify-content-center align-items-center">
+                            <ShowChart
+                                style={{ color: 'white', fontSize: '40px' }}
+                            />
+                            <Text
+                                className="pt-3"
+                                style={{
+                                    color: 'whitesmoke',
+                                    fontSize: '14px',
+                                    opacity: 0.5,
+                                }}
+                            >
+                                {`You've spent ${calculateAllDebit(
+                                    data.transactions
+                                )} so far`}
+                            </Text>
+                        </AccountCard>
+                    </Col>
+                </Row>
+            </Col>
+            <Col lg={10} className="p-0 pt-4">
+                <Text
                     style={{
-                        height: '60px',
-                        width: '100%',
-                        backgroundColor: 'red',
+                        color: 'whitesmoke',
+                        fontSize: '18px',
+                        opacity: 0.3,
                     }}
                 >
-                    <h1>a</h1>
-                    <h1>b</h1>
-                </div>
-                <ModalBody>
-                    <h1>Hello world</h1>
-                </ModalBody>
-            </Modal> */}
-            <Row>
-                <Col lg={12}>
-                    <Col>
-                        <Row className="d-flex justify-content-between pt-4 align-items-center">
-                            <Col>
-                                <Type
-                                    size="25"
-                                    className="font-weight-bold mobile_pl"
-                                    color="white"
-                                >
-                                    {`Hello ${
-                                        data.signIn.payLoad.firstName
-                                    }, ${getTimeOfTheDay()}.`}
-                                </Type>
-                            </Col>
-                            <Col className="hide  justify-content-end">
-                                <Inputdiv className="d-flex justify-content-between align-items-center">
-                                    <Search />
-                                    <Input placeholder="Find something" />
-                                </Inputdiv>
-                            </Col>
-                        </Row>
-                    </Col>
-                    <DashbodyCard className="pb-3 pt-3 mt-5">
-                        <Container className="pr-4 pl-4">
-                            <Row className="pt-3">
-                                <Col lg={4}>
-                                    <AccountCard
-                                        style={{
-                                            background: '#4004af',
-                                            color: 'white',
-                                        }}
-                                    >
-                                        <Container>
-                                            <div className="d-flex justify-content-end pt-2 align-items-center">
-                                                <Autorenew
-                                                    style={style}
-                                                    onClick={() =>
-                                                        pageBalance()
-                                                    }
-                                                />
-                                            </div>
-                                            <div className="d-flex justify-content-between">
-                                                {props.balanceDisplay ? (
-                                                    <Visibility
-                                                        onClick={() =>
-                                                            toggleVisibility()
-                                                        }
-                                                        style={{
-                                                            position:
-                                                                'absolute',
-                                                            top: '70%',
-                                                        }}
-                                                    />
-                                                ) : (
-                                                    <VisibilityOff
-                                                        onClick={() =>
-                                                            toggleVisibility()
-                                                        }
-                                                        style={{
-                                                            position:
-                                                                'absolute',
-                                                            top: '70%',
-                                                        }}
-                                                    />
-                                                )}
-
-                                                <Type
-                                                    size="24"
-                                                    style={{
-                                                        position: 'absolute',
-                                                        top: '65%',
-                                                        right: '10%',
-                                                        fontWeight: 600,
-                                                        color: `${
-                                                            state.balance < 100
-                                                                ? 'red'
-                                                                : 'white'
-                                                        }`,
-                                                    }}
-                                                >
-                                                    {state.balanceLoading ? (
-                                                        <Loader
-                                                            type="ThreeDots"
-                                                            height={30}
-                                                            width={30}
-                                                            color="#ffff"
-                                                        />
-                                                    ) : !props.balanceDisplay ? (
-                                                        formatMoney(
-                                                            data.signIn.payLoad
-                                                                .accountBalance
-                                                        )
-                                                    ) : (
-                                                        '****'
-                                                    )}
-                                                </Type>
-                                            </div>
-                                        </Container>
-                                    </AccountCard>
-                                </Col>
-                                <Col lg={4}>
-                                    <AccountCard
-                                        style={{
-                                            background: '#f707eb',
-                                            color: 'white',
-                                        }}
-                                        className="pt-2 mobile_mt "
-                                    >
-                                        <Container>
-                                            <Type
-                                                size="15"
-                                                className="mt-5 font-weight-bold"
-                                            >
-                                                Account Details
-                                            </Type>
-                                            <br />
-                                            <Type
-                                                size="12"
-                                                style={{
-                                                    position: 'absolute',
-                                                    top: '60%',
-                                                    fontWeight: 550,
-                                                }}
-                                            >
-                                                Name:{' '}
-                                                {`${data.signIn.payLoad.firstName} ${data.signIn.payLoad.lastName}`}
-                                            </Type>
-                                            <br />
-                                            <Type
-                                                size="15"
-                                                style={{
-                                                    position: 'absolute',
-                                                    top: '75%',
-                                                    fontWeight: 550,
-                                                }}
-                                            >
-                                                Account Number:
-                                                {
-                                                    data.signIn.payLoad
-                                                        .accountNumber
-                                                }
-                                            </Type>
-                                        </Container>
-                                    </AccountCard>
-                                </Col>
-                                <Col lg={4}>
-                                    <AccountCard className="d-flex justify-content-center align-items-center mobile_mt">
-                                        <Type color="white">{`you've spent ${calculateAllDebit(
-                                            data.transactions
-                                        )} so far`}</Type>
-                                    </AccountCard>
-                                </Col>
-                            </Row>
-                            <div className="d-flex justify-content-between pt-4">
-                                <Type size="18" color="white">
-                                    Transactions
-                                </Type>
-                                <Type color="green">Show all</Type>
-                            </div>
-                            <div className="pt-3">
-                                {!!data.transactions &&
-                                data.transactions.length > 0 ? (
-                                    <Table
-                                        style={{ overflowY: 'scroll' }}
-                                        striped
-                                        responsive
-                                        borderless
-                                    >
-                                        <thead style={{ color: 'whitesmoke' }}>
-                                            <tr>
-                                                <th>Transaction ID</th>
-                                                <th>Amount</th>
-                                                <th>Type</th>
-                                                <th>Date/Time</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody style={{ color: 'white' }}>
-                                            {renderTransactions()}
-                                        </tbody>
-                                    </Table>
-                                ) : (
-                                    <div className="d-flex justify-content-center align-items-center mt-5 mb-5">
-                                        <Text className="is-center">
-                                            You don't have any transactions
-                                        </Text>
-                                    </div>
-                                )}
-                            </div>
-                        </Container>
-                    </DashbodyCard>
+                    Balance
+                </Text>
+                <Text className="pt-1">
+                    {formatMoney(data.signIn.payLoad.accountBalance)}
+                </Text>
+                <Col
+                    style={{ height: '350px' }}
+                    className="p-0 rounded bg-dark pt-2"
+                ></Col>
+            </Col>
+            <Col lg={10} className="p-0 pt-3">
+                <Text
+                    style={{
+                        color: 'whitesmoke',
+                        fontSize: '18px',
+                        opacity: 0.3,
+                    }}
+                >
+                    History
+                </Text>
+                <Col className="p-0">
+                    {!!data.transactions && data.transactions.length > 0 ? (
+                        <Table
+                            className="p-0"
+                            style={{ overflowY: 'scroll' }}
+                            striped
+                            responsive
+                            borderless
+                        >
+                            <thead style={{ color: 'whitesmoke' }}>
+                                <tr>
+                                    <th>Transaction ID</th>
+                                    <th>Amount</th>
+                                    <th>Type</th>
+                                    <th>Date/Time</th>
+                                </tr>
+                            </thead>
+                            <tbody style={{ color: 'white' }}>
+                                {renderTransactions()}
+                            </tbody>
+                        </Table>
+                    ) : (
+                        <div className="d-flex justify-content-center align-items-center mt-5 mb-5">
+                            <Text className="is-center">
+                                You don't have any transactions
+                            </Text>
+                        </div>
+                    )}
                 </Col>
-            </Row>
+            </Col>
         </Col>
     )
 }
