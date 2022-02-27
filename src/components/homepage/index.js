@@ -2,16 +2,21 @@ import React from 'react'
 import { Col, Row } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import { Button, Text } from '../signin/signin'
+import city from '../../assets/images/city.jpg'
+import styled from 'styled-components'
+
+const MainWrapper = styled(Col)`
+    height: 100vh;
+    background: #065340;
+    background-image: url(${city});
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+`
 
 const HomePage = () => {
     return (
-        <Col
-            className="pt-3  psb-5"
-            style={{
-                height: '100vh',
-                backgroundColor: '#065340',
-            }}
-        >
+        <MainWrapper className="pt-3">
             <Row className="d-flex justify-content-between align-items-center">
                 <Col className="pl-4" xs={6} lg={6} sm={6}>
                     <p
@@ -93,7 +98,7 @@ const HomePage = () => {
                 </Row>
             </Col>
             {/* <TransferModal /> */}
-        </Col>
+        </MainWrapper>
     )
 }
 
