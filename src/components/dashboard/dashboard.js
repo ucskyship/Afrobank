@@ -13,6 +13,8 @@ import {
     getFormatedTime,
 } from '../../utils'
 import { Person, ShowChart, CreditCard } from '@material-ui/icons'
+import Card from '../../assets/images/cvv.png'
+
 import styled from 'styled-components'
 
 const AccountCard = styled.div`
@@ -181,9 +183,10 @@ const Dashboard = (props) => {
                     </Col>
                     <Col>
                         <AccountCard className="bg-dark d-flex flex-column justify-content-center align-items-center">
-                            <CreditCard
+                            <img src={Card} alt={Card} height="50" width="50" />
+                            {/* <CreditCard
                                 style={{ color: 'white', fontSize: '40px' }}
-                            />
+                            /> */}
                             <Text
                                 className="pt-3"
                                 style={{
