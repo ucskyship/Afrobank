@@ -5,7 +5,7 @@ const registerUser = async (payload) => {
     try {
         await Axios.post('/register', payload)
     } catch (error) {
-        extractApiError(error)
+        throw extractApiError(error)
     }
 }
 
