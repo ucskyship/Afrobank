@@ -11,7 +11,11 @@ import Loader from 'react-loader-spinner'
 import propTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 import { Form } from 'reactstrap'
-import { Button as Btn, CustomInputs } from '../../globalcomponents'
+import {
+    Button as Btn,
+    CustomInputs,
+    ErrorComponent,
+} from '../../globalcomponents'
 
 const ErrorText = styled.p`
     color: red;
@@ -46,7 +50,11 @@ const LoginForm = (props) => {
                 return (
                     <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
                         {!!props.error && (
-                            <p style={{ color: 'red' }}>{props.error}</p>
+                            <ErrorComponent
+                                className="mb-3"
+                                style={{ fontSize: '18px' }}
+                                text={props.error}
+                            />
                         )}
                         <div>
                             <CustomInputs
@@ -57,11 +65,7 @@ const LoginForm = (props) => {
                                 label="Email"
                                 autoComplete="false"
                                 style={{
-                                    border: `1px solid ${
-                                        !!errors.email || !!props.error
-                                            ? 'red'
-                                            : 'green'
-                                    }`,
+                                    border: `1px solid green`,
                                 }}
                             />
                             {!!errors.email && (
@@ -79,11 +83,7 @@ const LoginForm = (props) => {
                                 label="Password"
                                 value={values.password}
                                 style={{
-                                    border: `1px solid ${
-                                        !!errors.password || !!props.error
-                                            ? 'red'
-                                            : 'green'
-                                    }`,
+                                    border: `1px solid green`,
                                 }}
                                 autoComplete="false"
                             />
@@ -266,7 +266,11 @@ const SignUpForm = (props) => {
                 return (
                     <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
                         {!!props.regError && (
-                            <ErrorText>{props.regError}</ErrorText>
+                            <ErrorComponent
+                                style={{ fontSize: '18px' }}
+                                className="mb-3"
+                                text={props.regError}
+                            />
                         )}
                         <CustomInputs
                             label="First name"
@@ -356,7 +360,7 @@ const SignUpForm = (props) => {
                                             type="ThreeDots"
                                             height={30}
                                             width={30}
-                                            color="#00BFFF"
+                                            color="#ffffff"
                                         />
                                     ) : (
                                         'create account'
