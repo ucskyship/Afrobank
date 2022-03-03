@@ -1,5 +1,5 @@
 import Pin from './pin'
 import Button from './button'
 import CustomInputs from './input'
-
-export { Pin, Button, CustomInputs }
+import ErrorComponent from './errorComponent'
+export { Pin, Button, CustomInputs, ErrorComponent }
