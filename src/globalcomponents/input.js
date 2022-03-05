@@ -3,7 +3,7 @@ import { Input, Label } from 'reactstrap'
 import styled from 'styled-components'
 
 const StyleField = styled(Input)`
-    height: 54px;
+    height: 48px;
     transition: all ease 0.3s;
     outline: none;
 `
@@ -11,7 +11,9 @@ const StyleField = styled(Input)`
 const CustomInputs = (props) => {
     return (
         <>
-            <Label>{props.label}</Label>
+            <Label className="font-weight-bold" style={{ fontSize: '12px' }}>
+                {props.label}
+            </Label>
             {props.type === 'select' ? (
                 <StyleField {...props}>{props.children}</StyleField>
             ) : (

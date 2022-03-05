@@ -3,7 +3,11 @@ import { MessageBar, MessageBarType } from '@fluentui/react'
 
 const ErrorComponent = ({ text, ...props }) => {
     return (
-        <MessageBar messageBarType={MessageBarType.error} {...props}>
+        <MessageBar
+            className="text-center"
+            messageBarType={MessageBarType.error}
+            {...props}
+        >
             {text}
         </MessageBar>
     )

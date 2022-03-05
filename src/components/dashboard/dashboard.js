@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { connect, useSelector } from 'react-redux'
-import { transactionHistory, getBalance } from '../../services/transactions'
+import { transactionHistory } from '../../services/transactions'
 import { Col, Row, Table } from 'reactstrap'
 import {
     updateTransactionHistory,
@@ -12,14 +12,13 @@ import {
     formatMoney,
     getFormatedTime,
 } from '../../utils'
-import { Person, ShowChart, CreditCard } from '@material-ui/icons'
-import Card from '../../assets/images/cvv.png'
+import { Person, ShowChart, FileCopy } from '@material-ui/icons'
 
 import styled from 'styled-components'
 
 const AccountCard = styled.div`
     height: 250px;
-    width: 250px;
+    width: 100%;
     border-radius: 10px;
     background: #0d3153;
     background-image: url(${(props) => props.img});
@@ -42,41 +41,7 @@ const Text = styled.h5`
 `
 
 const Dashboard = (props) => {
-    const [state, setState] = useState({
-        toggleTransferModal: false,
-        balance: 0,
-        displayBal: true,
-        balanceLoading: false,
-    })
     const data = useSelector((state) => state.user)
-
-    const pageBalance = async () => {
-        const { accountNumber } = data.signIn.payLoad
-        setState({
-            balanceLoading: true,
-        })
-        try {
-            const balance = await getBalance(accountNumber)
-            await transactionHistory(
-                accountNumber,
-                props.updateTransactionHistory
-            )
-            setState({
-                balance: balance,
-                balanceLoading: false,
-            })
-        } catch (error) {
-            setState({
-                balanceLoading: false,
-            })
-            throw error
-        }
-    }
-
-    const toggleVisibility = () => {
-        setState({ ...state, displayBal: !state.displayBal })
-        props.toggleDisplay(state.displayBal)
-    }
 
     const renderTransactions = () => {
         const { transactions } = data
@@ -122,17 +87,12 @@ const Dashboard = (props) => {
     useEffect(() => {
         async function fetchData() {
             const { accountNumber } = data.signIn.payLoad
-            setState({
-                balanceLoading: true,
-            })
+
             try {
                 await transactionHistory(
                     accountNumber,
                     props.updateTransactionHistory
                 )
-                setState({
-                    balanceLoading: false,
-                })
             } catch (error) {
                 throw error
             }
@@ -160,7 +120,7 @@ const Dashboard = (props) => {
             </Text>
             <Col lg={10} className="p-0 pt-4">
                 <Row className="d-flex justify-content-between">
-                    <Col>
+                    <Col xl={4}>
                         <AccountCard className="d-flex flex-column justify-content-center align-items-center bg-dark">
                             <Person
                                 fontSize="large"
@@ -174,33 +134,12 @@ const Dashboard = (props) => {
                                     opacity: 0.3,
                                 }}
                             >
-                                {`Name: ${data.signIn.payLoad.firstName} ${data.signIn.payLoad.lastName}`}
+                                {`Name: ${data.signIn.payLoad.firstName.toUpperCase()} ${data.signIn.payLoad.lastName.toUpperCase()}`}
                             </Text>
                         </AccountCard>
                     </Col>
-                    <Col>
-                        <AccountCard className="bg-dark">1</AccountCard>
-                    </Col>
-                    <Col>
-                        <AccountCard className="bg-dark d-flex flex-column justify-content-center align-items-center">
-                            <img src={Card} alt={Card} height="50" width="50" />
-                            {/* <CreditCard
-                                style={{ color: 'white', fontSize: '40px' }}
-                            /> */}
-                            <Text
-                                className="pt-3"
-                                style={{
-                                    color: 'whitesmoke',
-                                    fontSize: '14px',
-                                    opacity: 0.5,
-                                }}
-                            >
-                                {`Account Number: ${data.signIn.payLoad.accountNumber}`}
-                            </Text>
-                        </AccountCard>
-                    </Col>
-                    <Col>
-                        <AccountCard className="bg-dark d-flex flex-column justify-content-center align-items-center">
+                    <Col xl={3}>
+                        <AccountCard className="d-flex flex-column justify-content-center align-items-center bg-dark">
                             <ShowChart
                                 style={{ color: 'white', fontSize: '40px' }}
                             />
@@ -215,6 +154,23 @@ const Dashboard = (props) => {
                                 {`You've spent ${calculateAllDebit(
                                     data.transactions
                                 )} so far`}
+                            </Text>
+                        </AccountCard>
+                    </Col>
+                    <Col xl={5}>
+                        <AccountCard className="bg-dark d-flex justify-content-center align-items-center">
+                            <FileCopy
+                                style={{ cursor: 'pointer', color: 'white' }}
+                            />
+                            <Text
+                                className="pl-2 pt-3 font-weight-bold"
+                                style={{
+                                    color: 'white',
+                                    letterSpacing: '0.7rem',
+                                    fontSize: '20px',
+                                }}
+                            >
+                                {data.signIn.payLoad.accountNumber} <br />
                             </Text>
                         </AccountCard>
                     </Col>

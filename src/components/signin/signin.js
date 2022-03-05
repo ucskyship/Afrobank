@@ -13,7 +13,7 @@ import { user_login } from '../../services/appstore/actions/actions'
 import { LoginForm } from '../forms/index'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { Clear, Facebook, Instagram, Twitter } from '@material-ui/icons'
+import { Clear } from '@material-ui/icons'
 import Privacy from './privacy'
 
 export const Text = styled.p`
@@ -63,8 +63,6 @@ const SignIn = (props) => {
 
     return (
         <Col
-            // style={{ height: '100vh'
-            //  }}
             style={{
                 height: '100%',
                 position: 'fixed',
@@ -72,7 +70,6 @@ const SignIn = (props) => {
                 left: 0,
                 bottom: 0,
                 right: 0,
-                // backgroundColor: '#065340',
             }}
         >
             <Row style={{ height: '100%' }}>
@@ -81,47 +78,20 @@ const SignIn = (props) => {
                     className="d-flex justify-content-center align-items-center"
                 >
                     <Col lg={6} xs={12} md={7}>
-                        <Text className="text-center mobile_text">
-                            Sign in to Account
-                        </Text>
-                        <Col
-                            lg={4}
-                            sm={12}
-                            md={6}
-                            className="m-auto pt-3 pb-4 hide"
-                        >
-                            <Row className="d-flex justify-content-between align-items-center">
-                                <Col lg={2} sm={3}>
-                                    <Facebook
-                                        style={{ color: '#065340' }}
-                                        fontSize="large"
-                                    />
-                                </Col>
-                                <Col lg={2} sm={3}>
-                                    <Twitter
-                                        style={{ color: '#065340' }}
-                                        fontSize="large"
-                                    />
-                                </Col>
-                                <Col lg={2} sm={3}>
-                                    <Instagram
-                                        style={{ color: '#065340' }}
-                                        fontSize="large"
-                                    />
-                                </Col>
-                            </Row>
-                        </Col>
                         <Text
-                            style={{ fontSize: '14px' }}
-                            className="text-center"
+                            style={{ color: 'black', opacity: '0.5' }}
+                            className="text-center mobile_text"
                         >
-                            or use your email account
+                            Sign in
                         </Text>
-                        <LoginForm
-                            handleSubmit={handleSubmit}
-                            formLoading={state.formLoading}
-                            error={state.error}
-                        />
+
+                        <Col className="m-auto" lg={6} xs={12} xl={10}>
+                            <LoginForm
+                                handleSubmit={handleSubmit}
+                                formLoading={state.formLoading}
+                                error={state.error}
+                            />
+                        </Col>
                         <Col
                             style={{
                                 position: 'absolute',
@@ -130,7 +100,12 @@ const SignIn = (props) => {
                             }}
                         >
                             <Text
-                                style={{ fontSize: '14px', cursor: 'pointer' }}
+                                style={{
+                                    fontSize: '14px',
+                                    cursor: 'pointer',
+                                    color: 'black',
+                                    opacity: '0.5',
+                                }}
                                 className="text-center"
                                 onClick={() => toggle()}
                             >
@@ -141,8 +116,7 @@ const SignIn = (props) => {
                 </Col>
                 <Col
                     lg={4}
-                    style={{ backgroundColor: '#065340' }}
-                    className="hide d-flex justify-content-center align-items-center mobile_mt mobile_pb"
+                    className="hide bg-dark  d-flex justify-content-center align-items-center mobile_mt mobile_pb"
                 >
                     <Col lg={7} className="m-auto ">
                         <Text
