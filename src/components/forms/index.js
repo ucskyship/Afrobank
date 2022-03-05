@@ -15,6 +15,7 @@ import {
     Button as Btn,
     CustomInputs,
     ErrorComponent,
+    FluentuiDropdown,
 } from '../../globalcomponents'
 
 const ErrorText = styled.p`
@@ -254,6 +255,11 @@ const SignUpForm = (props) => {
         phoneNumber: '',
     }
 
+    const options = [
+        { key: 'male', text: 'male' },
+        { key: 'female', text: 'female' },
+    ]
+
     return (
         <Formik
             validationSchema={signUpSchema}
@@ -262,7 +268,13 @@ const SignUpForm = (props) => {
             validateOnChange={false}
             onSubmit={props.handleSubmit}
         >
-            {({ errors, handleChange, handleSubmit, values }) => {
+            {({
+                errors,
+                handleChange,
+                handleSubmit,
+                values,
+                setFieldValue,
+            }) => {
                 return (
                     <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
                         {!!props.regError && (
@@ -330,22 +342,16 @@ const SignUpForm = (props) => {
                         {!!errors.phoneNumber && (
                             <ErrorText>{errors.phoneNumber}</ErrorText>
                         )}
-
-                        <CustomInputs
-                            label="Gender"
-                            style={{
-                                width: '80%',
-                            }}
-                            type="select"
+                        <FluentuiDropdown
+                            options={options}
                             name="gender"
-                            value={values.gender}
-                            onChange={handleChange}
-                            className="mb-2"
-                        >
-                            <option value="">select gender</option>
-                            <option value="male">male</option>
-                            <option value="female">female</option>
-                        </CustomInputs>
+                            placeholder="gender"
+                            label="Gender"
+                            onChange={(e, val) => {
+                                setFieldValue('gender', val.text)
+                            }}
+                        />
+
                         {!!errors.gender && (
                             <ErrorText>{errors.gender}</ErrorText>
                         )}
