@@ -7,6 +7,7 @@ const CustomBtn = styled.button`
     ${(props) => !!props.width && `width: ${props.width}px;`}
     ${(props) => !!props.height && `height: ${props.height}px;`}
     ${(props) => !!props.color && `color: ${props.color};`}
+    transition: ease 0.3s;
 `
 
 const Button = (props) => {

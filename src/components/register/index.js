@@ -21,7 +21,6 @@ class Register extends React.Component {
             this.setState({ formLoading: false })
             this.props.history.push('/signin')
         } catch (error) {
-            console.log(error)
             this.setState({
                 formLoading: false,
                 regError: error,
@@ -46,7 +45,10 @@ class Register extends React.Component {
                         className="d-flex justify-content-center align-items-center"
                     >
                         <Col lg={6} xs={11} md={7}>
-                            <Text className="text-center">
+                            <Text
+                                className="text-center"
+                                style={{ color: 'black', opacity: '0.5' }}
+                            >
                                 Create an Account
                             </Text>
 
@@ -59,8 +61,7 @@ class Register extends React.Component {
                     </Col>
                     <Col
                         lg={4}
-                        style={{ backgroundColor: '#065340' }}
-                        className="d-flex justify-content-center align-items-center mobile_mt mobile_pb"
+                        className="d-flex justify-content-center bg-dark align-items-center mobile_mt mobile_pb"
                     >
                         <Col lg={7} className="m-auto">
                             <Text

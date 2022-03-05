@@ -31,7 +31,7 @@ const Error = styled.p`
 `
 
 const Button = (props) => {
-    return <Btn bg="#065340" color="white" width={250} height={50} {...props} />
+    return <Btn color="white" width={180} height={50} {...props} />
 }
 const LoginForm = (props) => {
     const initialValues = {
@@ -44,7 +44,7 @@ const LoginForm = (props) => {
             initialValues={initialValues}
             validationSchema={loginSchema}
             validateOnBlur={false}
-            validateOnChange={true}
+            validateOnChange={false}
             onSubmit={(e) => props.handleSubmit(e)}
         >
             {({ errors, handleChange, values, handleSubmit }) => {
@@ -53,7 +53,6 @@ const LoginForm = (props) => {
                         {!!props.error && (
                             <ErrorComponent
                                 className="mb-3"
-                                style={{ fontSize: '18px' }}
                                 text={props.error}
                             />
                         )}
@@ -65,12 +64,12 @@ const LoginForm = (props) => {
                                 value={values.email}
                                 label="Email"
                                 autoComplete="false"
-                                style={{
-                                    border: `1px solid green`,
-                                }}
                             />
                             {!!errors.email && (
-                                <span style={{ color: 'red' }}>
+                                <span
+                                    className="font-weight-bold"
+                                    style={{ color: 'red', fontSize: '12px' }}
+                                >
                                     {errors.email}
                                 </span>
                             )}
@@ -83,15 +82,15 @@ const LoginForm = (props) => {
                                 onChange={handleChange}
                                 label="Password"
                                 value={values.password}
-                                style={{
-                                    border: `1px solid green`,
-                                }}
                                 autoComplete="false"
                             />
                             {!!errors.password && (
-                                <p style={{ color: 'red' }}>
+                                <span
+                                    className="font-weight-bold"
+                                    style={{ color: 'red', fontSize: '12px' }}
+                                >
                                     {errors.password}
-                                </p>
+                                </span>
                             )}
                         </div>
                         <div className="d-flex justify-content-end align-items-center pt-3">
@@ -99,7 +98,8 @@ const LoginForm = (props) => {
                                 style={{
                                     color: 'grey',
                                     fontWeight: 600,
-                                    fontSize: '18px',
+                                    fontSize: '14px',
+                                    textDecoration: 'none',
                                 }}
                                 to="/forgotpassword"
                             >
@@ -108,7 +108,7 @@ const LoginForm = (props) => {
                         </div>
                         <div className="d-flex flex-column justify-content-center align-items-center pt-4">
                             <Button
-                                className="mt-2 rounded-pill"
+                                className="mt-2 bg-dark rounded-pill"
                                 type="submit"
                                 disabled={props.formLoading}
                                 text={
@@ -141,7 +141,6 @@ const ForgotPasswordForm = (props) => {
         <Formik
             initialValues={initialValues}
             validateOnBlur={false}
-            validateOnChange={true}
             validationSchema={forgotPasswordSchema}
             onSubmit={props.handleSubmit}
         >
@@ -180,7 +179,7 @@ const ForgotPasswordForm = (props) => {
                         <div className="d-flex justify-content-center align-items-center mt-3">
                             <Button
                                 type="submit"
-                                className="mt-2 rounded-pill"
+                                className="mt-2 rounded-pill bg-dark"
                                 text="Send"
                             />
                         </div>
@@ -234,7 +233,7 @@ const TransferForm = (props) => {
                                 disabled={isValidBalance}
                                 type="submit"
                                 color="white"
-                                className="mt-3 mb-2 rounded-pill"
+                                className="mt-3 mb-2 rounded-pill bg-dark"
                                 text={'send'}
                             />
                         </div>
@@ -279,7 +278,6 @@ const SignUpForm = (props) => {
                     <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
                         {!!props.regError && (
                             <ErrorComponent
-                                style={{ fontSize: '18px' }}
                                 className="mb-3"
                                 text={props.regError}
                             />
@@ -359,7 +357,7 @@ const SignUpForm = (props) => {
                         <div className="d-flex justify-content-center align-items-center mt-3">
                             <Button
                                 type="submit"
-                                className="mt-2 rounded-pill"
+                                className="mt-2 rounded-pill bg-dark"
                                 text={
                                     props.formLoading ? (
                                         <Loader
