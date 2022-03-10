@@ -41,6 +41,8 @@ const SendMoney = (props) => {
 
     let formikForm = useRef()
 
+    console.log(props.payLoad)
+
     const handleSubmit = async () => {
         const { accountNumber } = props.payLoad
 

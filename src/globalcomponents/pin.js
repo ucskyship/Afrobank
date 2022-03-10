@@ -7,15 +7,20 @@ const Pin = (props) => {
         <PinInput
             secret
             type="numeric"
+            className="bg-dark"
+            style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                margin: 'auto',
+                width: '65%',
+            }}
             inputStyle={{
                 fontWeight: 'bold',
                 color: 'black',
                 height: '40px',
-                border: 'none',
-                marginLeft: '25px',
-                borderBottom: '1px solid black',
-                margin: 'auto',
-                width: '60px',
+                border: '2px solid grey',
+                borderRadius: '5px',
+                width: '40px',
             }}
             onChange={props.onChange}
             length={4}

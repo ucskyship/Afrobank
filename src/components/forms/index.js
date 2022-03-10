@@ -93,22 +93,13 @@ const LoginForm = (props) => {
                                 </span>
                             )}
                         </div>
-                        <div className="d-flex justify-content-end align-items-center pt-3">
-                            <Link
-                                style={{
-                                    color: 'grey',
-                                    fontWeight: 600,
-                                    fontSize: '14px',
-                                    textDecoration: 'none',
-                                }}
-                                to="/forgotpassword"
-                            >
-                                forgot password
-                            </Link>
-                        </div>
                         <div className="d-flex flex-column justify-content-center align-items-center pt-4">
                             <Button
-                                className="mt-2 bg-dark rounded-pill"
+                                className="mt-2 bg-dark"
+                                bg="#0d3153"
+                                color="white"
+                                width="100%"
+                                height="40px"
                                 type="submit"
                                 disabled={props.formLoading}
                                 text={
@@ -124,6 +115,19 @@ const LoginForm = (props) => {
                                     )
                                 }
                             />
+                        </div>
+                        <div className="d-flex justify-content-end align-items-center pt-3">
+                            <Link
+                                style={{
+                                    color: 'grey',
+                                    fontWeight: 600,
+                                    fontSize: '14px',
+                                    textDecoration: 'none',
+                                }}
+                                to="/forgotpassword"
+                            >
+                                forgot password
+                            </Link>
                         </div>
                     </Form>
                 )
@@ -179,7 +183,11 @@ const ForgotPasswordForm = (props) => {
                         <div className="d-flex justify-content-center align-items-center mt-3">
                             <Button
                                 type="submit"
-                                className="mt-2 rounded-pill bg-dark"
+                                bg="#0d3153"
+                                color="white"
+                                width="100%"
+                                height="40px"
+                                className="bg-dark"
                                 text="Send"
                             />
                         </div>
@@ -232,8 +240,11 @@ const TransferForm = (props) => {
                             <Button
                                 disabled={isValidBalance}
                                 type="submit"
+                                bg="#0d3153"
                                 color="white"
-                                className="mt-3 mb-2 rounded-pill bg-dark"
+                                width="100%"
+                                height="40px"
+                                className="mt-3 bg-dark"
                                 text={'send'}
                             />
                         </div>
@@ -357,7 +368,11 @@ const SignUpForm = (props) => {
                         <div className="d-flex justify-content-center align-items-center mt-3">
                             <Button
                                 type="submit"
-                                className="mt-2 rounded-pill bg-dark"
+                                bg="#0d3153"
+                                color="white"
+                                width="100%"
+                                height="40px"
+                                className="mt-2 bg-dark"
                                 text={
                                     props.formLoading ? (
                                         <Loader
