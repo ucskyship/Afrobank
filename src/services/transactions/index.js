@@ -1,8 +1,7 @@
 import Axios from '../index'
-import store from '../appstore'
 import { extractApiError } from '../../utils/error'
 
-const transfer = async (payload, sender, pin) => {
+const transfer = async (payload, sender, pin, token) => {
     const { recipient, amount } = payload
     const body = {
         recipient: recipient.toString(),
@@ -11,10 +10,12 @@ const transfer = async (payload, sender, pin) => {
         pin,
     }
 
-    console.log(store().persiststore.getState())
-
     try {
-        const response = await Axios.post('/transfer', body)
+        const response = await Axios.post('/transfer', body, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
         return response.data.message
     } catch (error) {
         throw extractApiError(error)

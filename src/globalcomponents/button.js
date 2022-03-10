@@ -4,8 +4,8 @@ const CustomBtn = styled.button`
     border: none;
     outline: none;
     ${(props) => !!props.bg && `background: ${props.bg};`}
-    ${(props) => !!props.width && `width: ${props.width}px;`}
-    ${(props) => !!props.height && `height: ${props.height}px;`}
+    ${(props) => !!props.width && `width: ${props.width};`}
+    ${(props) => !!props.height && `height: ${props.height};`}
     ${(props) => !!props.color && `color: ${props.color};`}
     transition: ease 0.3s;
 `

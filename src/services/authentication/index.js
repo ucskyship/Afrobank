@@ -9,6 +9,20 @@ const registerUser = async (payload) => {
     }
 }
 
+const pollUser = async (id, token) => {
+    try {
+        const res = await Axios.get(`/user/${id}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+
+        console.log(res)
+    } catch (error) {
+        console.log(extractApiError(error))
+    }
+}
+
 const userLogin = async (payLoad, user_login) => {
     try {
         const resp = await Axios.post('/login', payLoad)
@@ -20,11 +34,10 @@ const userLogin = async (payLoad, user_login) => {
     }
 }
 
-const resetPin = async (pin) => {
+const resetPin = async (pin, accountNumber) => {
     const body = { pin }
     try {
-        const resp = await Axios.post('/pinreset', body)
-        console.log(resp)
+        await Axios.post('/pinreset', body)
     } catch (error) {
         throw error
     }
@@ -41,7 +54,8 @@ const signOut = (userLogin) => {
 
 const createPin = async (payload) => {
     try {
-        await Axios.patch('/createpin', payload)
+        const res = await Axios.patch('/createpin', payload)
+        console.log(res)
     } catch (error) {
         console.log(error)
         throw extractApiError(error)
@@ -58,4 +72,12 @@ const fetchUser = async (accountNumber) => {
     }
 }
 
-export { userLogin, resetPin, registerUser, signOut, createPin, fetchUser }
+export {
+    userLogin,
+    resetPin,
+    registerUser,
+    signOut,
+    createPin,
+    fetchUser,
+    pollUser,
+}
