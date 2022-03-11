@@ -44,7 +44,7 @@ class Register extends React.Component {
                         lg={8}
                         className="d-flex justify-content-center align-items-center"
                     >
-                        <Col lg={6} xs={11} md={7}>
+                        <Col lg={6} xs={12} md={7}>
                             <Text
                                 className="text-center"
                                 style={{ color: 'black', opacity: '0.5' }}
@@ -52,11 +52,19 @@ class Register extends React.Component {
                                 Create an Account
                             </Text>
 
-                            <SignUpForm
-                                handleSubmit={this.handleSubmit}
-                                formLoading={this.state.formLoading}
-                                regError={this.state.regError}
-                            />
+                            <Col
+                                className="m-auto"
+                                lg={6}
+                                md={12}
+                                xs={12}
+                                xl={10}
+                            >
+                                <SignUpForm
+                                    handleSubmit={this.handleSubmit}
+                                    formLoading={this.state.formLoading}
+                                    regError={this.state.regError}
+                                />
+                            </Col>
                         </Col>
                     </Col>
                     <Col

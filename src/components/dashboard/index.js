@@ -83,7 +83,7 @@ const Main = () => {
         <Dashbody className="pb-4">
             <Col className="p-0 m-0">
                 <Row>
-                    <Col xl={2}>
+                    <Col md={3} xl={2}>
                         <SideBar />
                     </Col>
 

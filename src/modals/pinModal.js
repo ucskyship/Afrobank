@@ -44,10 +44,9 @@ const PinModal = (props) => {
                     toggle={props.toggleVisibility}
                 >
                     <div className="ml-2 mr-2 mt-2 d-flex justify-content-end align-items-center">
-                        <Button
-                            bg="none"
+                        <Clear
                             onClick={props.toggleVisibility}
-                            icon={() => <Clear />}
+                            style={{ cursor: 'pointer' }}
                         />
                     </div>
                     <ModalBody>
@@ -95,10 +94,9 @@ const PinModal = (props) => {
                     toggle={props.toggleVisibility}
                 >
                     <div className="ml-2 mr-2 mt-2 d-flex justify-content-end align-items-center">
-                        <Button
-                            bg="none"
+                        <Clear
                             onClick={props.toggleVisibility}
-                            icon={() => <Clear style={{ color: 'red' }} />}
+                            style={{ cursor: 'pointer' }}
                         />
                     </div>
                     <ModalBody>

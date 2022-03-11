@@ -12,26 +12,10 @@ export const Type = styled.span`
 `
 const AccountCard = styled(Card)`
     height: 100%;
-    min-height: 300px;
     width: 100%;
-    margin-top: 100px;
-    margin-bottom: 50px;
+    margin-top: 40px;
     border-radius: 10px;
     transition: all ease 0.3s;
-`
-
-const DashbodyCard = styled.div`
-    width: 100%;
-    background: #000000;
-    border-radius: 10px;
-    height: 100%;
-    min-height: 560px;
-    overflow-y: scroll;
-    ::-webkit-scrollbar {
-        display: none;
-    }
-    -ms-overflow-style: none;
-    scrollbar-width: none;
 `
 const SendMoney = (props) => {
     const [formLoading, setFormLoading] = useState(false)
@@ -99,12 +83,13 @@ const SendMoney = (props) => {
                     </div>
                 </Col>
             </Row>
-            <DashbodyCard className="mt-5">
-                <Col
-                    xl={6}
-                    className="d-flex justify-content-center align-items-center m-auto"
-                >
-                    <AccountCard className="pr-3 pl-3 pt-3">
+            <Col
+                xl={6}
+                style={{ height: '60%' }}
+                className="d-flex justify-content-center align-items-center m-auto"
+            >
+                <Col className="m-auto pt-5" lg={6} xs={12} xl={8}>
+                    <AccountCard className="pr-3 pl-3 pt-3 pb-4">
                         <TransferForm
                             innerRef={formikForm}
                             formSubmit={toggleVisibility}
@@ -113,7 +98,7 @@ const SendMoney = (props) => {
                         />
                     </AccountCard>
                 </Col>
-            </DashbodyCard>
+            </Col>
         </Col>
     )
 }
