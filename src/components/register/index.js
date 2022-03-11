@@ -79,7 +79,8 @@ class Register extends React.Component {
                                 }}
                                 className="text-center hide"
                             >
-                                Welcome back, we've missed you
+                                Fill up personal information and start journey
+                                with us
                             </Text>
                             <div className="d-flex justify-content-center pt-4">
                                 <Link

@@ -1,36 +1,17 @@
 import React from 'react'
 import { Row, Col } from 'reactstrap'
 import styled from 'styled-components'
+import { Button } from '../../globalcomponents'
+import { connect } from 'react-redux'
 
 export const Type = styled.span`
     color: ${(props) => props.color};
     font-size: ${(props) => props.size}px;
 `
-const AccountCard = styled.div`
-    height: 150px;
-    width: 100%;
-    border-radius: 10px;
+const Profile = (props) => {
+    const { payLoad } = props
 
-    background: #0d3153;
-    transition: all ease 0.3s;
-`
-
-const DashbodyCard = styled.div`
-    width: 100%;
-    background: #000000;
-    border-radius: 10px;
-    height: 100%;
-    max-height: 530px;
-    overflow-y: scroll;
-    ::-webkit-scrollbar {
-        display: none;
-    }
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-`
-const Profile = () => {
     return (
-        // <div style={{ height: '100%', maxheight: '530px' }}>
         <Col
             style={{
                 height: '100vh',
@@ -54,23 +35,118 @@ const Profile = () => {
                     </div>
                 </Col>
             </Row>
-            <DashbodyCard>
-                <Row>
-                    <Col xl={4}>
-                        <AccountCard>
-                            <p>hello</p>
-                        </AccountCard>
+            <Col
+                style={{ height: '75%' }}
+                className="d-flex justify-content-center pt-5"
+            >
+                <Col lg={6} sm={11} xs={12}>
+                    <h1>hello</h1>
+                    <Col
+                        style={{ height: '40%', borderRadius: '0.8rem' }}
+                        className="d-flex pl-4 pr-4 flex-column justify-content-around bg-dark"
+                    >
+                        <Row className="d-flex justify-content-between">
+                            <Col className="d-flex flex-column">
+                                <Type
+                                    style={{
+                                        color: 'whitesmoke',
+                                        fontSize: '14px',
+                                        opacity: 0.5,
+                                    }}
+                                >
+                                    Display name
+                                </Type>
+                                <Type
+                                    color="white"
+                                    className="font-weight-bold"
+                                >
+                                    {`${payLoad.firstName} ${payLoad.lastName}`}
+                                </Type>
+                            </Col>
+                            <Col className="d-flex justify-content-end">
+                                <Button
+                                    height="40px"
+                                    className="rounded"
+                                    text="Edit"
+                                    color="white"
+                                    bg="grey"
+                                    width="100px"
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="d-flex justify-content-between align-items-center">
+                            <Col className="d-flex flex-column">
+                                <Type
+                                    style={{
+                                        color: 'whitesmoke',
+                                        fontSize: '14px',
+                                        opacity: 0.5,
+                                    }}
+                                >
+                                    Email
+                                </Type>
+                                <Type
+                                    color="white"
+                                    className="font-weight-bold"
+                                >
+                                    {payLoad.email}
+                                </Type>
+                            </Col>
+                            <Col className="d-flex justify-content-end">
+                                <Button
+                                    height="40px"
+                                    className="rounded"
+                                    text="Edit"
+                                    color="white"
+                                    bg="grey"
+                                    width="100px"
+                                />
+                            </Col>
+                        </Row>
+                        <Row className="d-flex justify-content-between align-items-center">
+                            <Col className="d-flex flex-column">
+                                <Type
+                                    style={{
+                                        color: 'whitesmoke',
+                                        fontSize: '14px',
+                                        opacity: 0.5,
+                                    }}
+                                >
+                                    Password
+                                </Type>
+                                <Type
+                                    color="white"
+                                    className="font-weight-bold"
+                                >
+                                    Akinola Makinde
+                                </Type>
+                            </Col>
+                            <Col className="d-flex justify-content-end">
+                                <Button
+                                    text="Change"
+                                    height="40px"
+                                    className="rounded"
+                                    width="100px"
+                                    color="white"
+                                    bg="grey"
+                                />
+                            </Col>
+                        </Row>
                     </Col>
-                    <Col xl={4}>
-                        <AccountCard />
+                    <Col
+                        style={{ height: '20%', borderRadius: '0.8rem' }}
+                        className="d-flex mt-4 flex-column justify-content-around bg-dark"
+                    >
+                        <h1>hey</h1>
                     </Col>
-                    <Col xl={4}>
-                        <AccountCard />
-                    </Col>
-                </Row>
-            </DashbodyCard>
+                </Col>
+            </Col>
         </Col>
-        // </div>
     )
 }
-export default Profile
+
+const mapStateToProps = (state) => ({
+    payLoad: state.user.signIn.payLoad,
+})
+
+export default connect(mapStateToProps, {})(Profile)

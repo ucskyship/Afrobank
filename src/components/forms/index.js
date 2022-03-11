@@ -16,6 +16,7 @@ import {
     CustomInputs,
     ErrorComponent,
     FluentuiDropdown,
+    FluentUiInput,
 } from '../../globalcomponents'
 
 const ErrorText = styled.p`
@@ -57,12 +58,12 @@ const LoginForm = (props) => {
                             />
                         )}
                         <div>
-                            <CustomInputs
+                            <FluentUiInput
                                 type="email"
                                 name="email"
                                 onChange={handleChange}
                                 value={values.email}
-                                label="Email"
+                                placeholder="Email"
                                 autoComplete="false"
                             />
                             {!!errors.email && (
@@ -75,14 +76,15 @@ const LoginForm = (props) => {
                             )}
                         </div>
 
-                        <div className="pt-3">
-                            <CustomInputs
-                                type="password"
+                        <div className="pt-2">
+                            <FluentUiInput
                                 name="password"
+                                type="password"
                                 onChange={handleChange}
-                                label="Password"
+                                placeholder="Password"
                                 value={values.password}
                                 autoComplete="false"
+                                canRevealPassword
                             />
                             {!!errors.password && (
                                 <span
@@ -151,11 +153,11 @@ const ForgotPasswordForm = (props) => {
             {({ errors, handleChange, values, handleSubmit }) => {
                 return (
                     <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                        <CustomInputs
+                        <FluentUiInput
                             onChange={handleChange}
                             value={values.email}
                             className="mb-2"
-                            label="Email"
+                            placeholder="Email"
                             type="email"
                             name="email"
                             style={{
@@ -293,8 +295,8 @@ const SignUpForm = (props) => {
                                 text={props.regError}
                             />
                         )}
-                        <CustomInputs
-                            label="First name"
+                        <FluentUiInput
+                            placeholder="First name"
                             value={values.firstName}
                             type="text"
                             name="firstName"
@@ -306,9 +308,9 @@ const SignUpForm = (props) => {
                             <ErrorText>{errors.firstName}</ErrorText>
                         )}
 
-                        <CustomInputs
+                        <FluentUiInput
                             value={values.lastName}
-                            label="Last name"
+                            placeholder="Last name"
                             type="text"
                             name="lastName"
                             onChange={handleChange}
@@ -318,31 +320,32 @@ const SignUpForm = (props) => {
                             <ErrorText>{errors.lastName}</ErrorText>
                         )}
 
-                        <CustomInputs
+                        <FluentUiInput
                             onChange={handleChange}
                             value={values.email}
                             className="mb-2"
-                            label="Email"
+                            placeholder="Email"
                             type="email"
                             name="email"
                         />
                         {!!errors.email && (
                             <ErrorText>{errors.email}</ErrorText>
                         )}
-                        <CustomInputs
+                        <FluentUiInput
                             value={values.password}
-                            label="Password"
+                            placeholder="Password"
                             type="password"
                             name="password"
                             onChange={handleChange}
                             className="mb-2"
+                            canRevealPassword
                         />
                         {!!errors.password && (
                             <ErrorText>{errors.password}</ErrorText>
                         )}
-                        <CustomInputs
+                        <FluentUiInput
                             type="text"
-                            label="Phone number"
+                            placeholder="Phone number"
                             value={values.phoneNumber}
                             onChange={handleChange}
                             name="phoneNumber"
@@ -354,8 +357,7 @@ const SignUpForm = (props) => {
                         <FluentuiDropdown
                             options={options}
                             name="gender"
-                            placeholder="gender"
-                            label="Gender"
+                            placeholder="Gender"
                             onChange={(e, val) => {
                                 setFieldValue('gender', val.text)
                             }}
