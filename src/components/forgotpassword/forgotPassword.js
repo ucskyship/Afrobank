@@ -11,25 +11,16 @@ const ForgotPassword = () => {
                 className="d-flex justify-content-center align-items-center"
             >
                 <Col lg={4} xs={12}>
-                    <Text className="text-center">Forgot password</Text>
-                    <Text style={{ fontSize: '14px' }} className="text-center">
-                        we heard you Forgot your password, not to worry you can
-                        create another one {''}
-                        <span
-                            style={{ fontSize: '16px' }}
-                            role="img"
-                            aria-label="smiley"
-                        >
-                            😔
-                        </span>
-                    </Text>
                     <Text
-                        style={{ fontSize: '14px' }}
-                        className="text-center mb-3"
+                        style={{ color: 'black', opacity: '0.5' }}
+                        className="text-center mobile_text"
                     >
-                        please ensure your email is valid
+                        Forgot password
                     </Text>
-                    <ForgotPasswordForm />
+
+                    <Col className="m-auto" lg={6} xs={12} xl={10}>
+                        <ForgotPasswordForm />
+                    </Col>
                 </Col>
             </Col>
         </Col>

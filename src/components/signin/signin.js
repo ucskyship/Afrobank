@@ -17,7 +17,7 @@ import { Clear } from '@material-ui/icons'
 import Privacy from './privacy'
 
 export const Text = styled.p`
-    font-size: 42px;
+    font-size: 24px;
     font-weight: 600;
     color: #065340;
     font-family: Arial, Helvetica, sans-serif;
@@ -82,7 +82,7 @@ const SignIn = (props) => {
                             style={{ color: 'black', opacity: '0.5' }}
                             className="text-center mobile_text"
                         >
-                            Sign in
+                            Welcome back
                         </Text>
 
                         <Col className="m-auto" lg={6} xs={12} xl={10}>
@@ -134,8 +134,7 @@ const SignIn = (props) => {
                             }}
                             className="text-center hide"
                         >
-                            Fill up personal information and start journey with
-                            us
+                            Welcome back, we've missed you
                         </Text>
                         <div className="d-flex justify-content-center pt-4">
                             <Link

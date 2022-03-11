@@ -13,9 +13,9 @@ import { Link } from 'react-router-dom'
 import { Form } from 'reactstrap'
 import {
     Button as Btn,
-    CustomInputs,
     ErrorComponent,
     FluentuiDropdown,
+    FluentUiInput,
 } from '../../globalcomponents'
 
 const ErrorText = styled.p`
@@ -31,7 +31,16 @@ const Error = styled.p`
 `
 
 const Button = (props) => {
-    return <Btn color="white" width={180} height={50} {...props} />
+    return (
+        <Btn
+            bg="#0d3153"
+            color="white"
+            width="100%"
+            height="40px"
+            className="mt-3 bg-dark"
+            {...props}
+        />
+    )
 }
 const LoginForm = (props) => {
     const initialValues = {
@@ -57,12 +66,12 @@ const LoginForm = (props) => {
                             />
                         )}
                         <div>
-                            <CustomInputs
+                            <FluentUiInput
                                 type="email"
                                 name="email"
                                 onChange={handleChange}
                                 value={values.email}
-                                label="Email"
+                                placeholder="Email"
                                 autoComplete="false"
                             />
                             {!!errors.email && (
@@ -75,14 +84,15 @@ const LoginForm = (props) => {
                             )}
                         </div>
 
-                        <div className="pt-3">
-                            <CustomInputs
-                                type="password"
+                        <div className="pt-2">
+                            <FluentUiInput
                                 name="password"
+                                type="password"
                                 onChange={handleChange}
-                                label="Password"
+                                placeholder="Password"
                                 value={values.password}
                                 autoComplete="false"
+                                canRevealPassword
                             />
                             {!!errors.password && (
                                 <span
@@ -95,11 +105,6 @@ const LoginForm = (props) => {
                         </div>
                         <div className="d-flex flex-column justify-content-center align-items-center pt-4">
                             <Button
-                                className="mt-2 bg-dark"
-                                bg="#0d3153"
-                                color="white"
-                                width="100%"
-                                height="40px"
                                 type="submit"
                                 disabled={props.formLoading}
                                 text={
@@ -151,45 +156,45 @@ const ForgotPasswordForm = (props) => {
             {({ errors, handleChange, values, handleSubmit }) => {
                 return (
                     <Form onSubmit={handleSubmit} style={{ width: '100%' }}>
-                        <CustomInputs
+                        <FluentUiInput
                             onChange={handleChange}
                             value={values.email}
                             className="mb-2"
-                            label="Email"
+                            placeholder="Email"
                             type="email"
                             name="email"
-                            style={{
-                                border: `1px solid ${
-                                    !!errors.email ? 'red' : 'green'
-                                }`,
-                            }}
                         />
                         {!!errors.email && (
                             <ErrorText>{errors.email}</ErrorText>
                         )}
 
+                        <span
+                            style={{
+                                color: 'black',
+                                opacity: '0.5',
+                                fontSize: '13px',
+                            }}
+                            className="text-center mobile_text"
+                        >
+                            A four digit pin will be sent to the email provided,
+                            ensure it is valid.
+                        </span>
+
+                        <div className="d-flex justify-content-center align-items-center mt-3">
+                            <Button type="submit" text="Send" />
+                        </div>
                         <div className="d-flex justify-content-end align-items-center pt-3">
                             <Link
                                 style={{
                                     color: 'grey',
                                     fontWeight: 600,
-                                    fontSize: '18px',
+                                    fontSize: '14px',
+                                    textDecoration: 'none',
                                 }}
                                 to="/signin"
                             >
                                 remember now ?
                             </Link>
-                        </div>
-                        <div className="d-flex justify-content-center align-items-center mt-3">
-                            <Button
-                                type="submit"
-                                bg="#0d3153"
-                                color="white"
-                                width="100%"
-                                height="40px"
-                                className="bg-dark"
-                                text="Send"
-                            />
                         </div>
                     </Form>
                 )
@@ -215,19 +220,20 @@ const TransferForm = (props) => {
                 const isValidBalance = +values.amount > +props.balance
                 return (
                     <Form onSubmit={handleSubmit}>
-                        <CustomInputs
+                        <FluentUiInput
                             type="number"
                             name="recipient"
-                            label="recipient"
+                            placeholder="recipient"
                             onChange={handleChange}
                         />{' '}
                         {!!errors.recipient && (
                             <Error>{errors.recipient}</Error>
                         )}
-                        <CustomInputs
+                        <FluentUiInput
                             type="number"
                             name="amount"
-                            label="amount"
+                            placeholder="amount"
+                            className="mt-2"
                             onChange={handleChange}
                         />
                         {!!errors.amount && <Error>{errors.amount}</Error>}
@@ -240,11 +246,6 @@ const TransferForm = (props) => {
                             <Button
                                 disabled={isValidBalance}
                                 type="submit"
-                                bg="#0d3153"
-                                color="white"
-                                width="100%"
-                                height="40px"
-                                className="mt-3 bg-dark"
                                 text={'send'}
                             />
                         </div>
@@ -293,8 +294,8 @@ const SignUpForm = (props) => {
                                 text={props.regError}
                             />
                         )}
-                        <CustomInputs
-                            label="First name"
+                        <FluentUiInput
+                            placeholder="First name"
                             value={values.firstName}
                             type="text"
                             name="firstName"
@@ -306,9 +307,9 @@ const SignUpForm = (props) => {
                             <ErrorText>{errors.firstName}</ErrorText>
                         )}
 
-                        <CustomInputs
+                        <FluentUiInput
                             value={values.lastName}
-                            label="Last name"
+                            placeholder="Last name"
                             type="text"
                             name="lastName"
                             onChange={handleChange}
@@ -318,31 +319,32 @@ const SignUpForm = (props) => {
                             <ErrorText>{errors.lastName}</ErrorText>
                         )}
 
-                        <CustomInputs
+                        <FluentUiInput
                             onChange={handleChange}
                             value={values.email}
                             className="mb-2"
-                            label="Email"
+                            placeholder="Email"
                             type="email"
                             name="email"
                         />
                         {!!errors.email && (
                             <ErrorText>{errors.email}</ErrorText>
                         )}
-                        <CustomInputs
+                        <FluentUiInput
                             value={values.password}
-                            label="Password"
+                            placeholder="Password"
                             type="password"
                             name="password"
                             onChange={handleChange}
                             className="mb-2"
+                            canRevealPassword
                         />
                         {!!errors.password && (
                             <ErrorText>{errors.password}</ErrorText>
                         )}
-                        <CustomInputs
+                        <FluentUiInput
                             type="text"
-                            label="Phone number"
+                            placeholder="Phone number"
                             value={values.phoneNumber}
                             onChange={handleChange}
                             name="phoneNumber"
@@ -354,8 +356,7 @@ const SignUpForm = (props) => {
                         <FluentuiDropdown
                             options={options}
                             name="gender"
-                            placeholder="gender"
-                            label="Gender"
+                            placeholder="Gender"
                             onChange={(e, val) => {
                                 setFieldValue('gender', val.text)
                             }}
@@ -368,11 +369,6 @@ const SignUpForm = (props) => {
                         <div className="d-flex justify-content-center align-items-center mt-3">
                             <Button
                                 type="submit"
-                                bg="#0d3153"
-                                color="white"
-                                width="100%"
-                                height="40px"
-                                className="mt-2 bg-dark"
                                 text={
                                     props.formLoading ? (
                                         <Loader

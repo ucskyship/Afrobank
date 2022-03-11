@@ -8,6 +8,7 @@ const CustomBtn = styled.button`
     ${(props) => !!props.height && `height: ${props.height};`}
     ${(props) => !!props.color && `color: ${props.color};`}
     transition: ease 0.3s;
+    box-shadow: 10px 10px 10px -10px grey;
 `
 
 const Button = (props) => {
