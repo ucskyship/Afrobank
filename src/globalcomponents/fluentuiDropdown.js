@@ -9,8 +9,7 @@ function FluentuiDropdown({ ...props }) {
         <Dropdown
             styles={{
                 dropdown: {
-                    height: '54px',
-                    outline: 'none',
+                    height: '48px',
                     border: '1px solid #ced4da',
                     borderRadius: '0.25rem',
                 },
