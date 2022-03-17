@@ -1,6 +1,6 @@
 import Axios from '../index'
 import { extractApiError } from '../../utils/error'
-import { user_login } from '../appstore/actions/actions'
+import { user_login, updateUser } from '../appstore/actions/actions'
 import appStore from '../appstore'
 
 const store = appStore().store
@@ -28,7 +28,7 @@ const pollUser = async () => {
                 Authorization: `Bearer ${token}`,
             },
         })
-        store.dispatch(user_login(res.data.message, true))
+        store.dispatch(updateUser(res.data.message, true))
     } catch (error) {
         console.log(extractApiError(error))
     }

@@ -1,6 +1,10 @@
 import Axios from '../index'
 import { extractApiError } from '../../utils/error'
+import { updateTransactionHistory } from '../appstore/actions/actions'
 import { userToken, pollUser } from '../authentication'
+import appStore from '../appstore'
+
+const store = appStore().store
 
 const transfer = async (payload, sender, pin) => {
     const { recipient, amount } = payload
@@ -24,10 +28,11 @@ const transfer = async (payload, sender, pin) => {
     }
 }
 
-const transactionHistory = async (accountNumber, updateTransactionHistory) => {
+const transactionHistory = async () => {
     try {
+        const accountNumber = store.getState().user.signIn.payLoad.accountNumber
         const resp = await Axios.get(`/history/${accountNumber}`)
-        updateTransactionHistory(resp.data.message)
+        store.dispatch(updateTransactionHistory(resp.data.message))
     } catch (error) {
         extractApiError(error)
     }

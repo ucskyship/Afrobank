@@ -4,12 +4,14 @@ const pinReset = 'pinReset'
 const transfer = 'transfer'
 const transactionHistory = 'transactionHistory'
 const toggleBalanceDisplay = 'toggleBalanceDisplay'
+const UPDATEUSER = 'UPDATEUSER'
 
 export {
     LOGIN,
     register,
     pinReset,
     transfer,
+    UPDATEUSER,
     transactionHistory,
     toggleBalanceDisplay,
 }
