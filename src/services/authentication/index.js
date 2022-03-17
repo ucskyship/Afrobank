@@ -13,10 +13,7 @@ const registerUser = async (payload) => {
     }
 }
 
-const isUserSignedIn = () => {
-    const isUserSignedIn = store.getState().user.signIn.isSignedIn
-    return isUserSignedIn
-}
+const isUserSignedIn = () => store.getState().user.signIn.isSignedIn
 
 const pollUser = async (id, token) => {
     try {
@@ -35,13 +32,7 @@ const pollUser = async (id, token) => {
 const userLogin = async (payLoad) => {
     try {
         const resp = await Axios.post('/login', payLoad)
-        // console.log(resp.data)
-
-        // const message = resp.data.message
         store.dispatch(user_login(resp.data.message, true))
-
-        console.log(store.getState().user)
-
         return resp
     } catch (error) {
         throw extractApiError(error)
@@ -57,9 +48,9 @@ const resetPin = async (pin, accountNumber) => {
     }
 }
 
-const signOut = (userLogin) => {
+const signOut = () => {
     try {
-        userLogin('', false)
+        store.dispatch(user_login('', false))
         localStorage.clear()
     } catch (error) {
         throw error
