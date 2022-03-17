@@ -26,7 +26,7 @@ const AccountCard = styled.div`
 `
 
 export const Dashbody = styled.div`
-    overflow: hidden;
+    height: 100%;
     background: #0f0f0fe5;
 `
 export const Type = styled.span`
@@ -42,10 +42,10 @@ const Text = styled.h5`
 
 const Dashboard = (props) => {
     const data = useSelector((state) => state.user)
+    const { payLoad, transactions } = props
 
     const renderTransactions = () => {
-        const { transactions } = data
-        return transactions.slice(0, 4).map((transaction, i) => {
+        return transactions.map((transaction, i) => {
             const {
                 transaction_id,
                 amount,
@@ -100,18 +100,9 @@ const Dashboard = (props) => {
         fetchData()
     }, [data.signIn.payLoad, props.updateTransactionHistory])
 
+    console.log(props)
     return (
-        <Col
-            className="p-0 m-0"
-            style={{
-                height: '100vh',
-                position: 'relative',
-                top: 0,
-                left: 0,
-                bottom: 0,
-                right: 0,
-            }}
-        >
+        <Col className="p-0 m-0">
             <Text className="pt-4">Dashboard</Text>
             <Text
                 style={{ color: 'whitesmoke', fontSize: '18px', opacity: 0.3 }}
@@ -134,7 +125,7 @@ const Dashboard = (props) => {
                                     opacity: 0.3,
                                 }}
                             >
-                                {`Name: ${data.signIn.payLoad.firstName.toUpperCase()} ${data.signIn.payLoad.lastName.toUpperCase()}`}
+                                {`Name: ${payLoad.firstName.toUpperCase()} ${payLoad.lastName.toUpperCase()}`}
                             </Text>
                         </AccountCard>
                     </Col>
@@ -170,7 +161,7 @@ const Dashboard = (props) => {
                                     fontSize: '20px',
                                 }}
                             >
-                                {data.signIn.payLoad.accountNumber} <br />
+                                {payLoad.accountNumber} <br />
                             </Text>
                         </AccountCard>
                     </Col>
@@ -187,7 +178,7 @@ const Dashboard = (props) => {
                     Balance
                 </Text>
                 <Text className="pt-1">
-                    {formatMoney(data.signIn.payLoad.accountBalance)}
+                    {formatMoney(payLoad.accountBalance)}
                 </Text>
                 <Col
                     style={{ height: '350px' }}
@@ -240,7 +231,10 @@ const Dashboard = (props) => {
 
 const mapStateToProps = (state) => ({
     balanceDisplay: state.user.balanceDisplay,
+    payLoad: state.user.signIn.payLoad,
+    transactions: state.user.transactions,
 })
+
 export default connect(mapStateToProps, {
     updateTransactionHistory,
     toggleDisplay,

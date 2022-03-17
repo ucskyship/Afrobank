@@ -4,6 +4,7 @@ import {
     register,
     transactionHistory,
     toggleBalanceDisplay,
+    UPDATEUSER,
 } from './index'
 
 const user_login = (data, isSignedIn) => (dispatch) => {
@@ -11,6 +12,13 @@ const user_login = (data, isSignedIn) => (dispatch) => {
         type: LOGIN,
         payload: data,
         isSignedIn,
+    })
+}
+
+const updateUser = (data) => (dispatch) => {
+    dispatch({
+        type: UPDATEUSER,
+        payload: data,
     })
 }
 
@@ -50,4 +58,5 @@ export {
     userRegister,
     updateTransactionHistory,
     toggleDisplay,
+    updateUser,
 }

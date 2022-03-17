@@ -4,6 +4,7 @@ import {
     register,
     transactionHistory,
     toggleBalanceDisplay,
+    UPDATEUSER,
 } from '../actions'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -49,6 +50,11 @@ const reducer = (state = intState, action) => {
             return {
                 ...state,
                 balanceDisplay: action.payload,
+            }
+        case UPDATEUSER:
+            return {
+                ...state,
+                payLoad: action.payload,
             }
         default:
             return state
