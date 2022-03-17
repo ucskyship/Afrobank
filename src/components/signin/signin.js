@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { connect } from 'react-redux'
 import {
     Col,
     Row,
@@ -9,7 +8,6 @@ import {
     ModalBody,
 } from 'reactstrap'
 import { userLogin } from '../../services/authentication'
-import { user_login } from '../../services/appstore/actions/actions'
 import { LoginForm } from '../forms/index'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
@@ -48,7 +46,7 @@ const SignIn = (props) => {
             error: '',
         })
         try {
-            await userLogin(value, props.user_login)
+            await userLogin(value)
             setState({
                 formLoading: false,
             })
@@ -179,4 +177,4 @@ const SignIn = (props) => {
     )
 }
 
-export default connect(null, { user_login })(SignIn)
+export default SignIn

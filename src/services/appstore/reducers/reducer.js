@@ -5,22 +5,13 @@ import {
     transactionHistory,
     toggleBalanceDisplay,
 } from '../actions'
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import intState from './initState'
 
-const intState = {
-    signIn: {
-        isSignedIn: false,
-        payLoad: {},
-    },
-    userReg: {
-        isRegistered: false,
-        payLoad: {},
-    },
-    userPinReset: {
-        isPinReset: false,
-        payLoad: {},
-    },
-    balanceDisplay: false,
-    transactions: [],
+const persistConfig = {
+    key: 'root',
+    storage: storage,
 }
 
 const reducer = (state = intState, action) => {
@@ -63,5 +54,5 @@ const reducer = (state = intState, action) => {
             return state
     }
 }
-
-export { reducer }
+const persistedReducer = persistReducer(persistConfig, reducer)
+export default persistedReducer
