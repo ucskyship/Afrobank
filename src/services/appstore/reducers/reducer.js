@@ -5,6 +5,13 @@ import {
     transactionHistory,
     toggleBalanceDisplay,
 } from '../actions'
+import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+
+const persistConfig = {
+    key: 'root',
+    storage: storage,
+}
 
 const intState = {
     signIn: {
@@ -63,5 +70,5 @@ const reducer = (state = intState, action) => {
             return state
     }
 }
-
-export { reducer }
+const persistedReducer = persistReducer(persistConfig, reducer)
+export default persistedReducer

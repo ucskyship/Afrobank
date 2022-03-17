@@ -1,15 +1,13 @@
 import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { isUserSignedIn } from '../services/authentication'
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
-    const isSignedIn = useSelector((state) => state.user.signIn.isSignedIn)
-
     return (
         <Route
             {...rest}
             render={(props) =>
-                isSignedIn ? (
+                !!isUserSignedIn() ? (
                     <Component {...props} />
                 ) : (
                     <Redirect to="/signin" />

@@ -1,5 +1,9 @@
 import Axios from '../index'
 import { extractApiError } from '../../utils/error'
+import { user_login } from '../appstore/actions/actions'
+import appStore from '../appstore'
+
+const store = appStore().store
 
 const registerUser = async (payload) => {
     try {
@@ -7,6 +11,11 @@ const registerUser = async (payload) => {
     } catch (error) {
         throw extractApiError(error)
     }
+}
+
+const isUserSignedIn = () => {
+    const isUserSignedIn = store.getState().user.signIn.isSignedIn
+    return isUserSignedIn
 }
 
 const pollUser = async (id, token) => {
@@ -23,11 +32,16 @@ const pollUser = async (id, token) => {
     }
 }
 
-const userLogin = async (payLoad, user_login) => {
+const userLogin = async (payLoad) => {
     try {
         const resp = await Axios.post('/login', payLoad)
+        // console.log(resp.data)
 
-        user_login(resp.data.message, true)
+        // const message = resp.data.message
+        store.dispatch(user_login(resp.data.message, true))
+
+        console.log(store.getState().user)
+
         return resp
     } catch (error) {
         throw extractApiError(error)
@@ -80,4 +94,5 @@ export {
     createPin,
     fetchUser,
     pollUser,
+    isUserSignedIn,
 }

@@ -1,20 +1,16 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
-import { persistStore, persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
+import { persistStore } from 'redux-persist'
 import combineReducers from './reducers'
 
-const config = {
-    key: 'root',
-    storage,
-    whitelist: ['user'],
-}
-
-const middleWare = [thunk]
-const persistedReducer = persistReducer(config, combineReducers)
+let composeEnhancers = compose
 
 const appStore = () => {
-    const store = createStore(persistedReducer, applyMiddleware(...middleWare))
+    const store = createStore(
+        combineReducers,
+        composeEnhancers(applyMiddleware(thunk))
+    )
+
     const persiststore = persistStore(store)
     return { store, persiststore }
 }
