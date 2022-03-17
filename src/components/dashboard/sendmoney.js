@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Row, Col, Card } from 'reactstrap'
 import styled from 'styled-components'
 import { transfer } from '../../services/transactions/index'
+import { fetchUser } from '../../services/authentication'
 import { TransferForm } from '../forms/index'
 import { PinModal } from '../../modals'
 
@@ -44,7 +45,13 @@ const SendMoney = (props) => {
         setPinModal(!pinModal)
     }
 
-    useEffect(() => {}, [formikForm])
+    useEffect(() => {
+        async function getUser() {
+            console.log(await fetchUser())
+        }
+
+        getUser()
+    }, [formikForm])
 
     return (
         <Col

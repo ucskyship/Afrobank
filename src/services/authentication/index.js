@@ -15,6 +15,8 @@ const registerUser = async (payload) => {
 
 const isUserSignedIn = () => store.getState().user.signIn.isSignedIn
 
+const userHasPin = () => !!store.getState().user.signIn.payLoad.pin
+
 const pollUser = async (id, token) => {
     try {
         const res = await Axios.get(`/user/${id}`, {
@@ -57,19 +59,26 @@ const signOut = () => {
     }
 }
 
-const createPin = async (payload) => {
+const createPin = async (pin) => {
+    const payLoad = {
+        accountNumber: store
+            .getState()
+            .user.signIn.payLoad.accountNumber.toString(),
+        pin,
+    }
     try {
-        const res = await Axios.patch('/createpin', payload)
-        console.log(res)
+        await Axios.patch('/createpin', payLoad)
     } catch (error) {
-        console.log(error)
         throw extractApiError(error)
     }
 }
 
-const fetchUser = async (accountNumber) => {
+const fetchUser = async () => {
+    let accountNumber = store
+        .getState()
+        .user.signIn.payLoad.accountNumber.toString()
     try {
-        const res = await Axios.post('/user', accountNumber)
+        const res = await Axios.get('/user/' + accountNumber)
         console.log(res)
     } catch (error) {
         console.log(error)
@@ -78,12 +87,13 @@ const fetchUser = async (accountNumber) => {
 }
 
 export {
-    userLogin,
-    resetPin,
-    registerUser,
     signOut,
-    createPin,
-    fetchUser,
     pollUser,
+    resetPin,
+    fetchUser,
+    createPin,
+    userLogin,
+    userHasPin,
+    registerUser,
     isUserSignedIn,
 }

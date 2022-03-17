@@ -4,25 +4,26 @@ import { Modal, ModalBody } from 'reactstrap'
 import propTypes from 'prop-types'
 import { Pin, Button } from '../globalcomponents/index'
 import Loader from 'react-loader-spinner'
-import { createPin as createUserPin } from '../services/authentication'
+import {
+    createPin as createUserPin,
+    userHasPin,
+} from '../services/authentication'
 
 const PinModal = (props) => {
     const [createPin, setCreatePin] = useState('')
     const [confirmPin, setConfirmPin] = useState('')
     const [isLoading, setIsloading] = useState(false)
     const [pinError, setPinError] = useState('')
-    const { pin, accountNumber } = props.payLoad
 
+    const hasPin = userHasPin()
     const handlePinCreate = async () => {
         if (confirmPin !== createPin) {
             setPinError('Pin must match')
         } else {
             setIsloading(true)
             try {
-                await createUserPin({
-                    accountNumber: accountNumber.toString(),
-                    pin: createPin.toString(),
-                })
+                const pin = createPin.toString()
+                await createUserPin(pin)
                 setIsloading(false)
                 props.toggleVisibility()
             } catch (error) {
@@ -34,7 +35,7 @@ const PinModal = (props) => {
 
     return (
         <div>
-            {!!pin ? (
+            {!!hasPin ? (
                 <Modal
                     centered
                     style={{
