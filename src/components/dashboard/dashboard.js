@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { connect, useSelector } from 'react-redux'
+import { connect } from 'react-redux'
 import { transactionHistory } from '../../services/transactions'
 import { pollUser } from '../../services/authentication'
 import { Col, Row, Table } from 'reactstrap'
@@ -42,7 +42,15 @@ const Text = styled.h5`
 `
 
 const Dashboard = (props) => {
-    const data = useSelector((state) => state.user)
+    useEffect(() => {
+        async function fetchData() {
+            await pollUser()
+            await transactionHistory()
+        }
+        fetchData()
+        // eslint-disable-next-line
+    }, [])
+
     const { payLoad, transactions } = props
 
     const renderTransactions = () => {
@@ -84,15 +92,6 @@ const Dashboard = (props) => {
             )
         })
     }
-
-    useEffect(() => {
-        async function fetchData() {
-            await pollUser()
-            await transactionHistory()
-        }
-        fetchData()
-        // eslint-disable-next-line
-    }, [])
 
     return (
         <Col className="p-0 m-0">
@@ -136,7 +135,7 @@ const Dashboard = (props) => {
                                 }}
                             >
                                 {`You've spent ${calculateAllDebit(
-                                    data.transactions
+                                    transactions
                                 )} so far`}
                             </Text>
                         </AccountCard>
@@ -189,7 +188,7 @@ const Dashboard = (props) => {
                     History
                 </Text>
                 <Col className="p-0">
-                    {!!data.transactions && data.transactions.length > 0 ? (
+                    {!!transactions.length ? (
                         <Table
                             className="p-0"
                             style={{ overflowY: 'scroll' }}
