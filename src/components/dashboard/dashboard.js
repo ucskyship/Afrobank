@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect, useSelector } from 'react-redux'
 import { transactionHistory } from '../../services/transactions'
+import { pollUser } from '../../services/authentication'
 import { Col, Row, Table } from 'reactstrap'
 import {
     updateTransactionHistory,
@@ -86,21 +87,13 @@ const Dashboard = (props) => {
 
     useEffect(() => {
         async function fetchData() {
-            const { accountNumber } = data.signIn.payLoad
-
-            try {
-                await transactionHistory(
-                    accountNumber,
-                    props.updateTransactionHistory
-                )
-            } catch (error) {
-                throw error
-            }
+            await pollUser()
+            await transactionHistory()
         }
         fetchData()
-    }, [data.signIn.payLoad, props.updateTransactionHistory])
+        // eslint-disable-next-line
+    }, [])
 
-    console.log(props)
     return (
         <Col className="p-0 m-0">
             <Text className="pt-4">Dashboard</Text>
