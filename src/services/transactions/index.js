@@ -1,7 +1,6 @@
 import Axios from '../index'
 import { extractApiError } from '../../utils/error'
 import { userToken, pollUser } from '../authentication'
-import appStore from '../appstore'
 
 const transfer = async (payload, sender, pin) => {
     const { recipient, amount } = payload
@@ -19,7 +18,6 @@ const transfer = async (payload, sender, pin) => {
             },
         })
         await pollUser()
-        console.log(appStore().store.getState())
         return response.data.message
     } catch (error) {
         throw extractApiError(error)
