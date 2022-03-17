@@ -7,27 +7,11 @@ import {
 } from '../actions'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import intState from './initState'
 
 const persistConfig = {
     key: 'root',
     storage: storage,
-}
-
-const intState = {
-    signIn: {
-        isSignedIn: false,
-        payLoad: {},
-    },
-    userReg: {
-        isRegistered: false,
-        payLoad: {},
-    },
-    userPinReset: {
-        isPinReset: false,
-        payLoad: {},
-    },
-    balanceDisplay: false,
-    transactions: [],
 }
 
 const reducer = (state = intState, action) => {
