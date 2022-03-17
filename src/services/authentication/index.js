@@ -5,6 +5,10 @@ import appStore from '../appstore'
 
 const store = appStore().store
 
+const isUserSignedIn = () => store.getState().user.signIn.isSignedIn
+const userHasPin = () => !!store.getState().user.signIn.payLoad.pin
+const userToken = () => store.getState().user.signIn.payLoad.token
+
 const registerUser = async (payload) => {
     try {
         await Axios.post('/register', payload)
@@ -13,19 +17,18 @@ const registerUser = async (payload) => {
     }
 }
 
-const isUserSignedIn = () => store.getState().user.signIn.isSignedIn
-
-const userHasPin = () => !!store.getState().user.signIn.payLoad.pin
-
-const pollUser = async (id, token) => {
+const pollUser = async () => {
+    const token = userToken()
+    const accountNumber = store
+        .getState()
+        .user.signIn.payLoad.accountNumber.toString()
     try {
-        const res = await Axios.get(`/user/${id}`, {
+        const res = await Axios.get(`/user/${accountNumber}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         })
-
-        console.log(res)
+        store.dispatch(user_login(res.data.message, true))
     } catch (error) {
         console.log(extractApiError(error))
     }
@@ -96,4 +99,5 @@ export {
     userHasPin,
     registerUser,
     isUserSignedIn,
+    userToken,
 }
