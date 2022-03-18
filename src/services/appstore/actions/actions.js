@@ -1,9 +1,9 @@
 import {
   LOGIN,
-  pinReset,
-  register,
-  transactionHistory,
-  toggleBalanceDisplay,
+  PINRESET,
+  REGISTER,
+  TOGGLEBALANCE,
+  TRANSACTIONHISTORY,
   UPDATEUSER,
 } from './index'
 
@@ -24,7 +24,7 @@ const updateUser = (data) => (dispatch) => {
 
 const userRegister = (data, isRegistered) => (dispatch) => {
   dispatch({
-    type: register,
+    type: REGISTER,
     payload: data,
     isRegistered,
   })
@@ -32,7 +32,7 @@ const userRegister = (data, isRegistered) => (dispatch) => {
 
 const userPinReset = (data, isPinReset) => (dispatch) => {
   dispatch({
-    type: pinReset,
+    type: PINRESET,
     payload: data,
     isPinReset,
   })
@@ -40,14 +40,14 @@ const userPinReset = (data, isPinReset) => (dispatch) => {
 
 const updateTransactionHistory = (data) => (dispatch) => {
   dispatch({
-    type: transactionHistory,
+    type: TRANSACTIONHISTORY,
     payload: data,
   })
 }
 
 const toggleDisplay = (display) => (dispatch) => {
   dispatch({
-    type: toggleBalanceDisplay,
+    type: TOGGLEBALANCE,
     payload: display,
   })
 }
