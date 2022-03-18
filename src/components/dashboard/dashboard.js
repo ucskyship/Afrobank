@@ -46,11 +46,13 @@ const Dashboard = (props) => {
   useEffect(() => {
     async function fetchData() {
       setLoading(true)
-      await transactionHistory()
       try {
+        await transactionHistory()
         await pollUser()
         setLoading(false)
-      } catch (e) {}
+      } catch (e) {
+        setLoading(false)
+      }
     }
     fetchData()
     // eslint-disable-next-line
