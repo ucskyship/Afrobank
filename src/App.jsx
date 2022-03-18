@@ -7,13 +7,13 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './index.css'
 
 function App() {
-    return (
-        <Provider store={appStore().store}>
-            <PersistGate loading={null} persistor={appStore().persiststore}>
-                <Main />
-            </PersistGate>
-        </Provider>
-    )
+  return (
+    <Provider store={appStore().store}>
+      <PersistGate loading={null} persistor={appStore().persiststore}>
+        <Main />
+      </PersistGate>
+    </Provider>
+  )
 }
 
 export default App

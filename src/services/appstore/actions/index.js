@@ -7,11 +7,11 @@ const toggleBalanceDisplay = 'toggleBalanceDisplay'
 const UPDATEUSER = 'UPDATEUSER'
 
 export {
-    LOGIN,
-    register,
-    pinReset,
-    transfer,
-    UPDATEUSER,
-    transactionHistory,
-    toggleBalanceDisplay,
+  LOGIN,
+  register,
+  pinReset,
+  transfer,
+  UPDATEUSER,
+  transactionHistory,
+  toggleBalanceDisplay,
 }
