@@ -59,7 +59,7 @@ const Dashboard = (props) => {
   const { payLoad, transactions } = props
 
   const renderTransactions = () => {
-    return transactions.reverse().map((transaction, i) => {
+    return transactions.map((transaction, i) => {
       const { transaction_id, amount, transaction_date, transaction_type } =
         transaction
 
