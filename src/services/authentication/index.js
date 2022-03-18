@@ -41,7 +41,7 @@ const pollUser = async () => {
     })
     store.dispatch(updateUser(res.data.message, true))
   } catch (error) {
-    console.log(extractApiError(error))
+    throw extractApiError(error)
   }
 }
 
@@ -66,7 +66,7 @@ const resetPin = async (pin, accountNumber) => {
 
 const signOut = () => {
   try {
-    store.dispatch(user_login('', false))
+    store.dispatch(user_login({}, false))
     localStorage.clear()
   } catch (error) {
     throw error
@@ -75,11 +75,12 @@ const signOut = () => {
 
 const createPin = async (pin) => {
   const payLoad = {
-    accountNumber: store.getState().user.payLoad.accountNumber.toString(),
+    accountNumber: getUserProfile().payLoad.accountNumber.toString(),
     pin,
   }
   try {
     await Axios.patch('/createpin', payLoad)
+    await pollUser()
   } catch (error) {
     throw extractApiError(error)
   }

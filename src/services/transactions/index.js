@@ -36,7 +36,7 @@ const transactionHistory = async () => {
     const resp = await Axios.get(`/history/${accountNumber}`)
     store.dispatch(updateTransactionHistory(resp.data.message))
   } catch (error) {
-    extractApiError(error)
+    throw extractApiError(error)
   }
 }
 
@@ -45,7 +45,7 @@ const getBalance = async (accountNumber) => {
     const resp = await Axios.get(`/balance/${accountNumber}`)
     return resp.data.message
   } catch (error) {
-    extractApiError(error)
+    throw extractApiError(error)
   }
 }
 
