@@ -133,7 +133,7 @@ const Profile = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  payLoad: state.user.signIn.payLoad,
+  payLoad: state.user.payLoad,
 })
 
 export default connect(mapStateToProps, {})(Profile)

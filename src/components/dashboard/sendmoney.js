@@ -26,12 +26,10 @@ const SendMoney = (props) => {
   let formikForm = useRef()
 
   const handleSubmit = async () => {
-    const { accountNumber } = props.payLoad
-
     setFormLoading(true)
     setError('')
     try {
-      await transfer({ ...formikForm.current.values }, accountNumber, pin)
+      await transfer({ ...formikForm.current.values }, pin)
       setFormLoading(false)
       setPinModal(false)
     } catch (error) {
@@ -104,7 +102,7 @@ const SendMoney = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  payLoad: state.user.signIn.payLoad,
+  payLoad: state.user.payLoad,
   balanceDisplay: state.user.balanceDisplay,
 })
 export default connect(mapStateToProps, {})(SendMoney)

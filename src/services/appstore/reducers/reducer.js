@@ -1,9 +1,9 @@
 import {
   LOGIN,
-  pinReset,
-  register,
-  transactionHistory,
-  toggleBalanceDisplay,
+  PINRESET,
+  REGISTER,
+  TOGGLEBALANCE,
+  TRANSACTIONHISTORY,
   UPDATEUSER,
 } from '../actions'
 import { persistReducer } from 'redux-persist'
@@ -19,21 +19,17 @@ const reducer = (state = intState, action) => {
   switch (action.type) {
     case LOGIN:
       return {
-        signIn: {
-          ...state,
-          isSignedIn: action.isSignedIn,
-          payLoad: action.payload,
-        },
+        ...state,
+        isSignedIn: action.isSignedIn,
+        payLoad: action.payload,
       }
-    case register:
+    case REGISTER:
       return {
-        userReg: {
-          ...state,
-          isRegistered: action.isRegistered,
-          payLoad: action.payload,
-        },
+        ...state,
+        isRegistered: action.isRegistered,
+        payLoad: action.payload,
       }
-    case pinReset:
+    case PINRESET:
       return {
         userPinReset: {
           ...state,
@@ -41,12 +37,12 @@ const reducer = (state = intState, action) => {
           payLoad: action.payload,
         },
       }
-    case transactionHistory:
+    case TRANSACTIONHISTORY:
       return {
         ...state,
         transactions: action.payload,
       }
-    case toggleBalanceDisplay:
+    case TOGGLEBALANCE:
       return {
         ...state,
         balanceDisplay: action.payload,
@@ -54,7 +50,7 @@ const reducer = (state = intState, action) => {
     case UPDATEUSER:
       return {
         ...state,
-        payLoad: action.payload,
+        payLoad: { ...action.payload },
       }
     default:
       return state

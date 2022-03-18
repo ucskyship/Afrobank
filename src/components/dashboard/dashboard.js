@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { transactionHistory } from '../../services/transactions'
 import { pollUser } from '../../services/authentication'
@@ -42,10 +42,15 @@ const Text = styled.h5`
 `
 
 const Dashboard = (props) => {
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     async function fetchData() {
-      await pollUser()
+      setLoading(true)
       await transactionHistory()
+      try {
+        await pollUser()
+        setLoading(false)
+      } catch (e) {}
     }
     fetchData()
     // eslint-disable-next-line
@@ -54,7 +59,7 @@ const Dashboard = (props) => {
   const { payLoad, transactions } = props
 
   const renderTransactions = () => {
-    return transactions.map((transaction, i) => {
+    return transactions.reverse().map((transaction, i) => {
       const { transaction_id, amount, transaction_date, transaction_type } =
         transaction
 
@@ -84,6 +89,8 @@ const Dashboard = (props) => {
       )
     })
   }
+
+  const accountBalance = formatMoney(payLoad.accountBalance)
 
   return (
     <Col className="p-0 m-0">
@@ -150,7 +157,7 @@ const Dashboard = (props) => {
         >
           Balance
         </Text>
-        <Text className="pt-1">{formatMoney(payLoad.accountBalance)}</Text>
+        <Text className="pt-1">{loading ? '...' : accountBalance}</Text>
         <Col
           style={{ height: '350px' }}
           className="p-0 rounded bg-dark pt-2"
@@ -198,7 +205,7 @@ const Dashboard = (props) => {
 
 const mapStateToProps = (state) => ({
   balanceDisplay: state.user.balanceDisplay,
-  payLoad: state.user.signIn.payLoad,
+  payLoad: state.user.payLoad,
   transactions: state.user.transactions,
 })
 

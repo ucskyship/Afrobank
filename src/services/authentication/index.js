@@ -5,9 +5,22 @@ import appStore from '../appstore'
 
 const store = appStore().store
 
-const isUserSignedIn = () => store.getState().user.signIn.isSignedIn
-const userHasPin = () => !!store.getState().user.signIn.payLoad.pin
-const userToken = () => store.getState().user.signIn.payLoad.token
+const getUserProfile = () => {
+  return store.getState().user
+}
+
+const isUserSignedIn = () => {
+  const { isSignedIn } = getUserProfile()
+  return isSignedIn
+}
+const userHasPin = () => {
+  const { pin } = getUserProfile().payLoad
+  return !!pin
+}
+const userToken = () => {
+  const { token } = getUserProfile().payLoad
+  return token
+}
 
 const registerUser = async (payload) => {
   try {
@@ -19,9 +32,7 @@ const registerUser = async (payload) => {
 
 const pollUser = async () => {
   const token = userToken()
-  const accountNumber = store
-    .getState()
-    .user.signIn.payLoad.accountNumber.toString()
+  const accountNumber = store.getState().user.payLoad.accountNumber.toString()
   try {
     const res = await Axios.get(`/user/${accountNumber}`, {
       headers: {
@@ -64,9 +75,7 @@ const signOut = () => {
 
 const createPin = async (pin) => {
   const payLoad = {
-    accountNumber: store
-      .getState()
-      .user.signIn.payLoad.accountNumber.toString(),
+    accountNumber: store.getState().user.payLoad.accountNumber.toString(),
     pin,
   }
   try {
@@ -77,9 +86,7 @@ const createPin = async (pin) => {
 }
 
 const fetchUser = async () => {
-  let accountNumber = store
-    .getState()
-    .user.signIn.payLoad.accountNumber.toString()
+  let accountNumber = store.getState().user.payLoad.accountNumber.toString()
   try {
     const res = await Axios.get('/user/' + accountNumber)
     console.log(res)
@@ -95,9 +102,10 @@ export {
   resetPin,
   fetchUser,
   createPin,
+  userToken,
   userLogin,
   userHasPin,
   registerUser,
   isUserSignedIn,
-  userToken,
+  getUserProfile,
 }

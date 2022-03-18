@@ -1,17 +1,17 @@
 const LOGIN = 'LOGIN'
-const register = 'register'
-const pinReset = 'pinReset'
-const transfer = 'transfer'
-const transactionHistory = 'transactionHistory'
-const toggleBalanceDisplay = 'toggleBalanceDisplay'
+const REGISTER = 'REGISTER'
+const PINRESET = 'PINRESET'
+const TRANSFER = 'TRANSFER'
+const TRANSACTIONHISTORY = 'TRANSACTIONHISTORY'
+const TOGGLEBALANCE = 'TOGGLEBALANCE'
 const UPDATEUSER = 'UPDATEUSER'
 
 export {
   LOGIN,
-  register,
-  pinReset,
-  transfer,
+  REGISTER,
+  PINRESET,
+  TRANSFER,
   UPDATEUSER,
-  transactionHistory,
-  toggleBalanceDisplay,
+  TRANSACTIONHISTORY,
+  TOGGLEBALANCE,
 }
