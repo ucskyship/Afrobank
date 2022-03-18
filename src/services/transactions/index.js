@@ -9,13 +9,14 @@ const store = appStore().store
 const transfer = async (payload, pin) => {
   const { recipient, amount } = payload
   const { accountNumber } = getUserProfile().payLoad
+  const token = !!userToken() && userToken()
+
   const body = {
     recipient: recipient.toString(),
     amount,
     sender: accountNumber.toString(),
     pin,
   }
-  const token = userToken()
   try {
     const response = await Axios.post('/transfer', body, {
       headers: {
