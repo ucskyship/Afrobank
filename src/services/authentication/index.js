@@ -1,6 +1,7 @@
 import Axios from '../index'
 import { extractApiError } from '../../utils/error'
 import { user_login, updateUser } from '../appstore/actions/actions'
+import { transactionHistory } from '../transactions'
 import appStore from '../appstore'
 
 const store = appStore().store
@@ -40,6 +41,7 @@ const pollUser = async () => {
       },
     })
     store.dispatch(updateUser(res.data.message, true))
+    await transactionHistory()
   } catch (error) {
     throw extractApiError(error)
   }

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { transactionHistory } from '../../services/transactions'
 import { pollUser } from '../../services/authentication'
 import { Col, Row, Table } from 'reactstrap'
 import {
@@ -41,26 +40,32 @@ const Text = styled.h5`
   font-weight: 550;
 `
 
-const Dashboard = (props) => {
-  const [loading, setLoading] = useState(false)
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true)
-      try {
-        await transactionHistory()
-        await pollUser()
-        setLoading(false)
-      } catch (e) {
-        setLoading(false)
-      }
+class Dashboard extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      loading: false,
     }
-    fetchData()
-    // eslint-disable-next-line
-  }, [])
+  }
 
-  const { payLoad, transactions } = props
+  componentDidMount = async () => {
+    this.setState({
+      loading: true,
+    })
+    try {
+      await pollUser()
+      this.setState({
+        loading: false,
+      })
+    } catch (e) {
+      this.setState({
+        loading: false,
+      })
+    }
+  }
 
-  const renderTransactions = () => {
+  renderTransactions = () => {
+    const { transactions } = this.props
     return transactions.map((transaction, i) => {
       const { transaction_id, amount, transaction_date, transaction_type } =
         transaction
@@ -92,117 +97,125 @@ const Dashboard = (props) => {
     })
   }
 
-  const accountBalance = formatMoney(payLoad.accountBalance)
+  render() {
+    const { payLoad, transactions } = this.props
+    const { loading } = this.state
+    const accountBalance = formatMoney(payLoad.accountBalance)
 
-  return (
-    <Col className="p-0 m-0">
-      <Text className="pt-4">Dashboard</Text>
-      <Text style={{ color: 'whitesmoke', fontSize: '18px', opacity: 0.3 }}>
-        Account updates
-      </Text>
-      <Col lg={10} className="p-0 pt-4">
-        <Row className="d-flex justify-content-between">
-          <Col xl={4}>
-            <AccountCard className="d-flex flex-column justify-content-center align-items-center bg-dark">
-              <Person fontSize="large" style={{ color: 'white' }} />
-              <Text
-                className="pt-3"
-                style={{
-                  color: 'whitesmoke',
-                  fontSize: '14px',
-                  opacity: 0.3,
-                }}
-              >
-                {`Name: ${payLoad.firstName.toUpperCase()} ${payLoad.lastName.toUpperCase()}`}
-              </Text>
-            </AccountCard>
-          </Col>
-          <Col xl={3}>
-            <AccountCard className="d-flex flex-column justify-content-center align-items-center bg-dark">
-              <ShowChart style={{ color: 'white', fontSize: '40px' }} />
-              <Text
-                className="pt-3"
-                style={{
-                  color: 'whitesmoke',
-                  fontSize: '14px',
-                  opacity: 0.5,
-                }}
-              >
-                {`You've spent ${calculateAllDebit(transactions)} so far`}
-              </Text>
-            </AccountCard>
-          </Col>
-          <Col xl={5}>
-            <AccountCard className="bg-dark d-flex justify-content-center align-items-center">
-              <FileCopy style={{ cursor: 'pointer', color: 'white' }} />
-              <Text
-                className="pl-2 pt-3 font-weight-bold"
-                style={{
-                  color: 'white',
-                  letterSpacing: '0.7rem',
-                  fontSize: '20px',
-                }}
-              >
-                {payLoad.accountNumber} <br />
-              </Text>
-            </AccountCard>
-          </Col>
-        </Row>
-      </Col>
-      <Col lg={10} className="p-0 pt-4">
-        <Text
-          style={{
-            color: 'whitesmoke',
-            fontSize: '18px',
-            opacity: 0.3,
-          }}
-        >
-          Balance
+    return (
+      <Col className="p-0 m-0">
+        <Text className="pt-4">Dashboard</Text>
+        <Text style={{ color: 'whitesmoke', fontSize: '18px', opacity: 0.3 }}>
+          Account updates
         </Text>
-        <Text className="pt-1">{loading ? '...' : accountBalance}</Text>
-        <Col
-          style={{ height: '350px' }}
-          className="p-0 rounded bg-dark pt-2"
-        ></Col>
-      </Col>
-      <Col lg={10} className="p-0 pt-3">
-        <Text
-          style={{
-            color: 'whitesmoke',
-            fontSize: '18px',
-            opacity: 0.3,
-          }}
-        >
-          History
-        </Text>
-        <Col className="p-0">
-          {!!transactions.length ? (
-            <Table
-              className="p-0"
-              style={{ overflowY: 'scroll' }}
-              striped
-              responsive
-              borderless
-            >
-              <thead style={{ color: 'whitesmoke' }}>
-                <tr>
-                  <th>Transaction ID</th>
-                  <th>Amount</th>
-                  <th>Type</th>
-                  <th>Date/Time</th>
-                </tr>
-              </thead>
-              <tbody style={{ color: 'white' }}>{renderTransactions()}</tbody>
-            </Table>
-          ) : (
-            <div className="d-flex justify-content-center align-items-center mt-5 mb-5">
-              <Text className="is-center">You don't have any transactions</Text>
-            </div>
-          )}
+        <Col lg={10} className="p-0 pt-4">
+          <Row className="d-flex justify-content-between">
+            <Col xl={4}>
+              <AccountCard className="d-flex flex-column justify-content-center align-items-center bg-dark">
+                <Person fontSize="large" style={{ color: 'white' }} />
+                <Text
+                  className="pt-3"
+                  style={{
+                    color: 'whitesmoke',
+                    fontSize: '14px',
+                    opacity: 0.3,
+                  }}
+                >
+                  {`Name: ${payLoad.firstName.toUpperCase()} ${payLoad.lastName.toUpperCase()}`}
+                </Text>
+              </AccountCard>
+            </Col>
+            <Col xl={3}>
+              <AccountCard className="d-flex flex-column justify-content-center align-items-center bg-dark">
+                <ShowChart style={{ color: 'white', fontSize: '40px' }} />
+                <Text
+                  className="pt-3"
+                  style={{
+                    color: 'whitesmoke',
+                    fontSize: '14px',
+                    opacity: 0.5,
+                  }}
+                >
+                  {`You've spent ${calculateAllDebit(transactions)} so far`}
+                </Text>
+              </AccountCard>
+            </Col>
+            <Col xl={5}>
+              <AccountCard className="bg-dark d-flex justify-content-center align-items-center">
+                <FileCopy style={{ cursor: 'pointer', color: 'white' }} />
+                <Text
+                  className="pl-2 pt-3 font-weight-bold"
+                  style={{
+                    color: 'white',
+                    letterSpacing: '0.7rem',
+                    fontSize: '20px',
+                  }}
+                >
+                  {payLoad.accountNumber} <br />
+                </Text>
+              </AccountCard>
+            </Col>
+          </Row>
+        </Col>
+        <Col lg={10} className="p-0 pt-4">
+          <Text
+            style={{
+              color: 'whitesmoke',
+              fontSize: '18px',
+              opacity: 0.3,
+            }}
+          >
+            Balance
+          </Text>
+          <Text className="pt-1">{loading ? '...' : accountBalance}</Text>
+          <Col
+            style={{ height: '350px' }}
+            className="p-0 rounded bg-dark pt-2"
+          ></Col>
+        </Col>
+        <Col lg={10} className="p-0 pt-3">
+          <Text
+            style={{
+              color: 'whitesmoke',
+              fontSize: '18px',
+              opacity: 0.3,
+            }}
+          >
+            History
+          </Text>
+          <Col className="p-0">
+            {!!transactions.length ? (
+              <Table
+                className="p-0"
+                style={{ overflowY: 'scroll' }}
+                striped
+                responsive
+                borderless
+              >
+                <thead style={{ color: 'whitesmoke' }}>
+                  <tr>
+                    <th>Transaction ID</th>
+                    <th>Amount</th>
+                    <th>Type</th>
+                    <th>Date/Time</th>
+                  </tr>
+                </thead>
+                <tbody style={{ color: 'white' }}>
+                  {this.renderTransactions()}
+                </tbody>
+              </Table>
+            ) : (
+              <div className="d-flex justify-content-center align-items-center mt-5 mb-5">
+                <Text className="is-center">
+                  You don't have any transactions
+                </Text>
+              </div>
+            )}
+          </Col>
         </Col>
       </Col>
-    </Col>
-  )
+    )
+  }
 }
 
 const mapStateToProps = (state) => ({
