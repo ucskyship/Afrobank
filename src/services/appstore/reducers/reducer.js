@@ -42,7 +42,6 @@ const reducer = (state = intState, action) => {
         ...state,
         transactions: action.payload,
       }
-      console.log(data)
       return data
     case TOGGLEBALANCE:
       return {
@@ -52,7 +51,7 @@ const reducer = (state = intState, action) => {
     case UPDATEUSER:
       return {
         ...state,
-        payLoad: { ...state.payLoad, ...action.payload },
+        payLoad: action.payload,
       }
     default:
       return state
