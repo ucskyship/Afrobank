@@ -38,10 +38,11 @@ const reducer = (state = intState, action) => {
         },
       }
     case TRANSACTIONHISTORY:
-      return {
+      const data = {
         ...state,
         transactions: action.payload,
       }
+      return data
     case TOGGLEBALANCE:
       return {
         ...state,
@@ -50,7 +51,7 @@ const reducer = (state = intState, action) => {
     case UPDATEUSER:
       return {
         ...state,
-        payLoad: { ...state.payLoad, ...action.payload },
+        payLoad: action.payload,
       }
     default:
       return state
