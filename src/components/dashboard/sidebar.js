@@ -15,6 +15,7 @@ import { Col } from 'reactstrap'
 export const Type = styled.span`
   color: ${(props) => props.color};
   font-size: ${(props) => props.size}px;
+  position: fixed;
 `
 export const activeClass = 'active'
 export const Sidelink = Styled((props) => (
@@ -23,7 +24,7 @@ export const Sidelink = Styled((props) => (
   color: white;
   font-wight: 500;
   font-size: 15px;
-  width: 100%;
+  width: 14%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -84,38 +85,44 @@ const dashboardRoutes = [
     name: 'Settings',
     icon: <Settings />,
   },
+  {
+    path: '/signout',
+    name: 'Log out',
+    icon: <ExitToApp />,
+  },
 ]
-const SideBar = () => {
+
+const SideBar = (props) => {
   return (
     <Col className="p-0 m-0" style={{ position: 'static', width: '100%' }}>
       <Col className="pt-4">
-        <Type size="25" className="font-weight-bold" color="white">
+        <Type size="25" className="font-weight-bold pl-4 pb-5" color="white">
           Afrobank
         </Type>
       </Col>
       <Col className="hide" style={{ marginTop: '55px', height: '100%' }}>
-        <Col style={{ height: '50%' }}>
-          {dashboardRoutes.map((data, idx) => {
+        <Col
+          style={{
+            height: '50%',
+            width: '100%',
+            boxSizing: 'border-box',
+            overflowY: 'auto',
+            position: 'fixed',
+          }}
+        >
+          {dashboardRoutes.map((routes, i) => {
             return (
               <Sidelink
-                key={idx}
-                exact
-                to={data.path}
+                key={i}
                 style={{ textDecoration: 'none' }}
+                exact
+                to={routes.path}
               >
-                <span className="icon-size">{data.icon}</span>
-                <span className="pl-3">{data.name}</span>
+                <span className="icon-size">{routes.icon}</span>
+                <span className="pl-3">{routes.name}</span>
               </Sidelink>
             )
           })}
-        </Col>
-        <Col>
-          <div>
-            <Sidelink exact to="/signout" style={{ textDecoration: 'none' }}>
-              <ExitToApp />
-              <span className="pl-3">log out</span>
-            </Sidelink>
-          </div>
         </Col>
       </Col>
 
