@@ -50,7 +50,7 @@ const reducer = (state = intState, action) => {
     case UPDATEUSER:
       return {
         ...state,
-        payLoad: { ...action.payload },
+        payLoad: { ...state.payLoad, ...action.payload },
       }
     default:
       return state

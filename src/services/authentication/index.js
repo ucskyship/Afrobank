@@ -66,8 +66,8 @@ const resetPin = async (pin, accountNumber) => {
 
 const signOut = () => {
   try {
-    store.dispatch(user_login({}, false))
     localStorage.clear()
+    store.dispatch(user_login({}, false))
   } catch (error) {
     throw error
   }
