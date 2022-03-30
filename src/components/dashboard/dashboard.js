@@ -101,6 +101,7 @@ class Dashboard extends React.Component {
     const { payLoad, transactions } = this.props
     const { loading } = this.state
     const accountBalance = formatMoney(payLoad.accountBalance)
+    const trx = transactions || []
 
     return (
       <Col className="p-0 m-0">
@@ -184,7 +185,7 @@ class Dashboard extends React.Component {
             History
           </Text>
           <Col className="p-0">
-            {!!transactions.length ? (
+            {!!trx.length ? (
               <Table
                 className="p-0"
                 style={{ overflowY: 'scroll' }}
