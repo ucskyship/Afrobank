@@ -1,10 +1,10 @@
 import Axios from '../index'
 import { extractApiError } from '../../utils/error'
-import { user_login, updateUser } from '../appstore/actions/actions'
 import { transactionHistory } from '../transactions'
-import appStore from '../appstore'
+import { login, updateUser } from '../appstore/reducers/reducer'
+import { appStore } from '../appstore'
 
-const store = appStore().store
+const store = appStore
 
 const getUserProfile = () => {
   return store.getState().user
@@ -40,8 +40,9 @@ const pollUser = async () => {
         Authorization: `Bearer ${token}`,
       },
     })
-    store.dispatch(updateUser(res.data.message, true))
+
     await transactionHistory()
+    store.dispatch(updateUser(res.data.message, true))
   } catch (error) {
     throw extractApiError(error)
   }
@@ -50,8 +51,8 @@ const pollUser = async () => {
 const userLogin = async (payLoad) => {
   try {
     const resp = await Axios.post('/login', payLoad)
-    store.dispatch(user_login(resp.data.message, true))
-    return resp
+    store.dispatch(login(resp.data.message))
+    return resp.data.message
   } catch (error) {
     throw extractApiError(error)
   }
@@ -69,7 +70,7 @@ const resetPin = async (pin, accountNumber) => {
 const signOut = () => {
   try {
     localStorage.clear()
-    store.dispatch(user_login({}, false))
+    store.dispatch(login({}))
   } catch (error) {
     throw error
   }
@@ -91,10 +92,8 @@ const createPin = async (pin) => {
 const fetchUser = async () => {
   let accountNumber = store.getState().user.payLoad.accountNumber.toString()
   try {
-    const res = await Axios.get('/user/' + accountNumber)
-    console.log(res)
+    await Axios.get('/user/' + accountNumber)
   } catch (error) {
-    console.log(error)
     throw extractApiError(error)
   }
 }

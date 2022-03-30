@@ -1,13 +1,35 @@
-import { createStore, applyMiddleware } from 'redux'
-import thunk from 'redux-thunk'
-import { persistStore } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
 import combineReducers from './reducers'
+import { configureStore } from '@reduxjs/toolkit'
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REGISTER,
+  PAUSE,
+  REHYDRATE,
+  PERSIST,
+  PURGE,
+} from 'redux-persist'
 
-const appStore = () => {
-  const store = createStore(combineReducers, applyMiddleware(...[thunk]))
-
-  const persiststore = persistStore(store)
-  return { store, persiststore }
+const persistConfig = {
+  key: 'root',
+  version: 1,
+  storage,
 }
 
-export default appStore
+const persistedReducer = persistReducer(persistConfig, combineReducers)
+
+const appStore = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
+})
+
+let persistor = persistStore(appStore)
+
+export { appStore, persistor }

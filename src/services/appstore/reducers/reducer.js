@@ -1,61 +1,22 @@
-import {
-  LOGIN,
-  PINRESET,
-  REGISTER,
-  TOGGLEBALANCE,
-  TRANSACTIONHISTORY,
-  UPDATEUSER,
-} from '../actions'
-import { persistReducer } from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
 import intState from './initState'
+import { createSlice } from '@reduxjs/toolkit'
 
-const persistConfig = {
-  key: 'root',
-  storage: storage,
-}
+const reducers = createSlice({
+  name: 'user',
+  initialState: intState,
+  reducers: {
+    login: (state, data) => {
+      state.isSignedIn = true
+      state.payLoad = data.payload
+    },
+    updateUser: (state, data) => {
+      state.payLoad = data.payload
+    },
+    updateTransactionHistory: (state, data) => {
+      state.transactions = data.payload
+    },
+  },
+})
 
-const reducer = (state = intState, action) => {
-  switch (action.type) {
-    case LOGIN:
-      return {
-        ...state,
-        isSignedIn: action.isSignedIn,
-        payLoad: action.payload,
-      }
-    case REGISTER:
-      return {
-        ...state,
-        isRegistered: action.isRegistered,
-        payLoad: action.payload,
-      }
-    case PINRESET:
-      return {
-        userPinReset: {
-          ...state,
-          isPinReset: action.isPinReset,
-          payLoad: action.payload,
-        },
-      }
-    case TRANSACTIONHISTORY:
-      const data = {
-        ...state,
-        transactions: action.payload,
-      }
-      return data
-    case TOGGLEBALANCE:
-      return {
-        ...state,
-        balanceDisplay: action.payload,
-      }
-    case UPDATEUSER:
-      return {
-        ...state,
-        payLoad: action.payload,
-      }
-    default:
-      return state
-  }
-}
-const persistedReducer = persistReducer(persistConfig, reducer)
-export default persistedReducer
+export const { login, updateUser, updateTransactionHistory } = reducers.actions
+export default reducers.reducer
