@@ -80,7 +80,7 @@ const Main = () => {
   }
 
   return (
-    <Dashbody className="pb-4">
+    <Dashbody style={{ overflow: 'hidden' }} className="pb-4">
       <Col className="p-0 m-0">
         <Row>
           <Col md={3} xl={2}>
