@@ -1,10 +1,11 @@
 import Axios from '../index'
 import { extractApiError } from '../../utils/error'
-import { updateTransactionHistory } from '../appstore/actions/actions'
+// import { updateTransactionHistory } from '../appstore/actions/actions'
 import { userToken, pollUser, getUserProfile } from '../authentication'
-import appStore from '../appstore'
+import { updateTransactionHistory } from '../appstore/reducers/reducer'
+import { appStore } from '../appstore'
 
-const store = appStore().store
+const store = appStore
 
 const transfer = async (payload, pin) => {
   const { recipient, amount } = payload

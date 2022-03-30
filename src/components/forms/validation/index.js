@@ -18,7 +18,7 @@ const signUpSchema = yup.object().shape({
     .string()
     .required('Password is required')
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})/,
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&.?*])(?=.{8,})/,
       'min length 8 Characters, One Uppercase, One Lowercase, One Number and One Special Character'
     ),
   gender: yup.string().required('Gender is required'),
