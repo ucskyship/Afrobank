@@ -5,7 +5,6 @@ import { Switch, Route } from 'react-router-dom'
 import {
   Row,
   Col,
-  Container,
   Dropdown,
   DropdownMenu,
   DropdownItem,
@@ -15,7 +14,7 @@ import Dashboard, { Dashbody } from './dashboard'
 import { NotificationsNone } from '@material-ui/icons'
 import Wallet from './wallet'
 import { deleteSingleNotification } from '../../services/notifications'
-
+import { connect } from 'react-redux'
 import SendMoney from './sendmoney'
 import Profile from './profile'
 import Settings from './settings'
@@ -31,15 +30,6 @@ const NotificationDiv = styled.div`
   cursor: pointer;
 `
 
-const Badge = styled.div`
-  height: 22px;
-  width: 22px;
-  background: red;
-  top: 0;
-  left: 30;
-  right: 0;
-  position: absolute;
-`
 const Menu = styled(DropdownMenu)`
   background: #000000;
   width: 330px;
@@ -64,8 +54,16 @@ const Item = styled(DropdownItem)`
     color: white;
   }
 `
+const NameDiv = styled.div`
+  height: 50px;
+  width: 50px;
+  background: #4004af;
+  font-weight: 500;
+  font-size: 14px;
+  color: white;
+`
 
-const Main = () => {
+const Main = (props) => {
   const [showNotification, setNotification] = useState(false)
   const [userNotification] = useState({
     notifications: [],
@@ -78,6 +76,9 @@ const Main = () => {
   const deleteNotification = async (id) => {
     await deleteSingleNotification(id)
   }
+
+  const { firstName, lastName } = props.payLoad
+  const name = `${firstName[0]}${lastName[0]}`
 
   return (
     <Dashbody style={{ overflow: 'hidden' }} className="pb-4">
@@ -94,9 +95,9 @@ const Main = () => {
             <Route exact path="/dashboard/profile" component={Profile} />
             <Route exact path="/dashboard/Settings" component={Settings} />
           </Switch>
-          <Col className="hide" xl={1}>
-            <Container>
-              <div className="d-flex justify-content-between align-items-center pl-2 pr-3 pt-4">
+          <Col className="hide d-flex justify-content-end" xl={1}>
+            <Row className="d-flex justify-content-between pr-2 pt-3">
+              <Col className="p-0 pt-1">
                 <Dropdown
                   isOpen={showNotification}
                   toggle={toggleNotification}
@@ -111,9 +112,6 @@ const Main = () => {
                     className="p-0 m-0"
                   >
                     <NotificationDiv>
-                      <Badge className="rounded-circle d-flex justify-content-center align-items-center">
-                        {userNotification.notifications.length}
-                      </Badge>
                       <NotificationsNone
                         fontSize="small"
                         style={{ color: 'white' }}
@@ -144,13 +142,24 @@ const Main = () => {
                     )}
                   </Menu>
                 </Dropdown>
-              </div>
-            </Container>
+              </Col>
+
+              <Col>
+                <NameDiv
+                  title={`${firstName} ${lastName}`}
+                  className="rounded-circle d-flex justify-content-center align-items-center"
+                >
+                  {name.toUpperCase()}
+                </NameDiv>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Col>
     </Dashbody>
   )
 }
-
-export default Main
+const mapStateToProps = (state) => ({
+  payLoad: state.user.payLoad,
+})
+export default connect(mapStateToProps, {})(Main)

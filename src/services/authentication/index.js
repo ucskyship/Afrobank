@@ -1,7 +1,7 @@
 import Axios from '../index'
 import { extractApiError } from '../../utils/error'
 import { transactionHistory } from '../transactions'
-import { login, updateUser } from '../appstore/reducers/reducer'
+import { login, updateUser, updateSignIn } from '../appstore/reducers/reducer'
 import { appStore } from '../appstore'
 
 const store = appStore
@@ -52,14 +52,20 @@ const userLogin = async (payLoad) => {
   try {
     const resp = await Axios.post('/login', payLoad)
     store.dispatch(login(resp.data.message))
+    store.dispatch(updateSignIn(true))
+
     return resp.data.message
   } catch (error) {
     throw extractApiError(error)
   }
 }
 
-const resetPin = async (pin, accountNumber) => {
-  const body = { pin }
+const resetPin = async (pin) => {
+  const body = {
+    pin,
+    accountNumber: getUserProfile().payLoad.accountNumber.toString(),
+  }
+
   try {
     await Axios.post('/pinreset', body)
   } catch (error) {
@@ -71,6 +77,7 @@ const signOut = () => {
   try {
     localStorage.clear()
     store.dispatch(login({}))
+    store.dispatch(updateSignIn(false))
   } catch (error) {
     throw error
   }

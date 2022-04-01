@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { Button, Text } from '../signin/signin'
 import city from '../../assets/images/city.jpg'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
 const MainWrapper = styled(Col)`
   height: 100vh;
@@ -14,7 +15,21 @@ const MainWrapper = styled(Col)`
   background-repeat: no-repeat;
 `
 
-const HomePage = () => {
+const NameDiv = styled.div`
+  height: 50px;
+  width: 50px;
+  background: #4004af;
+  font-weight: 500;
+  font-size: 14px;
+  color: white;
+`
+
+const HomePage = (props) => {
+  const payLoad = props.payLoad || {}
+
+  const isEmpty = Object.keys(payLoad).length === 0
+  const name = isEmpty ? {} : `${payLoad.firstName[0]}${payLoad.lastName[0]}`
+  const { firstName, lastName } = props.payLoad
   return (
     <MainWrapper className="pt-3">
       <Row className="d-flex justify-content-between align-items-center">
@@ -32,18 +47,29 @@ const HomePage = () => {
           xs={6}
           className="d-flex align-items-center justify-content-end  pr-4"
         >
-          <Link to="/signin">
-            <Button
-              className="rounded-pill"
-              style={{
-                backgroundColor: 'white',
-                color: '#065340',
-                fontWeight: '550',
-              }}
-            >
-              sign in
-            </Button>
-          </Link>
+          {props.isSignedIn ? (
+            <Link to="/dashboard">
+              <NameDiv
+                title={`${firstName} ${lastName}`}
+                className="rounded-circle d-flex justify-content-center align-items-center"
+              >
+                {name.toUpperCase()}
+              </NameDiv>
+            </Link>
+          ) : (
+            <Link to="/signin">
+              <Button
+                className="rounded-pill"
+                style={{
+                  backgroundColor: 'white',
+                  color: '#065340',
+                  fontWeight: '550',
+                }}
+              >
+                sign in
+              </Button>
+            </Link>
+          )}
         </Col>
       </Row>
       <Col
@@ -100,5 +126,9 @@ const HomePage = () => {
     </MainWrapper>
   )
 }
+const mapStateToProps = (state) => ({
+  isSignedIn: state.user.isSignedIn,
+  payLoad: state.user.payLoad,
+})
 
-export default HomePage
+export default connect(mapStateToProps, {})(HomePage)
