@@ -6,7 +6,6 @@ const reducers = createSlice({
   initialState: intState,
   reducers: {
     login: (state, data) => {
-      state.isSignedIn = true
       state.payLoad = data.payload
     },
     updateUser: (state, data) => {
@@ -15,8 +14,13 @@ const reducers = createSlice({
     updateTransactionHistory: (state, data) => {
       state.transactions = data.payload
     },
+    updateSignIn: (state, data) => {
+      console.log(data.payload)
+      state.isSignedIn = data.payload
+    },
   },
 })
 
-export const { login, updateUser, updateTransactionHistory } = reducers.actions
+export const { login, updateUser, updateTransactionHistory, updateSignIn } =
+  reducers.actions
 export default reducers.reducer

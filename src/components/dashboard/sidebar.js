@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Link } from 'react-router-dom'
 import Styled from 'styled-components'
 import {
   Dashboard,
@@ -96,9 +96,11 @@ const SideBar = (props) => {
   return (
     <Col className="p-0 m-0" style={{ position: 'static', width: '100%' }}>
       <Col className="pt-4">
-        <Type size="25" className="font-weight-bold pl-4 pb-5" color="white">
-          Afrobank
-        </Type>
+        <Link to="/">
+          <Type size="25" className="font-weight-bold pl-4 pb-5" color="white">
+            Afrobank
+          </Type>
+        </Link>
       </Col>
       <Col className="hide" style={{ marginTop: '55px', height: '100%' }}>
         <Col

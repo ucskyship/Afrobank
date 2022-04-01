@@ -3,10 +3,6 @@ import { connect } from 'react-redux'
 import { pollUser } from '../../services/authentication'
 import { Col, Row, Table } from 'reactstrap'
 import {
-  updateTransactionHistory,
-  toggleDisplay,
-} from '../../services/appstore/actions/actions'
-import {
   getFormatedDate,
   calculateAllDebit,
   formatMoney,
@@ -118,7 +114,6 @@ class Dashboard extends React.Component {
 
     return (
       <Col
-        className="p-0 m-0"
         style={{
           overflow: 'hidden',
           position: 'relative',
@@ -131,7 +126,7 @@ class Dashboard extends React.Component {
         <Text style={{ color: 'whitesmoke', fontSize: '18px', opacity: 0.3 }}>
           Account updates
         </Text>
-        <SearchSection height="82%">
+        <SearchSection className="p-0" height="82%">
           <Col lg={10} className="p-0 pt-4">
             <Row className="d-flex justify-content-between">
               <Col xl={4}>
@@ -252,7 +247,4 @@ const mapStateToProps = (state) => ({
   transactions: state.user.transactions,
 })
 
-export default connect(mapStateToProps, {
-  updateTransactionHistory,
-  toggleDisplay,
-})(Dashboard)
+export default connect(mapStateToProps, {})(Dashboard)
